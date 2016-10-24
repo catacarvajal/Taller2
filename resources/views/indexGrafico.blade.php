@@ -50,13 +50,11 @@
                 <th style="width: 600px">Variable</th>
                 <th style="width: 20px">Promedio</th>
               </tr>
-
-
               @foreach ($datosTabla as $datos)     
                 <tr>
-                  <td>{{$datos->}}</td>
-                  <td>{{$datos->name}}</td>
-                  <td><span class="badge bg-red">{{$datos->avg}}</span></td>
+                  <td>{{$datos->mes}}</td>
+                  <td>{{$datos->variable}}</td>
+                  <td><span class="badge bg-red">{{$datos->promedio}}</span></td>
                 </tr>
               @endforeach
             
