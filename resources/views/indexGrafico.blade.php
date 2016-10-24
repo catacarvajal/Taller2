@@ -5,6 +5,7 @@
   <div class="col-md-12">
     <div class="box box-success">    
       <div class="box-header with-border">
+
         <h3 class="box-title">Estadísticas</h3>
         <a href="Grafico" class="pull-right glyphicon glyphicon-stats" data-toggle="tooltip" title="Solo graficos"></a>
         <a href="/" class="pull-right glyphicon glyphicon-map-marker" data-toggle="tooltip" title="Solo Mapa"></a>
@@ -36,6 +37,38 @@
        <div id="perf_div" class="chart"></div>
       </div>
     </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="box box-success">   
+          <div class="box-header with-border">
+            <h3 class="box-title">Datos: </h3>
+          </div> 
+          <div class="box-body">
+            <table class="table table-bordered">
+              <tr>
+                <th>Mes</th>
+                <th style="width: 600px">Variable</th>
+                <th style="width: 20px">Promedio</th>
+              </tr>
+
+
+              @foreach ($datosTabla as $datos)     
+                <tr>
+                  <td>{{$datos->}}</td>
+                  <td>{{$datos->name}}</td>
+                  <td><span class="badge bg-red">{{$datos->avg}}</span></td>
+                </tr>
+              @endforeach
+            
+              
+            </table>
+          </div><!-- /.box-body -->
+
+
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
