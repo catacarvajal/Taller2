@@ -176,10 +176,9 @@
             <section>
                 @yield('content')
             </section>
+            @include('includes.sidebarrigth') 
         </div>
         
-        @include('includes.sidebarrigth') 
-
     </div><!-- ./wrapper -->
 
     <script src="{{ asset('/plugins/jQuery/jQuery-2.1.4.min.js') }}" type="text/javascript"></script>

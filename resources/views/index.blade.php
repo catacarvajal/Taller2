@@ -1,13 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="box box-primary">
+<div>
     <div class="box-body no-padding">
         <div class="row">
             <div class="col-md-12 ">
                 <div class="pad">
-                    <div id="toolbar" style="display: none;">
-                    </div>
                     <div class="col-md-12">                        
                         <div id="fullscreen" class="fullscreen">
                             <div id="map" class="map"></div>
@@ -42,14 +40,11 @@
                                     <ul class="dropdown-menu">
                                         <li><a onclick="mostrar('side_ir_a')"class="btn btn-primary btn-circle  btn-lg"data-toggle="control-sidebar" title="Ir a"><i class="fa  fa-paper-plane-o"></i> </a></li>
                                         <li><a onclick="mostrar('side_visualizar')" class="btn btn-primary btn-circle  btn-lg"data-toggle="control-sidebar" title="visualizar"><i class="fa fa-bar-chart"></i> </a></li>
-                                        <li><a onclick="mostrar('side_descargar')" class="btn btn-primary btn-circle  btn-lg"data-toggle="control-sidebar" title="Descargar"><i class="fa fa-download"></i> </a></li>                                
+                                        <li><a onclick="mostrar('side_descargar')" class="btn btn-primary btn-circle  btn-lg"data-toggle="control-sidebar" title="Descargar"><i class="fa fa-download"></i> </a></li>
                                     </ul>
                                 </div>   
-
                             </div>
                         </div>                        
-
-
                     </div>
                 </div>
             </div>
