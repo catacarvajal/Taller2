@@ -7,9 +7,14 @@ use App\Http\Controllers\Controller;
 class AjaxController extends Controller {
 	public function index(Request $request){
 
-		$data = $request->type; // This will get all the request data.       
+		$data = $request->input('geoj');
+		$periodo=$request->input('periodo');
+		$dat=json_decode($data,true);
+		$data0=$dat['geometry'];
+		$data1=$data0['type']; //tipo de geometria
+		$data2=$data0['coordinates']; //cordenadas 
 
-		
-		return response()->json(array('msg'=> $data ), 200);
+
+		return response()->json(array('msg'=> $periodo), 200);
 	}
 }
