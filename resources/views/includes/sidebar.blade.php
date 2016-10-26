@@ -9,14 +9,11 @@
             </div>
         </form>
         <ul class="sidebar-menu" id="type2">
-            <li class="header">Selección</li> 
-            <li class="active" id="other" value="None"><a href=""><i class="fa fa-circle-o"></i>Puntual</a></li>
-            <li id="type2" value="Point"><a href=""><i class="fa fa-circle-o"></i>Varios puntos</a></li>
-            <li id="type2" value="Box"><a href=""><i class="fa fa-circle-o"></i>Rectangular</a></li>
-            <li id="type2" value="1"><a href=""><i class="fa fa-circle-o"></i>Poligonal</a></li>
-        </ul>
-        <ul class="sidebar-menu" id="type2">
-            <li class="header">Fecha</li> 
-        </ul>
+            <li class="header">Información a visualizar</li> 
+            <li class="active" id="other" value="None"><a href=""><i class="fa fa-circle-o"></i>Temperatura Mínima</a></li>
+            <li id="type2" value="Point"><a href=""><i class="fa fa-circle-o"></i>Temperatura Máxima</a></li>
+            <li id="type2" value="Box"><a href=""><i class="fa fa-circle-o"></i>Precipitaciones</a></li>
+            <li id="type2" value="1"><a href=""><i class="fa fa-circle-o"></i>Radiación UV</a></li>
+        </ul>        
     </section>
 </aside>
