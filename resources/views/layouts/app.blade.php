@@ -168,32 +168,17 @@
     </style>
 </head>
 <body class="skin-blue">
-    <div class="wrapper">
+    <div>
         @include('includes.header')    
-        @include('includes.sidebar')
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <section class="content">
+        <div>
+            <section>
                 @yield('content')
-
             </section>
         </div>
-        <!-- Control Sidebar -->
-        <aside id="aside" class="control-sidebar control-sidebar-light hidden" style="border-left-width: 0px;">
-            <div class="tab-content">
-                <div class="row">
-                    <div class="col-xs-6">
-                        <h3 class="control-sidebar-heading pm-0">Opciones</h3> 
-                    </div>
-                    <div class="col-xs-6">
-                        <a href="{{ url('/logout') }}" class="btn btn-default btn-flat pull-right btn-xs"><i class="fa fa-sign-out"></i><span> Cerrar sesión</span></a>
-                    </div>
-                </div>
-            </div>
-        </aside>
+        
         @include('includes.sidebarrigth') 
-        <div class="control-sidebar-bg"></div>
 
     </div><!-- ./wrapper -->
 

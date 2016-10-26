@@ -2,12 +2,6 @@
 
 @section('content')
 <div class="box box-primary">
-    <div class="box-header with-border">
-        <h3 class="box-title"><strong>Mapa</strong></h3>
-        <a href="Grafico" class="pull-right glyphicon glyphicon-stats" data-toggle="tooltip" title="Solo graficos"></a>
-        <a href="/" class="pull-right glyphicon glyphicon-map-marker" data-toggle="tooltip" title="Solo Mapa"></a>
-        <a href="MapaYGrafico" class="pull-right glyphicon glyphicon-retweet" data-toggle="tooltip" title="Mapa y graficos"></a>
-    </div>
     <div class="box-body no-padding">
         <div class="row">
             <div class="col-md-12 ">
@@ -20,12 +14,8 @@
                             <div class="sidepanel">
                                 <span class="sidepanel-title">Gráfico</span>
                                 <div id="perf_div" class="chart"></div><!-- div donde se dibuja el grafico -->
-                                
                                     <div class="col-md-12">
-                                        <div class="box box-success">   
-                                            <div class="box-header with-border">
-                                                <h3 class="box-title">Datos de: {{$datosTabla[1]->variable}}</h3>
-                                            </div> 
+                                        <div> 
                                             <div class="box-body">
                                                 <table class="table table-bordered">
                                                     <tr>
@@ -40,15 +30,10 @@
                                                         <td><span class="badge bg-red">{{$datos->promedio}}</span></td>
                                                     </tr>
                                                     @endforeach
-
-
                                                 </table>
                                             </div><!-- /.box-body -->
-
-
                                         </div>
                                     </div>
-
 
                                 <div class="btn-group dropup" style="position: absolute; bottom: 50px; right: 15px; padding: 3px; ">
                                     <button type="button" class="btn btn-primary btn-circle btn-lg" data-toggle="dropdown" title="Herramientas" >
