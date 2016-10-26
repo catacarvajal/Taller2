@@ -71,7 +71,7 @@ class chartsController extends Controller
                     ]
                 ]);
 
-        return $grafico->toJson();
+        return $grafico;
     }
 
     public function consultaGrafico($id_variable, $id_periodo, $id_escenario)
@@ -81,8 +81,10 @@ class chartsController extends Controller
         ->join('register', 'register.id', '=', 'rast.id_register')
         ->join('month', 'month.id', '=', 'register.id_month')
         ->join('variable', 'variable.id', '=', 'register.id_variable')
+        ->join('scenario', 'scenario.id', '=', 'register.id_scenario')
         ->where('register.id_period','=',$id_periodo)
         ->orwhere('variable.id','=', $id_variable)
+        ->orwhere('scenario.id','=', $id_escenario)
         ->groupBy('month.id')
         ->get();
         return $consulta;
@@ -98,7 +100,7 @@ class chartsController extends Controller
             $periodo =$request->input('periodo');
             $consultaPunto = $this->consultaGrafico($variable,$periodo,$escenario);
             $lava = $this->DataTable($consultaPunto);
-            return $request;
+            return $lava->toJson();
             //return $periodo;
         }
         

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Khill\Lavacharts\Lavacharts;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 use App\Month;
 use App\Rast;
 use App\Period;
@@ -73,4 +74,52 @@ class HomeController extends Controller {
         ->get();
         return ($tabla);
     }  
+
+    public function postGrafico(Request $request){
+
+       //pa la cata
+    }
+    public function DataTable($consulta)
+    {
+        
+        $lava = new Lavacharts; // See note below for Laravel
+                $grafico = $lava->DataTable();
+                $grafico->addStringColumn('Months of Year')
+                        ->addNumberColumn('T° mínima');
+                        for($i=0; $i<count($consulta); $i++)
+                        {
+                            $grafico->addRow([$consulta[$i]->name, $consulta[$i]->avg]);
+                        }
+                $lava->BarChart('grafico', $grafico, [
+                    'title' => 'Temperatura Mínima',
+                    'titleTextStyle' => [
+                        'color'    => '#eb6b2c',
+                        'fontSize' => 30
+                    ]
+                ]);
+
+        return $grafico;
+    }
+
+    public function ajaxGeoJson(Request $request){
+
+        $variable =$request->input('variable');
+        $escenario =$request->input('escenario');
+        $periodo =$request->input('periodo');
+        $consultaPunto = $this->consultaGrafico($variable,$periodo,$escenario);
+        $lava = $this->DataTable($consultaPunto);
+
+        return $lava->toJson();
+
+
+ /*       $data = $request->input('geoj');       
+        
+        $dat=json_decode($data,true);
+        $data0=$dat['geometry'];
+        $data1=$data0['type']; //tipo de geometria
+        $data2=$data0['coordinates']; //cordenadas 
+
+        $data = $request->input('variable');
+        return response()->json(array('msg'=> $periodo), 200);*/
+    }
 }
