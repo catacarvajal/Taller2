@@ -38,6 +38,37 @@
       </div>
     </div>
 
+    <!-- Tabla -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="box box-success">   
+          <div class="box-header with-border">
+            <h3 class="box-title">Datos: {{$datosTabla[1]->variable}}</h3>
+          </div> 
+          <div class="box-body">
+            <table class="table table-bordered">
+              <tr>
+                <th>Mes</th>
+                <th style="width: 600px">Variable</th>
+                <th style="width: 20px">Promedio</th>
+              </tr>
+              @foreach ($datosTabla as $datos)     
+                <tr>
+                  <td>{{$datos->mes}}</td>
+                  <td>{{$datos->variable}}</td>
+                  <td><span class="badge bg-red">{{$datos->promedio}}</span></td>
+                </tr>
+              @endforeach
+            
+              
+            </table>
+          </div><!-- /.box-body -->
+
+
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
