@@ -113,6 +113,7 @@ class chartsController extends Controller
         ->where('register.id_period', '=', '1')
         ->join('variable', 'variable.id', '=', 'register.id_variable')
         ->groupBy('month.id', 'variable.name')
+        ->orderBy('month.id')
         ->get();
         return ($tabla);
     }  
