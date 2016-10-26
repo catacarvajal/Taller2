@@ -70,4 +70,19 @@ class HomeController extends Controller {
         ->get();
         return ($tabla);
     }  
+
+    public function postGrafico(Request $request){
+
+        $data = $request->input('geoj');
+        $periodo=$request->input('periodo');
+        $dat=json_decode($data,true);
+        $data0=$dat['geometry'];
+        $data1=$data0['type']; //tipo de geometria
+        $data2=$data0['coordinates']; //cordenadas 
+
+        $data = $request->input('variable');
+
+        
+        return response()->json(array('msg'=> $periodo), 200);
+    }
 }

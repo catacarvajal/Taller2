@@ -15,8 +15,6 @@ class AjaxController extends Controller {
 		$data2=$data0['coordinates']; //cordenadas 
 
 		$data = $request->input('variable');
-
-		vgrafico();
 		return response()->json(array('msg'=> $periodo), 200);
 	}
 	

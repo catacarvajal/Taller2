@@ -19,15 +19,8 @@
                             <div id="map" class="map"></div>
                             <div class="sidepanel">
                                 <span class="sidepanel-title">Gráfico</span>
-                                <div id="perf_div" class="chart"></div><!-- div donde se dibuja el grafico -->
-                                
-                                    <div class="col-md-12">
-                                        <div class="box box-success">   
-                                            <div class="box-header with-border">
-                                                <h3 class="box-title">Datos de: {{$datosTabla[1]->variable}}</h3>
-                                            </div> 
-                                            <div class="box-body">
-                                                <table class="table table-bordered">
+                                <div class= "panel-responsive">
+                                <table class="table table-bordered">
                                                     <tr>
                                                         <th>Mes</th>
                                                         <th style="width: 600px">Variable</th>
@@ -36,18 +29,15 @@
                                                     @foreach ($datosTabla as $datos)     
                                                     <tr>
                                                         <td>{{$datos->mes}}</td>
-                                                        <td><span class="badge bg-blue">{{$datos->variable}}</td>
+                                                        <td><span class="badge bg-blue">{{$datos->variable}}</span></td>
                                                         <td><span class="badge bg-red">{{$datos->promedio}}</span></td>
                                                     </tr>
                                                     @endforeach
 
 
                                                 </table>
-                                            </div><!-- /.box-body -->
-
-
-                                        </div>
-                                    </div>
+                                </div>
+                                    
 
 
                                 <div class="btn-group dropup" style="position: absolute; bottom: 50px; right: 15px; padding: 3px; ">
@@ -66,6 +56,8 @@
 
 
                     </div>
+                <div id="perf_div" class="chart"></div><!-- div donde se dibuja el grafico -->
+                                
                 </div>
             </div>
         </div>                            
