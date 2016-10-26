@@ -18,7 +18,21 @@
             <link rel="stylesheet" href="{{ asset('/ol3-layerswitcher-master/src/ol3-layerswitcher.css') }}" />
             <script src="{{ asset('/ol3-layerswitcher-master/src/ol3-layerswitcher.js') }}"></script>
 
-
+            <style>
+      .map:-moz-full-screen {
+        height: 100%;
+      }
+      .map:-webkit-full-screen {
+        height: 100%;
+      }
+      .map:fullscreen {
+        height: 100%;
+      }
+      /* position the rotate control lower than usual */
+      .ol-rotate {
+        top: 3em;
+      }
+    </style>
             <style type='text/css'>
             .dropdown-menu {
                 position: absolute;
@@ -119,49 +133,7 @@
             }
             </style>
 
-            <style>
-            .ol-popup {
-                position: absolute;
-                background-color: white;
-                -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
-                filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
-                padding: 15px;
-                border-radius: 10px;
-                border: 1px solid #cccccc;
-                bottom: 12px;
-                left: -50px;
-            }
-            .ol-popup:after, .ol-popup:before {
-                top: 100%;
-                border: solid transparent;
-                content: " ";
-                height: 0;
-                width: 0;
-                position: absolute;
-                pointer-events: none;
-            }
-            .ol-popup:after {
-                border-top-color: white;
-                border-width: 10px;
-                left: 48px;
-                margin-left: -10px;
-            }
-            .ol-popup:before {
-                border-top-color: #cccccc;
-                border-width: 11px;
-                left: 48px;
-                margin-left: -11px;
-            }
-            .ol-popup-closer {
-                text-decoration: none;
-                position: absolute;
-                top: 2px;
-                right: 8px;
-            }
-            .ol-popup-closer:after {
-                content: "✖";
-            }
-
+            
             </style>
         </head>
         <body class="skin-blue">
@@ -367,6 +339,9 @@
         });
 
         var map = new ol.Map({
+            controls: ol.control.defaults().extend([
+          new ol.control.FullScreen()
+        ]),
             layers: 
             [ mapas,categorias,vector],  
             target: 'map',
@@ -432,16 +407,19 @@
     }    
 }
 function ajax(geojson){
+    var periodo=$("#Periodo").val();
+    var variable=  $("#Variable").val();
+    var escenario = $("#Escenario").val();
 
     $.ajax({
         type:'post',
         url:'ajax', 
         dataType : "json",
         contentType: "application/json; charset=utf-8",             
-        data:JSON.stringify({'periodo': '1', 'geoj' : geojson}),
+        data:JSON.stringify({'periodo': periodo,'variable': variable,'escenario':escenario, 'geoj' : geojson}),
 
         success:function(data){
-            alert(data);
+            console.log(data);
             
         }
     });

@@ -14,7 +14,15 @@ class AjaxController extends Controller {
 		$data1=$data0['type']; //tipo de geometria
 		$data2=$data0['coordinates']; //cordenadas 
 
+		$data = $request->input('variable');
 
+		vgrafico();
 		return response()->json(array('msg'=> $periodo), 200);
+	}
+	
+	public function vgrafico(){
+
+		return view('indexGrafico');
+		
 	}
 }
