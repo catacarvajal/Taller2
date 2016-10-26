@@ -10,7 +10,7 @@
     </div>
     <div class="box-body no-padding">
         <div class="row">
-            <div class="col-md-12 ">
+            <div class="col-md-12">
                 <div class="pad">
                     <div id="toolbar" style="display: none;">
                     </div>
