@@ -19,74 +19,86 @@ class chartsController extends Controller
      */
     public function index()
     {
-        $lava = new Lavacharts; // See note below for Laravel
-        $enero = DB::table('rast')
-        ->select(DB::raw('month.name,month.id,avg(ST_Value(rast, ST_SetSRID(ST_Point(-71.233333,-34.983333), 4326)))'))
-        ->join('register', 'register.id', '=', 'rast.id_register')
-        ->join('month', 'month.id', '=', 'register.id_month')
-        ->join('variable', 'variable.id', '=', 'register.id_variable')
-        ->where('register.id_period','=','1' )
-        ->orwhere('variable.id','=','1')
-        ->groupBy('month.id')
-        ->get();
-        $grafico = $lava->DataTable();
-        $grafico->addStringColumn('Months of Year')
-                ->addNumberColumn('T° mínima');
-                for($i=0; $i<count($enero); $i++)
-                {
-                    $grafico->addRow([$enero[$i]->name, $enero[$i]->avg]);
-                }
-        $lava->BarChart('variable', $grafico, [
-            'title' => 'Temperatura Mínima',
-            'titleTextStyle' => [
-                'color'    => '#eb6b2c',
-                'fontSize' => 30
-            ]
-        ]);
-         
-         $periodo = Period::all();
-         $scenario = Scenario::all();
-         $variable = Variable::all();
+        $consultaPunto = $this->consultaGrafico(1,1,1);//hacemos la consulta de 1 punto
+        $lava = $this->graficoPunto($consultaPunto);//hacemos el gráfico de ese punto con la consulta anterior
+        $periodo = Period::all();// traemos todos los periodos que existen en la bd
+        $scenario = Scenario::all();
+        $variable = Variable::all();
         return view('indexGrafico')-> with('lava',$lava)->with('periodo',$periodo)->with('scenario',$scenario)->with('variable',$variable);
       
     }
 
-    public function grafico(Lavacharts $lava)
+    public function graficoPunto($consulta)
     {
+        
+        $lava = new Lavacharts; // See note below for Laravel
+                $grafico = $lava->DataTable();
+                $grafico->addStringColumn('Months of Year')
+                        ->addNumberColumn('T° mínima');
+                        for($i=0; $i<count($consulta); $i++)
+                        {
+                            $grafico->addRow([$consulta[$i]->name, $consulta[$i]->avg]);
+                        }
+                $lava->BarChart('grafico', $grafico, [
+                    'title' => 'Temperatura Mínima',
+                    'titleTextStyle' => [
+                        'color'    => '#eb6b2c',
+                        'fontSize' => 30
+                    ]
+                ]);
 
+        return $lava;
     }
 
-    public function consultaGrafico(int $id_periodo, int $id_scenario, int $id_variable)
+        public function DataTable($consulta)
     {
-        $enero = DB::table('rast')
-        ->select(DB::raw('month.name,avg(ST_Value(rast, ST_SetSRID(ST_Point(-71.233333,-34.983333), 4326)))'))
+        
+        $lava = new Lavacharts; // See note below for Laravel
+                $grafico = $lava->DataTable();
+                $grafico->addStringColumn('Months of Year')
+                        ->addNumberColumn('T° mínima');
+                        for($i=0; $i<count($consulta); $i++)
+                        {
+                            $grafico->addRow([$consulta[$i]->name, $consulta[$i]->avg]);
+                        }
+                $lava->BarChart('grafico', $grafico, [
+                    'title' => 'Temperatura Mínima',
+                    'titleTextStyle' => [
+                        'color'    => '#eb6b2c',
+                        'fontSize' => 30
+                    ]
+                ]);
+
+        return $grafico->toJson();
+    }
+
+    public function consultaGrafico($id_variable, $id_periodo, $id_escenario)
+    {
+       $consulta = DB::table('rast')
+        ->select(DB::raw('month.name,month.id,avg(ST_Value(ST_SetSRID(rast,4326), ST_SetSRID(ST_Point(-71.233333,-34.983333), 4326)))'))
         ->join('register', 'register.id', '=', 'rast.id_register')
         ->join('month', 'month.id', '=', 'register.id_month')
         ->join('variable', 'variable.id', '=', 'register.id_variable')
-        ->where('register.id_period','=','1' )
-        ->orwhere('variable.id','=','1')
-        ->groupBy('month.name')
+        ->where('register.id_period','=',$id_periodo)
+        ->orwhere('variable.id','=', $id_variable)
+        ->groupBy('month.id')
         ->get();
+        return $consulta;
     }
 
-    //funci
+    //recibo lo que tiene los lavels //esto hay que hacerlo con ajax
     public function postGrafico(Request $request)
     {
-        if($request->input('Variable') == 1)//temperatura minima
+        if ( $request->ajax())
         {
-            
+            $variable =$request->input('variable');
+            $escenario =$request->input('escenario');
+            $periodo =$request->input('periodo');
+            $consultaPunto = $this->consultaGrafico($variable,$periodo,$escenario);
+            $lava = $this->DataTable($consultaPunto);
+            return response()->json([$lava]);
+            //return $periodo;
         }
-        else if ($variable == 2)// temperatura maxima
-        {
-
-        }
-        else if ($variable == 3)//variable
-        {
-
-        }
-        else// radiacion uv
-        {
-
-        }
-    }
+        
+    }   
 }
