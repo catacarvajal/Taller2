@@ -326,7 +326,7 @@
                         }
                     }
     geojson=JSON.stringify(geoj);  //trasforma a json            
-    ajax(geojson);               
+       
 }
 
 else{
@@ -335,11 +335,15 @@ else{
     var formatGeoJSON = new ol.format.GeoJSON();
     featureClone.getGeometry().transform('EPSG:3857', 'EPSG:4326');
     geojson = formatGeoJSON.writeFeature(featureClone);                
-    ajax(geojson);
+
 }
 });
     map.addInteraction(draw);        
 }    
+}
+function ajaxButton()
+{
+    ajax(geojson);
 }
 function ajax(geojson){
     var periodo=$("#Periodo").val();

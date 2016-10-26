@@ -76,6 +76,11 @@ class HomeController extends Controller {
 
     public function postGrafico(Request $request){
 
+       //pa la cata
+    }
+
+    public function ajaxGeoJson(Request $request){
+
         $data = $request->input('geoj');
         $periodo=$request->input('periodo');
         $dat=json_decode($data,true);
@@ -84,8 +89,6 @@ class HomeController extends Controller {
         $data2=$data0['coordinates']; //cordenadas 
 
         $data = $request->input('variable');
-
-        
         return response()->json(array('msg'=> $periodo), 200);
     }
 }
