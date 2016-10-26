@@ -96,9 +96,8 @@ class chartsController extends Controller
             $variable =$request->input('variable');
             $escenario =$request->input('escenario');
             $periodo =$request->input('periodo');
-            $consultaPunto = $this->consultaGrafico($variable,$periodo,$escenario);
-            $lava = $this->DataTable($consultaPunto);
-            return response()->json([$lava]);
+           
+            return $variable;
             //return $periodo;
         }
         

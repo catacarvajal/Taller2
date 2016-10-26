@@ -432,16 +432,19 @@
     }    
 }
 function ajax(geojson){
+    var periodo=$("#Periodo").val();
+    var variable=  $("#Variable").val();
+    var escenario = $("#Escenario").val();
 
     $.ajax({
         type:'post',
         url:'ajax', 
         dataType : "json",
         contentType: "application/json; charset=utf-8",             
-        data:JSON.stringify({'periodo': '1', 'geoj' : geojson}),
+        data:JSON.stringify({'periodo': periodo,'variable': variable,'escenario':escenario, 'geoj' : geojson}),
 
         success:function(data){
-            alert(data);
+            console.log(data);
             
         }
     });
