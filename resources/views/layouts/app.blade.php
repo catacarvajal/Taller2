@@ -140,10 +140,10 @@
             <div>
                 @include('includes.header')   
 
-                <section class="content col-md-6">
+                <section class="content">
                     @yield('content')
                 </section>
-
+                @include('includes.sidebarrigth') 
             </div><!-- ./wrapper -->
 
             <script src="{{ asset('/plugins/jQuery/jQuery-2.1.4.min.js') }}" type="text/javascript"></script>
