@@ -10,26 +10,23 @@
                         <div id="fullscreen" class="fullscreen">
                             <div id="map" class="map"></div>
                             <div class="sidepanel">
-                                <span class="sidepanel-title">Gráfico</span>
                                 <div id="perf_div" class="chart"></div><!-- div donde se dibuja el grafico -->
                                     <div class="col-md-12">
                                         <div> 
-                                            <div class="box-body">
-                                                <table class="table table-bordered">
-                                                    <tr>
-                                                        <th>Mes</th>
-                                                        <th style="width: 600px">Variable</th>
-                                                        <th style="width: 20px">Promedio</th>
-                                                    </tr>
-                                                    @foreach ($datosTabla as $datos)     
-                                                    <tr>
-                                                        <td>{{$datos->mes}}</td>
-                                                        <td><span class="badge bg-blue">{{$datos->variable}}</td>
-                                                        <td><span class="badge bg-red">{{$datos->promedio}}</span></td>
-                                                    </tr>
-                                                    @endforeach
-                                                </table>
-                                            </div><!-- /.box-body -->
+                                            <table class="table table-bordered">
+                                                <tr>
+                                                    <th>Mes</th>
+                                                    <th style="width: 600px">Variable</th>
+                                                    <th style="width: 20px">Promedio</th>
+                                                </tr>
+                                                @foreach ($datosTabla as $datos)     
+                                                <tr>
+                                                    <td>{{$datos->mes}}</td>
+                                                    <td><span class="badge bg-blue">{{$datos->variable}}</td>
+                                                    <td><span class="badge bg-red">{{$datos->promedio}}</span></td>
+                                                </tr>
+                                                @endforeach
+                                            </table>
                                         </div>
                                     </div>
 
