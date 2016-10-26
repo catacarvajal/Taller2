@@ -90,13 +90,14 @@
       var url = form.attr('action');
       
       $.post(url,parametros,function(result){
-        
-      alert(result);
+        lava.loadData('grafico', result);
+  
       console.log(result);
          
       });
 
     }
+
 
 </script>
 @endsection
