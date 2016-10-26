@@ -73,7 +73,7 @@
 		<div class="row">
 
 			<div class="col-md-8 col-md-offset-2">					
-				<button class="btn btn-block btn-primary btn-xs" data-toggle="control-dibujo" title="Eliminar" onclick="#">Visualizar Graficos</button>			
+				<button class="btn btn-block btn-primary btn-xs" data-toggle="control-dibujo" title="Eliminar" onclick="btn_grafico()">Visualizar Graficos</button>			
 			</div>
 		</div>
 
