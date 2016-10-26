@@ -36,7 +36,7 @@
         .fullscreen {
             margin-bottom: 10px;
             width: 100%;
-            height: 400px;
+            height: 600px;
         }
 
         .ol-rotate {
@@ -145,22 +145,6 @@
         }
         .my-legend a {
             color: #777;
-        }
-
-        .map:-moz-full-screen {
-            height: 100%;
-        }
-        .map:-webkit-full-screen {
-            height: 100%;
-        }
-        .map:-ms-fullscreen {
-            height: 100%;
-        }
-        .map:fullscreen {
-            height: 100%;
-        }
-        .ol-rotate {
-            top: 3em;
         }
         </style>
 
