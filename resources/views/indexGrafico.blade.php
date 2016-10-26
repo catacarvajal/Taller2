@@ -11,35 +11,63 @@
         <a href="MapaYGrafico" class="pull-right glyphicon glyphicon-retweet" data-toggle="tooltip" title="Mapa y graficos"></a>
       </div>
       <div class="box-body">
-       <form role="form">
+       <form role="form" id= "formG" method="POST" action="{{ url('/Grafico')}}">
+       {!! csrf_field() !!}
           <div class="row">
             <div class="col-md-4">
               <div class="form-group">
                 <label>Periodo</label>
-                {!!Form::select('Periodo', array_pluck($periodo, 'year_init', 'id', 'year_end'), null, ['class' => 'form-control']) !!}
+                {!!Form::select('Periodo', array_pluck($periodo, 'year_init', 'id'), null, ['id'=>'Periodo','class' => 'form-control','onchange' => 'setgraficoValue(this.value);']) !!}
               </div>
           </div><!-- /.form-group -->         
           <div class="col-md-4">
               <div class="form-group">
                 <label>Escenario</label>
-                {!!Form::select('Escenario', array_pluck($scenario, 'name', 'id'), null, ['class' => 'form-control']) !!}
+                {!!Form::select('Escenario', array_pluck($scenario, 'name', 'id'), null, ['id'=>'Escenario','class' => 'form-control','onchange' => 'setgraficoValue(this.value);']) !!}
               </div>
           </div><!-- /.form-group -->
           <div class="col-md-4">
               <div class="form-group">
                 <label>Variable</label>
-                {!!Form::select('Variable', array_pluck($variable, 'name', 'id'), null, ['class' => 'form-control']) !!}
+                {!!Form::select('Variable', array_pluck($variable, 'name', 'id'), null, ['id'=>'Variable','class' => 'form-control','onchange' => 'setgraficoValue(this.value);']) !!}
               </div>
           </div><!-- /.form-group -->
           </div>
        </form>
-       <div id="perf_div" class="chart"></div>
+       <div id="perf_div" class="chart"></div><!-- div donde se dibuja el grafico -->
       </div>
     </div>
+
   </div>
 </div>
 
-<?= $lava->render('BarChart', 'variable', 'perf_div')
+<?= $lava->render('BarChart', 'grafico', 'perf_div')
 ?>
 
+<script type="text/javascript">
+    
+    // jQuery example
+    function setgraficoValue(value)
+    {
+      var parametros = {
+        "periodo" : $("#Periodo").val(),
+        "variable" : $("#Variable").val(),
+        "escenario" : $("#Escenario").val()
+      };
+
+      var form =$('#formG');
+      var url = form.attr('action');
+      
+      $.post(url,parametros,function(result){
+        
+        $.getJSON('http://my.site.com/newData', function (dataTableJson) {
+        lava.loadData('Temps', dataTableJson, function () {
+          console.log('Data Loaded');
+        });
+         
+      });
+
+    }
+
+</script>
 @endsection
