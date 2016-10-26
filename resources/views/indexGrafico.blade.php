@@ -91,10 +91,8 @@
       
       $.post(url,parametros,function(result){
         
-        $.getJSON('http://my.site.com/newData', function (dataTableJson) {
-        lava.loadData('Temps', dataTableJson, function () {
-          console.log('Data Loaded');
-        });
+      alert(result);
+      console.log(result);
          
       });
 

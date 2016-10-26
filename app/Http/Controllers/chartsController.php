@@ -96,9 +96,8 @@ class chartsController extends Controller
             $variable =$request->input('variable');
             $escenario =$request->input('escenario');
             $periodo =$request->input('periodo');
-            $consultaPunto = $this->consultaGrafico($variable,$periodo,$escenario);
-            $lava = $this->DataTable($consultaPunto);
-            return response()->json([$lava]);
+           
+            return $variable;
             //return $periodo;
         }
         
@@ -113,6 +112,7 @@ class chartsController extends Controller
         ->where('register.id_period', '=', '1')
         ->join('variable', 'variable.id', '=', 'register.id_variable')
         ->groupBy('month.id', 'variable.name')
+        ->orderBy('month.id')
         ->get();
         return ($tabla);
     }  

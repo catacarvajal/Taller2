@@ -1,29 +1,48 @@
-<aside class="control-sidebar control-sidebar-light">
-	<!-- Create the tabs -->
-	<div id="side_visualizar" style="display:none;" >
-		<div class="modal-header">
-			<button  onclick="ocultar()"type="button" class="close" data-toggle="control-sidebar"aria-label="Close"><span aria-hidden="true">×</span></button>
-			<h4 class="modal-title">Fecha</h4>
-		</div>
-		<div class="row">
-			<div class="col-md-8 col-md-offset-2">					
-				<div class="form-group">
-					<label>Año:</label>
-					<div class="input-group ">
-						<div class="input-group-addon">
-							<i class="fa fa-calendar"></i>
+	<aside class="control-sidebar control-sidebar-light">
+		<!-- Create the tabs -->
+		<div id="side_visualizar" style="display:none;" >
+			<div class="modal-header">
+				<button  onclick="ocultar()"type="button" class="close" data-toggle="control-sidebar"aria-label="Close"><span aria-hidden="true">×</span></button>
+				<h4 class="modal-title">Fecha</h4>
+			</div>
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">					
+					<form role="form" id= "formG" method="POST" action="{{ url('/Grafico')}}">
+						{!! csrf_field() !!}
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label>Periodo</label>
+									{!!Form::select('Periodo', array_pluck($periodo, 'year_init', 'id'), null, ['id'=>'Periodo','class' => 'form-control']) !!}
+								</div>
+							</div><!-- /.form-group -->         
 						</div>
-						<input type="text" class="form-control pull-right input-sm" id="datepicker" placeholder="Año">
-					</div><!-- /.input group -->
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label>Escenario</label>
+									{!!Form::select('Escenario', array_pluck($scenario, 'name', 'id'), null, ['id'=>'Escenario','class' => 'form-control']) !!}
+								</div>
+							</div><!-- /.form-group -->
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label>Variable</label>
+									{!!Form::select('Variable', array_pluck($variable, 'name', 'id'), null, ['id'=>'Variable','class' => 'form-control']) !!}
+								</div>
+							</div><!-- /.form-group -->
+						</div>
+					
 
-					<label>Mes:</label>
-					<select class="form-control select2 input-sm" id="month">
-						<option value="1">Enero</option>
-						<option value="2">Febrero</option> 
-						<option value="3">Marzo</option>             
-					</select>
-				</div>
-				<button class="btn btn-block btn-primary btn-xs" onclick="#">Generar Mapa</button>
+					
+                        <div >
+                            <a href="" class="btn btn-block btn-primary btn-xs">Generar Mapa</a>
+                        </div>
+                        
+                   
+				
+				</form>				
 			</div>
 		</div>
 		<div class="modal-header">
@@ -68,12 +87,12 @@
 	<div id="side_ir_a" style="display:none;">
 
 
-			<div class="modal-header">
-				<button onclick="ocultar()" type="button" class="close" data-toggle="control-sidebar"aria-label="Close"><span aria-hidden="true">×</span></button>
-				<h4 class="modal-title">Ir a</h4>
-			</div>
+		<div class="modal-header">
+			<button onclick="ocultar()" type="button" class="close" data-toggle="control-sidebar"aria-label="Close"><span aria-hidden="true">×</span></button>
+			<h4 class="modal-title">Ir a</h4>
+		</div>
 
-			<div class="row">
+		<div class="row">
 			<div class="col-md-8 col-md-offset-2">	
 				<div class="form-group ">
 					<label>Tipo: &nbsp;</label>
@@ -94,7 +113,7 @@
 			</div>		
 		</div>	
 
-			<div class="modal-header">
+		<div class="modal-header">
 			<div class="callout callout-info">
 				<p>Permite seleccionar una región, comuna, provincia y navegar hasta su localización.</p>
 			</div>
@@ -106,6 +125,6 @@
 				<h4 class="modal-title">Descargar</h4>
 			</div>
 		</div>
-		</div>
-	
+	</div>
+
 </aside><!-- /.control-sidebar -->
