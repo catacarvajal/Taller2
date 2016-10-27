@@ -9,8 +9,8 @@
                     <div class="col-md-12">                        
                         <div id="fullscreen" class="fullscreen">
                             <div id="map" class="map"></div>
-                            <div class="sidepanel">
-                                <div id="perf_div" class="chart"></div><!-- div donde se dibuja el grafico -->
+                            <div class="sidepanel" style="overflow: auto">
+                                <div id="perf_div" class="chart" style="height: 70%"></div><!-- div donde se dibuja el grafico -->
                                     <div class="col-md-12">
                                         <div> 
                                             <table class="table table-bordered">
