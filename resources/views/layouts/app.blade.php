@@ -156,7 +156,9 @@
                     @yield('content')
                 </section>
             </div>
-            @include('includes.sidebarrigth') 
+            @include('includes.sidebarrigth')
+            <div class="control-sidebar-bg"></div> 
+            
         </div>
 
         <script src="{{ asset('/plugins/jQuery/jQuery-2.1.4.min.js') }}" type="text/javascript"></script>
@@ -172,40 +174,46 @@
         <script src="{{ asset('/dist/js/demo.js') }}" type="text/javascript"></script>
 
         <script type="text/javascript">
-$("#datepicker").datepicker({
-    format: " yyyy",
-    viewMode: "years",
-    minViewMode: "years"
-});
-$(document).ready(function () {
-    $('[data-toggle="control-sidebar"]').tooltip();
-});
-$(document).ready(function () {
-    $('[data-toggle="control-dibujo"]').tooltip();
-});
-function mostrar(id_side) {
-    if (id_side == 'side_ir_a') {
-        document.getElementById('side_visualizar').style.display = 'none';
-        document.getElementById('side_descargar').style.display = 'none';
+
+    $(document).ready(function () {
+        $('[data-toggle="control-sidebar"]').tooltip();
+        ocultar();
+    });
+    $(document).ready(function () {
+        $('[data-toggle="control-dibujo"]').tooltip();
+    });
+    function mostrar(id_side) {
+        if (id_side == 'side_ir_a') {
+            document.getElementById('side_visualizar').style.display = 'none';
+            document.getElementById('side_descargar').style.display = 'none';
+            document.getElementById('side_capa').style.display = 'none';
+        }
+
+        if (id_side == 'side_descargar') {
+            document.getElementById('side_ir_a').style.display = 'none';
+            document.getElementById('side_visualizar').style.display = 'none';
+            document.getElementById('side_capa').style.display = 'none';
+        }
+        if (id_side == 'side_visualizar') {
+            document.getElementById('side_ir_a').style.display = 'none';
+            document.getElementById('side_descargar').style.display = 'none';
+            document.getElementById('side_capa').style.display = 'none';
+        }
+        if (id_side == 'side_capa') {
+            document.getElementById('side_ir_a').style.display = 'none';
+            document.getElementById('side_descargar').style.display = 'none';
+            document.getElementById('side_visualizar').style.display = 'none';
+        }
+
+
+        document.getElementById(id_side).style.display = 'block';
     }
 
-    if (id_side == 'side_descargar') {
+    function ocultar() {
         document.getElementById('side_ir_a').style.display = 'none';
+        document.getElementById('side_descargar').style.display = 'none';
         document.getElementById('side_visualizar').style.display = 'none';
     }
-    if (id_side == 'side_visualizar') {
-        document.getElementById('side_ir_a').style.display = 'none';
-        document.getElementById('side_descargar').style.display = 'none';
-    }
-
-    document.getElementById(id_side).style.display = 'block';
-}
-
-function ocultar() {
-    document.getElementById('side_ir_a').style.display = 'none';
-    document.getElementById('side_descargar').style.display = 'none';
-    document.getElementById('side_visualizar').style.display = 'none';
-}
         </script>
         <script>
 
@@ -288,9 +296,9 @@ function ocultar() {
 
             var draw;
             var geojson;
-            function addInteraction() {
-                var value = typeSelect.value;
-                if (value !== 'None') {
+            function addInteraction() {                
+                var value = typeSelect.value;               
+                if (value !== 'None') {                     
                     var value2 = value;
                     var geometryFunction, maxPoints;
                     if (value === 'Square') {
@@ -338,34 +346,36 @@ function ocultar() {
                 }
             }
             function ajaxButton() {
-
+                $(typeSelect).val('None').trigger("change"); //cambia seleccion para dibujar 
+                document.getElementById('inicio').style.display = 'none';
+                document.getElementById('grafico_tabla').style.display = 'block';
+                
                 ajax(geojson);
             }
             function ajax(geojson) {
                 var periodo = $("#Periodo").val();
                 var variable = $("#Variable").val();
                 var escenario = $("#Escenario").val();
+                var tablaDatos = $("#datos");
 
                 $.ajax({
                     type: 'post',
                     url: 'ajax',
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify({'periodo': periodo, 'variable': variable, 'escenario': escenario, 'geoj': geojson}),
+                    data: JSON.stringify({'periodo': periodo, 'variable': variable, 'escenario': escenario, 'geoj': JSON.parse(geojson)}),
                     success: function (data) {
-                       lava.loadData('grafico',data);
+                        lava.loadData('grafico', data);
+                        console.log(data);
+                        $("#datos").empty();
+                        for (var i = 0; i < data.rows.length; i++) {
+                        tablaDatos.append("<tr><td>" + data.rows[i].c[0].v + "</td><td><span class='badge bg-red'>" + data.rows[i].c[1].v + "</span></td></tr>");
+                        }
 
                     }
                 });
-
-
             }
-
-            var layerSwitcher = new ol.control.LayerSwitcher({
-                tipLabel: 'Leyenda'
-            });
-            map.addControl(layerSwitcher);
-            layerSwitcher.showPanel();
+         
 
             typeSelect.onchange = function () {
                 map.removeInteraction(draw);
