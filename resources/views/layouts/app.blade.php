@@ -356,6 +356,8 @@
                 var periodo = $("#Periodo").val();
                 var variable = $("#Variable").val();
                 var escenario = $("#Escenario").val();
+                var tablaDatos = $("#datos");
+
                 $.ajax({
                     type: 'post',
                     url: 'ajax',
@@ -364,6 +366,11 @@
                     data: JSON.stringify({'periodo': periodo, 'variable': variable, 'escenario': escenario, 'geoj': JSON.parse(geojson)}),
                     success: function (data) {
                         lava.loadData('grafico', data);
+                        console.log(data);
+                        $("#datos").empty();
+                        for (var i = 0; i < data.rows.length; i++) {
+                        tablaDatos.append("<tr><td>" + data.rows[i].c[0].v + "</td><td><span class='badge bg-red'>" + data.rows[i].c[1].v + "</span></td></tr>");
+                        }
 
                     }
                 });
