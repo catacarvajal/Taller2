@@ -13,18 +13,18 @@ use App\Variable;
 
 class HomeController extends Controller {
 
-	public function index()
-	{
-		$consultaPunto = $this->consultaGraficoInicio(0,0,0);//hacemos la consulta de 1 punto
+    public function index()
+    {
+        $consultaPunto = $this->consultaGraficoInicio(0,0,0);//hacemos la consulta de 1 punto
         $lava = $this->graficoPunto($consultaPunto);//hacemos el gráfico de ese punto con la consulta anterior
-		$periodo = Period::all();// traemos todos los periodos que existen en la bd
+        $periodo = Period::all();// traemos todos los periodos que existen en la bd
         $scenario = Scenario::all();
         $variable = Variable::all();
         $datosTabla = $this->datosTabla(1,1); //se obtienen los datos para llenar la tabla (mes, variable, promedio)
-		return view('index')->with('periodo',$periodo)->with('scenario',$scenario)->with('variable',$variable)->with('lava',$lava)->with('datosTabla',$datosTabla);
-	}
+        return view('index')->with('periodo',$periodo)->with('scenario',$scenario)->with('variable',$variable)->with('lava',$lava)->with('datosTabla',$datosTabla);
+    }
 
-	 public function consultaGraficoInicio($id_variable, $id_periodo, $id_escenario)
+     public function consultaGraficoInicio($id_variable, $id_periodo, $id_escenario)
     {
         
              $consulta = DB::table('rast')
@@ -45,7 +45,7 @@ class HomeController extends Controller {
 
         
     }
-	 public function graficoPunto($consulta)
+     public function graficoPunto($consulta)
     {
         
         $lava = new Lavacharts; // See note below for Laravel
@@ -66,11 +66,11 @@ class HomeController extends Controller {
 
         return $lava;
     }
-    public function consultaGrafico($id_variable, $id_periodo, $id_escenario,$punto)
-    {
-     
+    public function consultaGrafico($id_variable, $id_periodo, $id_escenario,$puntox,$puntoY)
+    {   
+
              $consulta = DB::table('rast')
-            ->select(DB::raw('month.name,month.id,avg(ST_Value(rast, ST_SetSRID(ST_Point(-71.233333,-34.983333), 4326)))'))
+            ->select(DB::raw('month.name,month.id,avg(ST_Value(rast, ST_SetSRID(ST_POINT(' +$puntox + ',' + $puntoY + '), 4326)))'))
             ->join('register', 'register.id', '=', 'rast.id_register')
             ->join('month', 'month.id', '=', 'register.id_month')
             ->join('variable', 'variable.id', '=', 'register.id_variable')
@@ -133,21 +133,19 @@ class HomeController extends Controller {
     public function ajaxGeoJson(Request $request){
 
         $variable =$request->input('variable');
-  
         $escenario =$request->input('escenario');
         $periodo =$request->input('periodo');
         $data = $request->input('geoj');       
         
-       
+        $dat=json_decode($data,true);
         $data0=$data['geometry'];
         $data1=$data0['type']; //tipo de geometria
         $data2=$data0['coordinates']; //cordenadas 
 
-       
-        $consultaPunto = $this->consultaGrafico($variable,$periodo,$escenario,$data2);
+        $consultaPunto = $this->consultaGrafico($variable,$periodo,$escenario,$data2[0],$data2[1]);
         $lava = $this->DataTable($consultaPunto);
-          
-        return $lava->toJson();
+       
+        return $lava->toJson();;
 
 
  /*       $data = $request->input('geoj');       
