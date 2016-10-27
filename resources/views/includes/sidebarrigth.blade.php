@@ -53,7 +53,7 @@
 				</div>
 			</div>		
 			<div class="col-md-12 col-md-offset-4">					
-				<button type="button" data-toggle="control-dibujo" class="btn btn-default btn-xs" title="Eliminar">Eliminar <i class="fa fa-trash"></i></button>
+				<button type="button" data-toggle="control-dibujo" class="btn btn-default btn-xs" title="Eliminar" onclick='removeDraw()'>Eliminar <i class="fa fa-trash"></i></button>
 			</div>
 		</div>	
 		<div class="modal-header">
