@@ -33,18 +33,14 @@
                                         <!-- Creación de tabla -->
                                         <div> 
                                             <table class="table table-bordered">
+                                                <thead>
+                                                  <th>Mes</th>
+                                                  <th>Promedio</th>
+                                                </thead>     
                                                 <tr>
-                                                    <th>Mes</th>
-                                                    <th>Promedio</th>
                                                 </tr>
-                                                @foreach ($datosTabla as $datos)     
-                                                <tr>
-                                                    <td>{{$datos->mes}}</td>
-                                                    <td><span class="badge bg-red">{{$datos->promedio}}</span></td>
-                                                </tr>
-                                                @endforeach
+                                                <tbody id="datos"></tbody>
                                             </table>
-                                        
                                         </div>
                                         <!-- Fin creación de tabla -->
                                     </div>
