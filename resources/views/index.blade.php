@@ -30,6 +30,7 @@
                                 <div class="col-md-12" id="grafico_tabla" style="display:none;">
                                     <div id="perf_div" class="chart" style="height: 70%"></div><!-- div donde se dibuja el grafico -->
                                     <div class="col-md-12">
+                                        <!-- Creación de tabla -->
                                         <div> 
                                             <table class="table table-bordered">
                                                 <tr>
@@ -43,7 +44,9 @@
                                                 </tr>
                                                 @endforeach
                                             </table>
+                                        
                                         </div>
+                                        <!-- Fin creación de tabla -->
                                     </div>
                                 </div>
                                 <div class="btn-group dropup" style="position: absolute; bottom: 50px; right: 15px; padding: 3px; ">
