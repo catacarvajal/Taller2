@@ -298,7 +298,7 @@
             var geojson;
             function addInteraction() {                
                 var value = typeSelect.value;               
-                if (value !== 'None') {                     
+                if (value !== 'None') {  
                     var value2 = value;
                     var geometryFunction, maxPoints;
                     if (value === 'Square') {
@@ -313,6 +313,8 @@
                         maxPoints: maxPoints
                     });
                     draw.on("drawend", function (e) {
+
+
                         if (value2 == 'Circle') {
                             var circle = e.feature.getGeometry();
                             var radio = circle.getRadius();
@@ -330,7 +332,7 @@
                                 }
                             }
                             geojson = JSON.stringify(geoj);  //trasforma a json            
-
+                           removeDraw();
                         }
 
                         else {
@@ -339,9 +341,10 @@
                             var formatGeoJSON = new ol.format.GeoJSON();
                             featureClone.getGeometry().transform('EPSG:3857', 'EPSG:4326');
                             geojson = formatGeoJSON.writeFeature(featureClone);
-
+                            removeDraw();
                         }
                     });
+                    removeDraw();
                     map.addInteraction(draw);
                 }
             }
@@ -356,6 +359,8 @@
                 var periodo = $("#Periodo").val();
                 var variable = $("#Variable").val();
                 var escenario = $("#Escenario").val();
+                var tablaDatos = $("#datos");
+
                 $.ajax({
                     type: 'post',
                     url: 'ajax',
@@ -364,9 +369,19 @@
                     data: JSON.stringify({'periodo': periodo, 'variable': variable, 'escenario': escenario, 'geoj': JSON.parse(geojson)}),
                     success: function (data) {
                         lava.loadData('grafico', data);
+                        console.log(data);
+                        $("#datos").empty();
+                        for (var i = 0; i < data.rows.length; i++) {
+                        tablaDatos.append("<tr><td>" + data.rows[i].c[0].v + "</td><td><span class='badge bg-red'>" + data.rows[i].c[1].v + "</span></td></tr>");
+                        }
 
                     }
                 });
+            }
+            function removeDraw(){
+
+                  source.clear();
+
             }
          
 
