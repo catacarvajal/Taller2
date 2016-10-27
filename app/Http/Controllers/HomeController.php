@@ -133,15 +133,17 @@ class HomeController extends Controller {
     public function ajaxGeoJson(Request $request){
 
         $variable =$request->input('variable');
+  
         $escenario =$request->input('escenario');
         $periodo =$request->input('periodo');
         $data = $request->input('geoj');       
         
-        $dat=json_decode($data,true);
-        $data0=$dat['geometry'];
+       
+        $data0=$data['geometry'];
         $data1=$data0['type']; //tipo de geometria
         $data2=$data0['coordinates']; //cordenadas 
 
+       
         $consultaPunto = $this->consultaGrafico($variable,$periodo,$escenario,$data2);
         $lava = $this->DataTable($consultaPunto);
           
