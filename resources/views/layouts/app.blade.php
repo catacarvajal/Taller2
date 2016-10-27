@@ -346,6 +346,7 @@ function ocultar() {
                 var variable = $("#Variable").val();
                 var escenario = $("#Escenario").val();
 
+
                 $.ajax({
                     type: 'post',
                     url: 'ajax',
@@ -354,7 +355,7 @@ function ocultar() {
                     data: JSON.stringify({'periodo': periodo, 'variable': variable, 'escenario': escenario, 'geoj': geojson}),
                     success: function (data) {
                        lava.loadData('grafico',data);
-
+                                            
                     }
                 });
 

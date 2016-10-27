@@ -45,7 +45,9 @@
             </div>
         </div>                            
     </div>
+
 </div>
 <?= $lava->render('BarChart', 'grafico', 'perf_div')
 ?>
+
 @endsection
