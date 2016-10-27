@@ -156,7 +156,8 @@
                     @yield('content')
                 </section>
             </div>
-            @include('includes.sidebarrigth') 
+            @include('includes.sidebarrigth')
+            <div class="control-sidebar-bg"></div> 
         </div>
 
         <script src="{{ asset('/plugins/jQuery/jQuery-2.1.4.min.js') }}" type="text/javascript"></script>
@@ -172,11 +173,7 @@
         <script src="{{ asset('/dist/js/demo.js') }}" type="text/javascript"></script>
 
         <script type="text/javascript">
-$("#datepicker").datepicker({
-    format: " yyyy",
-    viewMode: "years",
-    minViewMode: "years"
-});
+
 $(document).ready(function () {
     $('[data-toggle="control-sidebar"]').tooltip();
 });
