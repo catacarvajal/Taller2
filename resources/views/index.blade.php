@@ -10,10 +10,12 @@
                         <div id="fullscreen" class="fullscreen">
                             <div id="map" class="map"></div>
                             <div class="sidepanel" style="overflow: auto">
-                                <div class="col-md-12" id="inicio">
-                                    <div id="Inicio" align="justify">
+                                
+                            <div class="modal-header" id="inicio" align="justify">
+                                <div class="callout callout-info">
+                
                                         <h2 style="font-size: 36px;"> Bienvenidos </h2>
-                                        <p>Este sitio presenta la información de distiantas variables , las cuales se pueden graficar y selecionar algun periodo disponible. 
+                                        <p>Este sitio presenta información de distintas variables ambientales, las cuales se pueden graficar y visualizar según un periodo de tiempo determinado. 
                                         </p>
 
                                         <p>Los datos que encontrará a continuación han sido
@@ -25,8 +27,11 @@
                                             llevado a cabo por el equipo de la Universidad de Talca para el modulo de Taller 2.
                                         </p>
                                         <p> Haga click en la herramienta para ver las distintas opciones implementadas en el sitio</p><p>
-                                    </p></div>
-                                </div>
+                                    </p>
+                                 </div>
+                            </div>
+                 
+
                                 <div class="col-md-12" id="grafico_tabla" style="display:none;">
                                     <div id="perf_div" class="chart" style="height: 70%"></div><!-- div donde se dibuja el grafico -->
                                     <div class="col-md-12">
