@@ -346,13 +346,13 @@ function ocultar() {
                 var variable = $("#Variable").val();
                 var escenario = $("#Escenario").val();
 
-
+                console.log(JSON.stringify({'periodo': periodo, 'variable': variable, 'escenario': escenario, 'geoj': JSON.parse(geojson)}));
                 $.ajax({
                     type: 'post',
                     url: 'ajax',
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify({'periodo': periodo, 'variable': variable, 'escenario': escenario, 'geoj': geojson}),
+                    data: JSON.stringify({'periodo': periodo, 'variable': variable, 'escenario': escenario, 'geoj': JSON.parse(geojson)}),
                     success: function (data) {
                        lava.loadData('grafico',data);
                                             
