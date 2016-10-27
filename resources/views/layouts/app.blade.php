@@ -298,7 +298,7 @@
             var geojson;
             function addInteraction() {                
                 var value = typeSelect.value;               
-                if (value !== 'None') {                     
+                if (value !== 'None') {  
                     var value2 = value;
                     var geometryFunction, maxPoints;
                     if (value === 'Square') {
@@ -313,6 +313,8 @@
                         maxPoints: maxPoints
                     });
                     draw.on("drawend", function (e) {
+
+
                         if (value2 == 'Circle') {
                             var circle = e.feature.getGeometry();
                             var radio = circle.getRadius();
@@ -330,7 +332,7 @@
                                 }
                             }
                             geojson = JSON.stringify(geoj);  //trasforma a json            
-
+                           removeDraw();
                         }
 
                         else {
@@ -339,9 +341,10 @@
                             var formatGeoJSON = new ol.format.GeoJSON();
                             featureClone.getGeometry().transform('EPSG:3857', 'EPSG:4326');
                             geojson = formatGeoJSON.writeFeature(featureClone);
-
+                            removeDraw();
                         }
                     });
+                    removeDraw();
                     map.addInteraction(draw);
                 }
             }
@@ -374,6 +377,11 @@
 
                     }
                 });
+            }
+            function removeDraw(){
+
+                  source.clear();
+
             }
          
 
