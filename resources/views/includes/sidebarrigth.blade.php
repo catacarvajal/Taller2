@@ -3,7 +3,7 @@
 		<div id="side_visualizar" style="display:none;" >
 			<div class="modal-header">
 				<button  onclick="ocultar()"type="button" class="close" data-toggle="control-sidebar"aria-label="Close"><span aria-hidden="true">×</span></button>
-				<h4 class="modal-title">Fecha</h4>
+				<h4 class="modal-title">Graficar</h4>
 			</div>
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">					
@@ -32,21 +32,11 @@
 									{!!Form::select('Variable', array_pluck($variable, 'name', 'id'), null, ['id'=>'Variable','class' => 'form-control']) !!}
 								</div>
 							</div><!-- /.form-group -->
-						</div>
-					
-
-					
-                        <div >
-                            <a href="" class="btn btn-block btn-primary btn-xs">Generar Mapa</a>
-                        </div>
-                        
-                   
-				
+						</div> 
 				</form>				
 			</div>
 		</div>
-		<div class="modal-header">
-			<button onclick="ocultar()"type="button" class="close" data-toggle="control-sidebar"aria-label="Close"><span aria-hidden="true">×</span></button>
+		<div class="modal-header">			
 			<h4 class="modal-title">Seleccionar</h4>
 		</div>
 		<div class="row">
@@ -67,7 +57,6 @@
 			</div>
 		</div>	
 		<div class="modal-header">
-			<button onclick="ocultar()"type="button" class="close" data-toggle="control-sidebar"aria-label="Close"><span aria-hidden="true">×</span></button>
 			<h4 class="modal-title">Visualizar</h4>
 		</div>
 		<div class="row">
@@ -77,10 +66,9 @@
 			</div>
 		</div>
 
-
 		<div class="modal-header">
 			<div class="callout callout-info">
-				<p>Para visualizar un grafico debe selecionar una fecha ,  selecionar una tipo de geometria y realizar una selecion en el mapa</p>
+				<p>Para visualizar un grafico debe selecionar un periodo , escenario y variable. Luego  con un tipo de geometria y realizar una selecion en el mapa</p>
 			</div>
 		</div>
 	</div>

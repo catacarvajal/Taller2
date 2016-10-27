@@ -66,11 +66,11 @@ class HomeController extends Controller {
 
         return $lava;
     }
-    public function consultaGrafico($id_variable, $id_periodo, $id_escenario,$punto)
+    public function consultaGrafico($id_variable, $id_periodo, $id_escenario,$puntox,$puntoy)
     {
-     
+
              $consulta = DB::table('rast')
-            ->select(DB::raw('month.name,month.id,avg(ST_Value(rast, ST_SetSRID(ST_Point(-71.233333,-34.983333), 4326)))'))
+            ->select(DB::raw('month.name,month.id,avg(ST_Value(rast, ST_SetSRID(ST_Point('.$puntox.','.$puntoy.'), 4326)))'))
             ->join('register', 'register.id', '=', 'rast.id_register')
             ->join('month', 'month.id', '=', 'register.id_month')
             ->join('variable', 'variable.id', '=', 'register.id_variable')
@@ -144,7 +144,7 @@ class HomeController extends Controller {
         $data2=$data0['coordinates']; //cordenadas 
 
        
-        $consultaPunto = $this->consultaGrafico($variable,$periodo,$escenario,$data2);
+        $consultaPunto = $this->consultaGrafico($variable,$periodo,$escenario,$data2[0],$data2[1]);
         $lava = $this->DataTable($consultaPunto);
           
         return $lava->toJson();
