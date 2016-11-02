@@ -301,7 +301,7 @@
                     })
                 ]),
                 layers:
-                        [mapas, vector, raster],
+                        [mapas, raster, vector],
                 target: 'map',
                 view: new ol.View({
                     center: ol.proj.transform([-72, -38], 'EPSG:4326', 'EPSG:3857'),
