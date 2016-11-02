@@ -33,7 +33,7 @@
                  
 
                                 <div class="col-md-12" id="grafico_tabla" style="display:none;">
-                                    <div id="perf_div" class="chart" style="height: 70%"></div><!-- div donde se dibuja el grafico -->
+                                    <div id="perf_div" class="chart" style="height: 300px"></div><!-- div donde se dibuja el grafico -->
                                     <div class="col-md-12">
                                         <!-- Creación de tabla -->
                                         <div> 
