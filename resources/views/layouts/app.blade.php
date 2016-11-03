@@ -242,25 +242,185 @@
             {
                 if(document.getElementById('Var').value == 1) 
                 {
-                    raster.set("visible",true);
+                    raster.U.layers.a[0].U.visible = true;
+                    raster.U.layers.a[1].U.visible = false;
+                    raster.U.layers.a[2].U.visible = false;
+                    raster.U.layers.a[3].U.visible = false;
+                    raster.U.layers.a[4].U.visible = false;
+                    raster.U.layers.a[5].U.visible = false;
+                    raster.U.layers.a[6].U.visible = false;
+                    raster.U.layers.a[7].U.visible = false;
+                    raster.U.layers.a[8].U.visible = false;
+                    raster.U.layers.a[9].U.visible = false;
+                    raster.U.layers.a[10].U.visible = false;
+                    raster.U.layers.a[11].U.visible = false;
                 }
                 else if(document.getElementById('Var').value == 2) 
                 {
-                    raster.set("visible",false);
+                    raster.U.layers.a[0].U.visible = false;
+                    raster.U.layers.a[1].U.visible = true;
+                    raster.U.layers.a[2].U.visible = false;
+                    raster.U.layers.a[3].U.visible = false;
+                    raster.U.layers.a[4].U.visible = false;
+                    raster.U.layers.a[5].U.visible = false;
+                    raster.U.layers.a[6].U.visible = false;
+                    raster.U.layers.a[7].U.visible = false;
+                    raster.U.layers.a[8].U.visible = false;
+                    raster.U.layers.a[9].U.visible = false;
+                    raster.U.layers.a[10].U.visible = false;
+                    raster.U.layers.a[11].U.visible = false;;
                 }
                 else if(document.getElementById('Var').value == 3) 
                 {
-                    console.log("Tercer if");
+                    raster.U.layers.a[0].U.visible = false;
                     raster.U.layers.a[1].U.visible = false;
-                    console.log(raster.U.layers.a[0].U.visible);
-                    console.log(raster.U.layers.a[1].U.visible);
+                    raster.U.layers.a[2].U.visible = true;
+                    raster.U.layers.a[3].U.visible = false;
+                    raster.U.layers.a[4].U.visible = false;
+                    raster.U.layers.a[5].U.visible = false;
+                    raster.U.layers.a[6].U.visible = false;
+                    raster.U.layers.a[7].U.visible = false;
+                    raster.U.layers.a[8].U.visible = false;
+                    raster.U.layers.a[9].U.visible = false;
+                    raster.U.layers.a[10].U.visible = false;
+                    raster.U.layers.a[11].U.visible = false;
                 }
                 else if(document.getElementById('Var').value == 4) 
                 {
-                    console.log("Cuarto if");
+                    raster.U.layers.a[0].U.visible = false;
+                    raster.U.layers.a[1].U.visible = false;
+                    raster.U.layers.a[2].U.visible = false;
+                    raster.U.layers.a[3].U.visible = true;
+                    raster.U.layers.a[4].U.visible = false;
+                    raster.U.layers.a[5].U.visible = false;
+                    raster.U.layers.a[6].U.visible = false;
+                    raster.U.layers.a[7].U.visible = false;
+                    raster.U.layers.a[8].U.visible = false;
+                    raster.U.layers.a[9].U.visible = false;
+                    raster.U.layers.a[10].U.visible = false;
+                    raster.U.layers.a[11].U.visible = false;
+                }
+                else if(document.getElementById('Var').value == 5) 
+                {
+                    raster.U.layers.a[0].U.visible = false;
+                    raster.U.layers.a[1].U.visible = false;
+                    raster.U.layers.a[2].U.visible = false;
+                    raster.U.layers.a[3].U.visible = false;
+                    raster.U.layers.a[4].U.visible = true;
+                    raster.U.layers.a[5].U.visible = false;
+                    raster.U.layers.a[6].U.visible = false;
+                    raster.U.layers.a[7].U.visible = false;
+                    raster.U.layers.a[8].U.visible = false;
+                    raster.U.layers.a[9].U.visible = false;
+                    raster.U.layers.a[10].U.visible = false;
+                    raster.U.layers.a[11].U.visible = false;
+                }
+                else if(document.getElementById('Var').value == 6) 
+                {
+                    raster.U.layers.a[0].U.visible = false;
+                    raster.U.layers.a[1].U.visible = false;
+                    raster.U.layers.a[2].U.visible = false;
+                    raster.U.layers.a[3].U.visible = false;
+                    raster.U.layers.a[4].U.visible = false;
+                    raster.U.layers.a[5].U.visible = true;
+                    raster.U.layers.a[6].U.visible = false;
+                    raster.U.layers.a[7].U.visible = false;
+                    raster.U.layers.a[8].U.visible = false;
+                    raster.U.layers.a[9].U.visible = false;
+                    raster.U.layers.a[10].U.visible = false;
+                    raster.U.layers.a[11].U.visible = false;
+                }
+                else if(document.getElementById('Var').value == 7) 
+                {
+                    raster.U.layers.a[0].U.visible = false;
+                    raster.U.layers.a[1].U.visible = false;
+                    raster.U.layers.a[2].U.visible = false;
+                    raster.U.layers.a[3].U.visible = false;
+                    raster.U.layers.a[4].U.visible = false;
+                    raster.U.layers.a[5].U.visible = false;
+                    raster.U.layers.a[6].U.visible = true;
+                    raster.U.layers.a[7].U.visible = false;
+                    raster.U.layers.a[8].U.visible = false;
+                    raster.U.layers.a[9].U.visible = false;
+                    raster.U.layers.a[10].U.visible = false;
+                    raster.U.layers.a[11].U.visible = false;
+                }
+                else if(document.getElementById('Var').value == 8) 
+                {
+                    raster.U.layers.a[0].U.visible = false;
+                    raster.U.layers.a[1].U.visible = false;
+                    raster.U.layers.a[2].U.visible = false;
+                    raster.U.layers.a[3].U.visible = false;
+                    raster.U.layers.a[4].U.visible = false;
+                    raster.U.layers.a[5].U.visible = false;
+                    raster.U.layers.a[6].U.visible = false;
+                    raster.U.layers.a[7].U.visible = true;
+                    raster.U.layers.a[8].U.visible = false;
+                    raster.U.layers.a[9].U.visible = false;
+                    raster.U.layers.a[10].U.visible = false;
+                    raster.U.layers.a[11].U.visible = false;
+                }
+                else if(document.getElementById('Var').value == 9) 
+                {
+                    raster.U.layers.a[0].U.visible = false;
+                    raster.U.layers.a[1].U.visible = false;
+                    raster.U.layers.a[2].U.visible = false;
+                    raster.U.layers.a[3].U.visible = false;
+                    raster.U.layers.a[4].U.visible = false;
+                    raster.U.layers.a[5].U.visible = false;
+                    raster.U.layers.a[6].U.visible = false;
+                    raster.U.layers.a[7].U.visible = false;
+                    raster.U.layers.a[8].U.visible = true;
+                    raster.U.layers.a[9].U.visible = false;
+                    raster.U.layers.a[10].U.visible = false;
+                    raster.U.layers.a[11].U.visible = false;
+                }
+                else if(document.getElementById('Var').value == 10) 
+                {
+                    raster.U.layers.a[0].U.visible = false;
+                    raster.U.layers.a[1].U.visible = false;
+                    raster.U.layers.a[2].U.visible = false;
+                    raster.U.layers.a[3].U.visible = false;
+                    raster.U.layers.a[4].U.visible = false;
+                    raster.U.layers.a[5].U.visible = false;
+                    raster.U.layers.a[6].U.visible = false;
+                    raster.U.layers.a[7].U.visible = false;
+                    raster.U.layers.a[8].U.visible = false;
+                    raster.U.layers.a[9].U.visible = true;
+                    raster.U.layers.a[10].U.visible = false;
+                    raster.U.layers.a[11].U.visible = false;
+                }
+                else if(document.getElementById('Var').value == 11) 
+                {
+                    raster.U.layers.a[0].U.visible = false;
+                    raster.U.layers.a[1].U.visible = false;
+                    raster.U.layers.a[2].U.visible = false;
+                    raster.U.layers.a[3].U.visible = false;
+                    raster.U.layers.a[4].U.visible = false;
+                    raster.U.layers.a[5].U.visible = false;
+                    raster.U.layers.a[6].U.visible = false;
+                    raster.U.layers.a[7].U.visible = false;
+                    raster.U.layers.a[8].U.visible = false;
+                    raster.U.layers.a[9].U.visible = false;
+                    raster.U.layers.a[10].U.visible = true;
+                    raster.U.layers.a[11].U.visible = false;
+                }
+                else if(document.getElementById('Var').value == 12) 
+                {
+                    raster.U.layers.a[0].U.visible = false;
+                    raster.U.layers.a[1].U.visible = false;
+                    raster.U.layers.a[2].U.visible = false;
+                    raster.U.layers.a[3].U.visible = false;
+                    raster.U.layers.a[4].U.visible = false;
+                    raster.U.layers.a[5].U.visible = false;
+                    raster.U.layers.a[6].U.visible = false;
+                    raster.U.layers.a[7].U.visible = false;
+                    raster.U.layers.a[8].U.visible = false;
+                    raster.U.layers.a[9].U.visible = false;
+                    raster.U.layers.a[10].U.visible = false;
+                    raster.U.layers.a[11].U.visible = true;
                 }
             }
-            
 
             var mapas = new ol.layer.Group({
                 title: 'Mapas',
@@ -302,8 +462,107 @@
                 title: 'Categorias',
                 layers: [
                 new ol.layer.Image({
+                    title: 'Tmin1',
+                    visible: false,
+                    source: new ol.source.ImageWMS({
+                        ratio: 1,
+                        url: 'http://tomcat7.curi.co.uk:80/geoserver/taller2/wms',
+                        params: {'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        LAYERS: 'taller2:tmin_1_Baseline',
+                        STYLES: '',
+                    },
+                    serverType: 'geoserver'
+                })
+                }),
+
+                new ol.layer.Image({
+                    title: 'Tmin2',
+                    visible: false,
+                    source: new ol.source.ImageWMS({
+                        ratio: 1,
+                        url: 'http://tomcat7.curi.co.uk:80/geoserver/taller2/wms',
+                        params: {'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        LAYERS: 'taller2:tmin_2_Baseline',
+                        STYLES: '',
+                    },
+                    serverType: 'geoserver'
+                })
+                }),
+                new ol.layer.Image({
+                    title: 'Tmin3',
+                    visible: false,
+                    source: new ol.source.ImageWMS({
+                        ratio: 1,
+                        url: 'http://tomcat7.curi.co.uk:80/geoserver/taller2/wms',
+                        params: {'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        LAYERS: 'taller2:tmin_3_Baseline',
+                        STYLES: '',
+                    },
+                    serverType: 'geoserver'
+                })
+                }),
+                new ol.layer.Image({
+                    title: 'Tmin4',
+                    visible: false,
+                    source: new ol.source.ImageWMS({
+                        ratio: 1,
+                        url: 'http://tomcat7.curi.co.uk:80/geoserver/taller2/wms',
+                        params: {'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        LAYERS: 'taller2:tmin_4_Baseline',
+                        STYLES: '',
+                    },
+                    serverType: 'geoserver'
+                })
+                }),
+                new ol.layer.Image({
+                    title: 'Tmin5',
+                    visible: false,
+                    source: new ol.source.ImageWMS({
+                        ratio: 1,
+                        url: 'http://tomcat7.curi.co.uk:80/geoserver/taller2/wms',
+                        params: {'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        LAYERS: 'taller2:tmin_5_Baseline',
+                        STYLES: '',
+                    },
+                    serverType: 'geoserver'
+                })
+                }),
+                new ol.layer.Image({
+                    title: 'Tmin6',
+                    visible: false,
+                    source: new ol.source.ImageWMS({
+                        ratio: 1,
+                        url: 'http://tomcat7.curi.co.uk:80/geoserver/taller2/wms',
+                        params: {'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        LAYERS: 'taller2:tmin_6_Baseline',
+                        STYLES: '',
+                    },
+                    serverType: 'geoserver'
+                })
+                }),
+                new ol.layer.Image({
+                    title: 'Tmin7',
+                    visible: false,
+                    source: new ol.source.ImageWMS({
+                        ratio: 1,
+                        url: 'http://tomcat7.curi.co.uk:80/geoserver/taller2/wms',
+                        params: {'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        LAYERS: 'taller2:tmin_7_Baseline',
+                        STYLES: '',
+                    },
+                    serverType: 'geoserver'
+                })
+                }),
+                new ol.layer.Image({
                     title: 'Tmin8',
-                    visible: true,
+                    visible: false,
                     source: new ol.source.ImageWMS({
                         ratio: 1,
                         url: 'http://tomcat7.curi.co.uk:80/geoserver/taller2/wms',
@@ -315,10 +574,51 @@
                     serverType: 'geoserver'
                 })
                 }),
-
                 new ol.layer.Image({
-                    title: 'Tmin6',
-                    visible: true,
+                    title: 'Tmin9',
+                    visible: false,
+                    source: new ol.source.ImageWMS({
+                        ratio: 1,
+                        url: 'http://tomcat7.curi.co.uk:80/geoserver/taller2/wms',
+                        params: {'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        LAYERS: 'taller2:tmin_9_Baseline',
+                        STYLES: '',
+                    },
+                    serverType: 'geoserver'
+                })
+                }),
+                new ol.layer.Image({
+                    title: 'Tmin10',
+                    visible: false,
+                    source: new ol.source.ImageWMS({
+                        ratio: 1,
+                        url: 'http://tomcat7.curi.co.uk:80/geoserver/taller2/wms',
+                        params: {'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        LAYERS: 'taller2:tmin_10_Baseline',
+                        STYLES: '',
+                    },
+                    serverType: 'geoserver'
+                })
+                }),
+                new ol.layer.Image({
+                    title: 'Tmin11',
+                    visible: false,
+                    source: new ol.source.ImageWMS({
+                        ratio: 1,
+                        url: 'http://tomcat7.curi.co.uk:80/geoserver/taller2/wms',
+                        params: {'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        LAYERS: 'taller2:tmin_11_Baseline',
+                        STYLES: '',
+                    },
+                    serverType: 'geoserver'
+                })
+                }),
+                new ol.layer.Image({
+                    title: 'Tmin12',
+                    visible: false,
                     source: new ol.source.ImageWMS({
                         ratio: 1,
                         url: 'http://tomcat7.curi.co.uk:80/geoserver/taller2/wms',
