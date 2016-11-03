@@ -392,5 +392,99 @@
 
             addInteraction();
         </script>
+         <script type="text/javascript">
+            function exportar() {
+                var formato = $('#formato option:selected').val();
+                if(formato=="XML")
+                {
+                    var datos = obtenerDatos();
+                    descargarArchivo(generarXml(datos), 'archivo.xml');
+                }
+                else if(formato=="CSV")
+                {
+                    var datos = obtenerDatos();
+                    descargarArchivo(generarCsv(datos), 'archivo.csv');
+                }
+                else
+                {
+                    var datos = obtenerDatos();
+                    var datosJson = JSON.stringify(datos);
+                    descargarArchivo(new Blob([datosJson], {type: 'application/json'}), 'archivo.json');
+                }
+                //$( "#myselect option:selected" ).text();
+             }
+             function obtenerDatos()
+             {
+                return {
+                    periodo: "1990",
+                    escenario: "III",
+                    variable: "Precipitacion",
+                    raster:  "21312312"
+                };
+             }
+             function generarXml(datos) {
+                
+                var texto = [];
+                texto.push('<?xml version="1.0" encoding="UTF-8" ?>\n');
+                texto.push('<datos>\n');
+                texto.push('\t<periodo>');
+                texto.push(escaparXML(datos.periodo));
+                texto.push('</periodo>\n');
+                texto.push('\t<escenario>');
+                texto.push(escaparXML(datos.escenario));
+                texto.push('</escenario>\n');
+                texto.push('\t<variable>');
+                texto.push(escaparXML(datos.variable));
+                texto.push('</variable>\n');
+                texto.push('\t<rater>');
+                texto.push(escaparXML(datos.raster));
+                texto.push('</rater>\n');
+                texto.push('</datos>');
+                //No olvidemos especificar el tipo MIME correcto :)
+                return new Blob(texto, {
+                    type: 'application/xml'
+                });
+            }
+
+            function generarCsv(datos) {
+                var texto = ['"periodo";"escenario";"variable";"raster"',
+                             ''+datos.periodo+";"+datos.escenario+";"+datos.variable+";"+datos.raster+''
+                          ].join('\n');
+                //No olvidemos especificar el tipo MIME correcto :)
+                return new Blob([texto], {
+                    type: 'application/csv'
+                });
+            }
+            //Función de ayuda: "escapa" las entidades XML necesarias
+            //para los valores (y atributos) del archivo XML
+            function escaparXML(cadena) {
+                if (typeof cadena !== 'string') {
+                    return '';
+                };
+                cadena = cadena.replace('&', '&amp;')
+                    .replace('<', '&lt;')
+                    .replace('>', '&gt;')
+                    .replace('"', '&quot;');
+                return cadena;
+            };
+              function descargarArchivo(contenidoEnBlob, nombreArchivo) {
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                    var save = document.createElement('a');
+                    save.href = event.target.result;
+                    save.target = '_blank';
+                    save.download = nombreArchivo || 'archivo.dat';
+                    var clicEvent = new MouseEvent('click', {
+                        'view': window,
+                            'bubbles': true,
+                            'cancelable': true
+                    });
+                    save.dispatchEvent(clicEvent);
+                    (window.URL || window.webkitURL).revokeObjectURL(save.href);
+                };
+                reader.readAsDataURL(contenidoEnBlob);
+            }
+
+         </script>
     </body>
 </html>

@@ -117,7 +117,7 @@
 			<div class="col-md-8 col-md-offset-2">	
 				<div class="form-group ">
 					<label>Formato: &nbsp;</label>
-					<select class="form-control select2 input-sm" id="ir_tipo">
+					<select class="form-control select2 input-sm" id="formato">
 						<option value="CSV">CSV</option>
 						<option value="XML">XML</option>						
 						<option value="Json">Json</option>						
@@ -127,7 +127,7 @@
 		</div>	
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">					
-				<button class="btn btn-block btn-primary btn-xs" id="btn-exportar" data-toggle="control-sidebar" title="Exportar" onclick='ajaxButton()'>Exportar datos</button>		
+				<button class="btn btn-block btn-primary btn-xs" id="btn-exportar" data-toggle="control-sidebar" title="Exportar" onclick='exportar()'>Exportar datos</button>		
 			</div>
 		</div>
 	</div>
