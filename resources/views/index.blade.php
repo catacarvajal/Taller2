@@ -33,7 +33,7 @@
                  
 
                                 <div class="col-md-12" id="grafico_tabla" style="display:none;">
-                                    <div id="perf_div" class="chart" style="height: 70%"></div><!-- div donde se dibuja el grafico -->
+                                    <div id="perf_div" class="chart" style="height: 300px"></div><!-- div donde se dibuja el grafico -->
                                     <div class="col-md-12">
                                         <!-- Creación de tabla -->
                                         <div> 
@@ -71,5 +71,23 @@
 </div>
 <?= $lava->render('BarChart', 'grafico', 'perf_div')
 ?>
+
+<div class="modal fade modal-danger" id="modal-error">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Error de ingreso.</h4>
+      </div>
+      <div class="modal-body">
+        <p>No existen datos para la ubicación seleccionada.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection
+
 
