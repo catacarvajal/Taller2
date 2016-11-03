@@ -643,8 +643,8 @@
                         [mapas, raster, vector],
                 target: 'map',
                 view: new ol.View({
-                    center: ol.proj.transform([-72, -38], 'EPSG:4326', 'EPSG:3857'),
-                    zoom: 4
+                    center: ol.proj.transform([-71.671667, -35.426667], 'EPSG:4326', 'EPSG:3857'),
+                    zoom: 7.5
                 })
             });
 
@@ -726,13 +726,28 @@
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({'periodo': periodo, 'variable': variable, 'escenario': escenario, 'geoj': JSON.parse(geojson)}),
                     success: function (data) {
-                        lava.loadData('grafico', data);
-                        console.log(data);
-                        $("#datos").empty();
-                        for (var i = 0; i < data.rows.length; i++) {
-                        tablaDatos.append("<tr><td>" + data.rows[i].c[0].v + "</td><td><span class='badge bg-red'>" + data.rows[i].c[1].v + "</span></td></tr>");
+                        hayDatos = true;
+                        for (var i = 0; i < data.rows.length; i++) 
+                        {
+                            if(data.rows[i].c[1].v == null)
+                            {
+                                hayDatos = false;
+                            }
                         }
-
+                        if(!hayDatos)
+                        {
+                            $('#modal-error').modal('show');
+                            lava.loadData('grafico', data);
+                            $("#datos").empty();                            
+                        }
+                        else
+                        {
+                            lava.loadData('grafico', data);
+                            $("#datos").empty();
+                            for (var i = 0; i < data.rows.length; i++) {
+                            tablaDatos.append("<tr><td>" + data.rows[i].c[0].v + "</td><td><span class='badge bg-red'>" + data.rows[i].c[1].v + "</span></td></tr>");
+                            }
+                        }                                            
                     }
                 });
             }
