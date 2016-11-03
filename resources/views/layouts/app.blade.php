@@ -368,13 +368,27 @@
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({'periodo': periodo, 'variable': variable, 'escenario': escenario, 'geoj': JSON.parse(geojson)}),
                     success: function (data) {
-                        lava.loadData('grafico', data);
-                        console.log(data);
-                        $("#datos").empty();
-                        for (var i = 0; i < data.rows.length; i++) {
-                        tablaDatos.append("<tr><td>" + data.rows[i].c[0].v + "</td><td><span class='badge bg-red'>" + data.rows[i].c[1].v + "</span></td></tr>");
+                        s = 0;
+                        for (var i = 0; i < data.rows.length; i++) 
+                        {
+                            if(data.rows[i].c[1].v == null)
+                            {
+                                s+=1;
+                            }
                         }
-
+                        if(s == 12)
+                        {
+                            console.log("Hola");
+                            $('#modal-error').modal('show');
+                        }
+                        else
+                        {
+                            lava.loadData('grafico', data);
+                            $("#datos").empty();
+                            for (var i = 0; i < data.rows.length; i++) {
+                            tablaDatos.append("<tr><td>" + data.rows[i].c[0].v + "</td><td><span class='badge bg-red'>" + data.rows[i].c[1].v + "</span></td></tr>");
+                            }
+                        }                                            
                     }
                 });
             }
