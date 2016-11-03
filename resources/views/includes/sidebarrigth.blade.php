@@ -112,6 +112,28 @@
 			<button onclick="" type="button" class="close" data-toggle="control-sidebar"aria-label="Close"><span aria-hidden="true">×</span></button>
 			<h4 class="modal-title">Descargar</h4>
 		</div>
+
+
+
+
+		<select class="form-control select2 input-sm" id="Var" onchange="cambiarRaster()">
+			<option value=1 >T° Enero</option>
+			<option value=2 >T° Febrero</option>
+			<option value=3 >T° Marzo</option>					
+			<option value=4 >T° Abril</option>
+			<option value=5 >T° Mayo</option>
+			<option value=6 >T° Junio</option>
+			<option value=7 >T° Julio</option>
+			<option value=8 >T° Agosto</option>
+			<option value=9 >T° Septiembre</option>
+			<option value=10 >T° Octubre</option>
+			<option value=11 >T° Noviembre</option>
+			<option value=12 >T° Diciembre</option>
+		</select>
+		<a href="/" class="btn btn-default">Cargar Raster</a>
+
+
+
 	</div>
 	<div id="side_capa" style="display:none;">
 		<div class="modal-header">
