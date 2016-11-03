@@ -130,6 +130,11 @@
 				<button class="btn btn-block btn-primary btn-xs" id="btn-exportar" data-toggle="control-sidebar" title="Exportar" onclick='exportar()'>Exportar datos</button>		
 			</div>
 		</div>
+		<div class="modal-header">
+			<div class="callout callout-info">
+				<p>Permite exportar los datos actualmente seleccionados.</p>
+			</div>
+		</div>
 	</div>
 	<div id="side_capa" style="display:none;">
 		<div class="modal-header">

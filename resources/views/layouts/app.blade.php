@@ -398,20 +398,19 @@
                 if(formato=="XML")
                 {
                     var datos = obtenerDatos();
-                    descargarArchivo(generarXml(datos), 'archivo.xml');
+                    descargarArchivo(generarXml(datos), 'datos.xml');
                 }
                 else if(formato=="CSV")
                 {
                     var datos = obtenerDatos();
-                    descargarArchivo(generarCsv(datos), 'archivo.csv');
+                    descargarArchivo(generarCsv(datos), 'datos.csv');
                 }
                 else
                 {
                     var datos = obtenerDatos();
                     var datosJson = JSON.stringify(datos);
-                    descargarArchivo(new Blob([datosJson], {type: 'application/json'}), 'archivo.json');
+                    descargarArchivo(new Blob([datosJson], {type: 'application/json'}), 'datos.json');
                 }
-                //$( "#myselect option:selected" ).text();
              }
              function obtenerDatos()
              {
@@ -423,7 +422,6 @@
                 };
              }
              function generarXml(datos) {
-                
                 var texto = [];
                 texto.push('<?xml version="1.0" encoding="UTF-8" ?>\n');
                 texto.push('<datos>\n');
@@ -436,9 +434,9 @@
                 texto.push('\t<variable>');
                 texto.push(escaparXML(datos.variable));
                 texto.push('</variable>\n');
-                texto.push('\t<rater>');
+                texto.push('\t<raster>');
                 texto.push(escaparXML(datos.raster));
-                texto.push('</rater>\n');
+                texto.push('</raster>\n');
                 texto.push('</datos>');
                 //No olvidemos especificar el tipo MIME correcto :)
                 return new Blob(texto, {
