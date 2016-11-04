@@ -138,7 +138,7 @@
 
 
 
-
+<!--
 		<select class="form-control select2 input-sm" id="Var" onchange="cambiarRaster()">
 			<option value=1 >T° Enero</option>
 			<option value=2 >T° Febrero</option>
@@ -153,7 +153,7 @@
 			<option value=11 >T° Noviembre</option>
 			<option value=12 >T° Diciembre</option>
 		</select>
-		<a href="/" class="btn btn-default">Cargar Raster</a>
+		<a href="/" class="btn btn-default">Cargar Raster</a>-->
 
 
 

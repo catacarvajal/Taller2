@@ -789,7 +789,7 @@
              {
                 return {
                     periodo: "1990",
-                    escenario: "III",
+                    escenario: "SRES A1B",
                     variable: "Precipitacion",
                     raster:  "21312312"
                 };
