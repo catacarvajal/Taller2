@@ -242,25 +242,185 @@
             {
                 if(document.getElementById('Var').value == 1) 
                 {
-                    raster.set("visible",true);
+                    raster.U.layers.a[0].U.visible = true;
+                    raster.U.layers.a[1].U.visible = false;
+                    raster.U.layers.a[2].U.visible = false;
+                    raster.U.layers.a[3].U.visible = false;
+                    raster.U.layers.a[4].U.visible = false;
+                    raster.U.layers.a[5].U.visible = false;
+                    raster.U.layers.a[6].U.visible = false;
+                    raster.U.layers.a[7].U.visible = false;
+                    raster.U.layers.a[8].U.visible = false;
+                    raster.U.layers.a[9].U.visible = false;
+                    raster.U.layers.a[10].U.visible = false;
+                    raster.U.layers.a[11].U.visible = false;
                 }
                 else if(document.getElementById('Var').value == 2) 
                 {
-                    raster.set("visible",false);
+                    raster.U.layers.a[0].U.visible = false;
+                    raster.U.layers.a[1].U.visible = true;
+                    raster.U.layers.a[2].U.visible = false;
+                    raster.U.layers.a[3].U.visible = false;
+                    raster.U.layers.a[4].U.visible = false;
+                    raster.U.layers.a[5].U.visible = false;
+                    raster.U.layers.a[6].U.visible = false;
+                    raster.U.layers.a[7].U.visible = false;
+                    raster.U.layers.a[8].U.visible = false;
+                    raster.U.layers.a[9].U.visible = false;
+                    raster.U.layers.a[10].U.visible = false;
+                    raster.U.layers.a[11].U.visible = false;;
                 }
                 else if(document.getElementById('Var').value == 3) 
                 {
-                    console.log("Tercer if");
+                    raster.U.layers.a[0].U.visible = false;
                     raster.U.layers.a[1].U.visible = false;
-                    console.log(raster.U.layers.a[0].U.visible);
-                    console.log(raster.U.layers.a[1].U.visible);
+                    raster.U.layers.a[2].U.visible = true;
+                    raster.U.layers.a[3].U.visible = false;
+                    raster.U.layers.a[4].U.visible = false;
+                    raster.U.layers.a[5].U.visible = false;
+                    raster.U.layers.a[6].U.visible = false;
+                    raster.U.layers.a[7].U.visible = false;
+                    raster.U.layers.a[8].U.visible = false;
+                    raster.U.layers.a[9].U.visible = false;
+                    raster.U.layers.a[10].U.visible = false;
+                    raster.U.layers.a[11].U.visible = false;
                 }
                 else if(document.getElementById('Var').value == 4) 
                 {
-                    console.log("Cuarto if");
+                    raster.U.layers.a[0].U.visible = false;
+                    raster.U.layers.a[1].U.visible = false;
+                    raster.U.layers.a[2].U.visible = false;
+                    raster.U.layers.a[3].U.visible = true;
+                    raster.U.layers.a[4].U.visible = false;
+                    raster.U.layers.a[5].U.visible = false;
+                    raster.U.layers.a[6].U.visible = false;
+                    raster.U.layers.a[7].U.visible = false;
+                    raster.U.layers.a[8].U.visible = false;
+                    raster.U.layers.a[9].U.visible = false;
+                    raster.U.layers.a[10].U.visible = false;
+                    raster.U.layers.a[11].U.visible = false;
+                }
+                else if(document.getElementById('Var').value == 5) 
+                {
+                    raster.U.layers.a[0].U.visible = false;
+                    raster.U.layers.a[1].U.visible = false;
+                    raster.U.layers.a[2].U.visible = false;
+                    raster.U.layers.a[3].U.visible = false;
+                    raster.U.layers.a[4].U.visible = true;
+                    raster.U.layers.a[5].U.visible = false;
+                    raster.U.layers.a[6].U.visible = false;
+                    raster.U.layers.a[7].U.visible = false;
+                    raster.U.layers.a[8].U.visible = false;
+                    raster.U.layers.a[9].U.visible = false;
+                    raster.U.layers.a[10].U.visible = false;
+                    raster.U.layers.a[11].U.visible = false;
+                }
+                else if(document.getElementById('Var').value == 6) 
+                {
+                    raster.U.layers.a[0].U.visible = false;
+                    raster.U.layers.a[1].U.visible = false;
+                    raster.U.layers.a[2].U.visible = false;
+                    raster.U.layers.a[3].U.visible = false;
+                    raster.U.layers.a[4].U.visible = false;
+                    raster.U.layers.a[5].U.visible = true;
+                    raster.U.layers.a[6].U.visible = false;
+                    raster.U.layers.a[7].U.visible = false;
+                    raster.U.layers.a[8].U.visible = false;
+                    raster.U.layers.a[9].U.visible = false;
+                    raster.U.layers.a[10].U.visible = false;
+                    raster.U.layers.a[11].U.visible = false;
+                }
+                else if(document.getElementById('Var').value == 7) 
+                {
+                    raster.U.layers.a[0].U.visible = false;
+                    raster.U.layers.a[1].U.visible = false;
+                    raster.U.layers.a[2].U.visible = false;
+                    raster.U.layers.a[3].U.visible = false;
+                    raster.U.layers.a[4].U.visible = false;
+                    raster.U.layers.a[5].U.visible = false;
+                    raster.U.layers.a[6].U.visible = true;
+                    raster.U.layers.a[7].U.visible = false;
+                    raster.U.layers.a[8].U.visible = false;
+                    raster.U.layers.a[9].U.visible = false;
+                    raster.U.layers.a[10].U.visible = false;
+                    raster.U.layers.a[11].U.visible = false;
+                }
+                else if(document.getElementById('Var').value == 8) 
+                {
+                    raster.U.layers.a[0].U.visible = false;
+                    raster.U.layers.a[1].U.visible = false;
+                    raster.U.layers.a[2].U.visible = false;
+                    raster.U.layers.a[3].U.visible = false;
+                    raster.U.layers.a[4].U.visible = false;
+                    raster.U.layers.a[5].U.visible = false;
+                    raster.U.layers.a[6].U.visible = false;
+                    raster.U.layers.a[7].U.visible = true;
+                    raster.U.layers.a[8].U.visible = false;
+                    raster.U.layers.a[9].U.visible = false;
+                    raster.U.layers.a[10].U.visible = false;
+                    raster.U.layers.a[11].U.visible = false;
+                }
+                else if(document.getElementById('Var').value == 9) 
+                {
+                    raster.U.layers.a[0].U.visible = false;
+                    raster.U.layers.a[1].U.visible = false;
+                    raster.U.layers.a[2].U.visible = false;
+                    raster.U.layers.a[3].U.visible = false;
+                    raster.U.layers.a[4].U.visible = false;
+                    raster.U.layers.a[5].U.visible = false;
+                    raster.U.layers.a[6].U.visible = false;
+                    raster.U.layers.a[7].U.visible = false;
+                    raster.U.layers.a[8].U.visible = true;
+                    raster.U.layers.a[9].U.visible = false;
+                    raster.U.layers.a[10].U.visible = false;
+                    raster.U.layers.a[11].U.visible = false;
+                }
+                else if(document.getElementById('Var').value == 10) 
+                {
+                    raster.U.layers.a[0].U.visible = false;
+                    raster.U.layers.a[1].U.visible = false;
+                    raster.U.layers.a[2].U.visible = false;
+                    raster.U.layers.a[3].U.visible = false;
+                    raster.U.layers.a[4].U.visible = false;
+                    raster.U.layers.a[5].U.visible = false;
+                    raster.U.layers.a[6].U.visible = false;
+                    raster.U.layers.a[7].U.visible = false;
+                    raster.U.layers.a[8].U.visible = false;
+                    raster.U.layers.a[9].U.visible = true;
+                    raster.U.layers.a[10].U.visible = false;
+                    raster.U.layers.a[11].U.visible = false;
+                }
+                else if(document.getElementById('Var').value == 11) 
+                {
+                    raster.U.layers.a[0].U.visible = false;
+                    raster.U.layers.a[1].U.visible = false;
+                    raster.U.layers.a[2].U.visible = false;
+                    raster.U.layers.a[3].U.visible = false;
+                    raster.U.layers.a[4].U.visible = false;
+                    raster.U.layers.a[5].U.visible = false;
+                    raster.U.layers.a[6].U.visible = false;
+                    raster.U.layers.a[7].U.visible = false;
+                    raster.U.layers.a[8].U.visible = false;
+                    raster.U.layers.a[9].U.visible = false;
+                    raster.U.layers.a[10].U.visible = true;
+                    raster.U.layers.a[11].U.visible = false;
+                }
+                else if(document.getElementById('Var').value == 12) 
+                {
+                    raster.U.layers.a[0].U.visible = false;
+                    raster.U.layers.a[1].U.visible = false;
+                    raster.U.layers.a[2].U.visible = false;
+                    raster.U.layers.a[3].U.visible = false;
+                    raster.U.layers.a[4].U.visible = false;
+                    raster.U.layers.a[5].U.visible = false;
+                    raster.U.layers.a[6].U.visible = false;
+                    raster.U.layers.a[7].U.visible = false;
+                    raster.U.layers.a[8].U.visible = false;
+                    raster.U.layers.a[9].U.visible = false;
+                    raster.U.layers.a[10].U.visible = false;
+                    raster.U.layers.a[11].U.visible = true;
                 }
             }
-            
 
             var mapas = new ol.layer.Group({
                 title: 'Mapas',
@@ -302,8 +462,107 @@
                 title: 'Categorias',
                 layers: [
                 new ol.layer.Image({
+                    title: 'Tmin1',
+                    visible: false,
+                    source: new ol.source.ImageWMS({
+                        ratio: 1,
+                        url: 'http://tomcat7.curi.co.uk:80/geoserver/taller2/wms',
+                        params: {'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        LAYERS: 'taller2:tmin_1_Baseline',
+                        STYLES: '',
+                    },
+                    serverType: 'geoserver'
+                })
+                }),
+
+                new ol.layer.Image({
+                    title: 'Tmin2',
+                    visible: false,
+                    source: new ol.source.ImageWMS({
+                        ratio: 1,
+                        url: 'http://tomcat7.curi.co.uk:80/geoserver/taller2/wms',
+                        params: {'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        LAYERS: 'taller2:tmin_2_Baseline',
+                        STYLES: '',
+                    },
+                    serverType: 'geoserver'
+                })
+                }),
+                new ol.layer.Image({
+                    title: 'Tmin3',
+                    visible: false,
+                    source: new ol.source.ImageWMS({
+                        ratio: 1,
+                        url: 'http://tomcat7.curi.co.uk:80/geoserver/taller2/wms',
+                        params: {'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        LAYERS: 'taller2:tmin_3_Baseline',
+                        STYLES: '',
+                    },
+                    serverType: 'geoserver'
+                })
+                }),
+                new ol.layer.Image({
+                    title: 'Tmin4',
+                    visible: false,
+                    source: new ol.source.ImageWMS({
+                        ratio: 1,
+                        url: 'http://tomcat7.curi.co.uk:80/geoserver/taller2/wms',
+                        params: {'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        LAYERS: 'taller2:tmin_4_Baseline',
+                        STYLES: '',
+                    },
+                    serverType: 'geoserver'
+                })
+                }),
+                new ol.layer.Image({
+                    title: 'Tmin5',
+                    visible: false,
+                    source: new ol.source.ImageWMS({
+                        ratio: 1,
+                        url: 'http://tomcat7.curi.co.uk:80/geoserver/taller2/wms',
+                        params: {'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        LAYERS: 'taller2:tmin_5_Baseline',
+                        STYLES: '',
+                    },
+                    serverType: 'geoserver'
+                })
+                }),
+                new ol.layer.Image({
+                    title: 'Tmin6',
+                    visible: false,
+                    source: new ol.source.ImageWMS({
+                        ratio: 1,
+                        url: 'http://tomcat7.curi.co.uk:80/geoserver/taller2/wms',
+                        params: {'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        LAYERS: 'taller2:tmin_6_Baseline',
+                        STYLES: '',
+                    },
+                    serverType: 'geoserver'
+                })
+                }),
+                new ol.layer.Image({
+                    title: 'Tmin7',
+                    visible: false,
+                    source: new ol.source.ImageWMS({
+                        ratio: 1,
+                        url: 'http://tomcat7.curi.co.uk:80/geoserver/taller2/wms',
+                        params: {'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        LAYERS: 'taller2:tmin_7_Baseline',
+                        STYLES: '',
+                    },
+                    serverType: 'geoserver'
+                })
+                }),
+                new ol.layer.Image({
                     title: 'Tmin8',
-                    visible: true,
+                    visible: false,
                     source: new ol.source.ImageWMS({
                         ratio: 1,
                         url: 'http://tomcat7.curi.co.uk:80/geoserver/taller2/wms',
@@ -315,10 +574,51 @@
                     serverType: 'geoserver'
                 })
                 }),
-
                 new ol.layer.Image({
-                    title: 'Tmin6',
-                    visible: true,
+                    title: 'Tmin9',
+                    visible: false,
+                    source: new ol.source.ImageWMS({
+                        ratio: 1,
+                        url: 'http://tomcat7.curi.co.uk:80/geoserver/taller2/wms',
+                        params: {'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        LAYERS: 'taller2:tmin_9_Baseline',
+                        STYLES: '',
+                    },
+                    serverType: 'geoserver'
+                })
+                }),
+                new ol.layer.Image({
+                    title: 'Tmin10',
+                    visible: false,
+                    source: new ol.source.ImageWMS({
+                        ratio: 1,
+                        url: 'http://tomcat7.curi.co.uk:80/geoserver/taller2/wms',
+                        params: {'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        LAYERS: 'taller2:tmin_10_Baseline',
+                        STYLES: '',
+                    },
+                    serverType: 'geoserver'
+                })
+                }),
+                new ol.layer.Image({
+                    title: 'Tmin11',
+                    visible: false,
+                    source: new ol.source.ImageWMS({
+                        ratio: 1,
+                        url: 'http://tomcat7.curi.co.uk:80/geoserver/taller2/wms',
+                        params: {'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        LAYERS: 'taller2:tmin_11_Baseline',
+                        STYLES: '',
+                    },
+                    serverType: 'geoserver'
+                })
+                }),
+                new ol.layer.Image({
+                    title: 'Tmin12',
+                    visible: false,
                     source: new ol.source.ImageWMS({
                         ratio: 1,
                         url: 'http://tomcat7.curi.co.uk:80/geoserver/taller2/wms',
@@ -343,8 +643,8 @@
                         [mapas, raster, vector],
                 target: 'map',
                 view: new ol.View({
-                    center: ol.proj.transform([-72, -38], 'EPSG:4326', 'EPSG:3857'),
-                    zoom: 4
+                    center: ol.proj.transform([-71.671667, -35.426667], 'EPSG:4326', 'EPSG:3857'),
+                    zoom: 7.5
                 })
             });
 
@@ -426,13 +726,28 @@
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({'periodo': periodo, 'variable': variable, 'escenario': escenario, 'geoj': JSON.parse(geojson)}),
                     success: function (data) {
-                        lava.loadData('grafico', data);
-                        console.log(data);
-                        $("#datos").empty();
-                        for (var i = 0; i < data.rows.length; i++) {
-                        tablaDatos.append("<tr><td>" + data.rows[i].c[0].v + "</td><td><span class='badge bg-red'>" + data.rows[i].c[1].v + "</span></td></tr>");
+                        hayDatos = true;
+                        for (var i = 0; i < data.rows.length; i++) 
+                        {
+                            if(data.rows[i].c[1].v == null)
+                            {
+                                hayDatos = false;
+                            }
                         }
-
+                        if(!hayDatos)
+                        {
+                            $('#modal-error').modal('show');
+                            lava.loadData('grafico', data);
+                            $("#datos").empty();                            
+                        }
+                        else
+                        {
+                            lava.loadData('grafico', data);
+                            $("#datos").empty();
+                            for (var i = 0; i < data.rows.length; i++) {
+                            tablaDatos.append("<tr><td>" + data.rows[i].c[0].v + "</td><td><span class='badge bg-red'>" + data.rows[i].c[1].v + "</span></td></tr>");
+                            }
+                        }                                            
                     }
                 });
             }
@@ -450,5 +765,97 @@
 
             addInteraction();
         </script>
+        <script type="text/javascript">
+            function exportar() {
+                var formato = $('#formato option:selected').val();
+                if(formato=="XML")
+                {
+                    var datos = obtenerDatos();
+                    descargarArchivo(generarXml(datos), 'datos.xml');
+                }
+                else if(formato=="CSV")
+                {
+                    var datos = obtenerDatos();
+                    descargarArchivo(generarCsv(datos), 'datos.csv');
+                }
+                else
+                {
+                    var datos = obtenerDatos();
+                    var datosJson = JSON.stringify(datos);
+                    descargarArchivo(new Blob([datosJson], {type: 'application/json'}), 'datos.json');
+                }
+             }
+             function obtenerDatos()
+             {
+                return {
+                    periodo: "1990",
+                    escenario: "SRES A1B",
+                    variable: "Precipitacion",
+                    raster:  "21312312"
+                };
+             }
+             function generarXml(datos) {
+                var texto = [];
+                texto.push('<?xml version="1.0" encoding="UTF-8" ?>\n');
+                texto.push('<datos>\n');
+                texto.push('\t<periodo>');
+                texto.push(escaparXML(datos.periodo));
+                texto.push('</periodo>\n');
+                texto.push('\t<escenario>');
+                texto.push(escaparXML(datos.escenario));
+                texto.push('</escenario>\n');
+                texto.push('\t<variable>');
+                texto.push(escaparXML(datos.variable));
+                texto.push('</variable>\n');
+                texto.push('\t<raster>');
+                texto.push(escaparXML(datos.raster));
+                texto.push('</raster>\n');
+                texto.push('</datos>');
+                //No olvidemos especificar el tipo MIME correcto :)
+                return new Blob(texto, {
+                    type: 'application/xml'
+                });
+            }
+
+            function generarCsv(datos) {
+                var texto = ['"periodo";"escenario";"variable";"raster"',
+                             ''+datos.periodo+";"+datos.escenario+";"+datos.variable+";"+datos.raster+''
+                          ].join('\n');
+                //No olvidemos especificar el tipo MIME correcto :)
+                return new Blob([texto], {
+                    type: 'application/csv'
+                });
+            }
+            //Función de ayuda: "escapa" las entidades XML necesarias
+            //para los valores (y atributos) del archivo XML
+            function escaparXML(cadena) {
+                if (typeof cadena !== 'string') {
+                    return '';
+                };
+                cadena = cadena.replace('&', '&amp;')
+                    .replace('<', '&lt;')
+                    .replace('>', '&gt;')
+                    .replace('"', '&quot;');
+                return cadena;
+            };
+              function descargarArchivo(contenidoEnBlob, nombreArchivo) {
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                    var save = document.createElement('a');
+                    save.href = event.target.result;
+                    save.target = '_blank';
+                    save.download = nombreArchivo || 'archivo.dat';
+                    var clicEvent = new MouseEvent('click', {
+                        'view': window,
+                            'bubbles': true,
+                            'cancelable': true
+                    });
+                    save.dispatchEvent(clicEvent);
+                    (window.URL || window.webkitURL).revokeObjectURL(save.href);
+                };
+                reader.readAsDataURL(contenidoEnBlob);
+            }
+
+         </script>
     </body>
 </html>
