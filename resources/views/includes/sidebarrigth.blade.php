@@ -112,6 +112,20 @@
 			<button onclick="" type="button" class="close" data-toggle="control-sidebar"aria-label="Close"><span aria-hidden="true">×</span></button>
 			<h4 class="modal-title">Descargar</h4>
 		</div>
+
+
+
+
+		<select class="form-control select2 input-sm" id="Var" onchange="cambiarRaster()">
+			<option value=1 >Seleccione</option>
+			<option value=2 >Regiones</option>
+			<option value=3 >Provincias</option>						
+			<option value=4 >Ciudades</option>						
+		</select>
+		<a href="/" class="btn btn-default">Cargar Raster</a>
+
+
+
 	</div>
 	<div id="side_capa" style="display:none;">
 		<div class="modal-header">

@@ -238,6 +238,30 @@
                 })
             });
 
+            function cambiarRaster()
+            {
+                if(document.getElementById('Var').value == 1) 
+                {
+                    raster.set("visible",true);
+                }
+                else if(document.getElementById('Var').value == 2) 
+                {
+                    raster.set("visible",false);
+                }
+                else if(document.getElementById('Var').value == 3) 
+                {
+                    console.log("Tercer if");
+                    raster.U.layers.a[1].U.visible = false;
+                    console.log(raster.U.layers.a[0].U.visible);
+                    console.log(raster.U.layers.a[1].U.visible);
+                }
+                else if(document.getElementById('Var').value == 4) 
+                {
+                    console.log("Cuarto if");
+                }
+            }
+            
+
             var mapas = new ol.layer.Group({
                 title: 'Mapas',
                 layers: [new ol.layer.Tile({
@@ -274,6 +298,40 @@
                 ]
             });
 
+            var raster = new ol.layer.Group({
+                title: 'Categorias',
+                layers: [
+                new ol.layer.Image({
+                    title: 'Tmin8',
+                    visible: true,
+                    source: new ol.source.ImageWMS({
+                        ratio: 1,
+                        url: 'http://tomcat7.curi.co.uk:80/geoserver/taller2/wms',
+                        params: {'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        LAYERS: 'taller2:tmin_8_Baseline',
+                        STYLES: '',
+                    },
+                    serverType: 'geoserver'
+                })
+                }),
+
+                new ol.layer.Image({
+                    title: 'Tmin6',
+                    visible: true,
+                    source: new ol.source.ImageWMS({
+                        ratio: 1,
+                        url: 'http://tomcat7.curi.co.uk:80/geoserver/taller2/wms',
+                        params: {'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        LAYERS: 'taller2:tmin_12_Baseline',
+                        STYLES: '',
+                    },
+                    serverType: 'geoserver'
+                })
+                }),
+                ]
+            });
 
             var map = new ol.Map({
                 controls: ol.control.defaults().extend([
@@ -282,7 +340,7 @@
                     })
                 ]),
                 layers:
-                        [mapas, vector],
+                        [mapas, raster, vector],
                 target: 'map',
                 view: new ol.View({
                     center: ol.proj.transform([-72, -38], 'EPSG:4326', 'EPSG:3857'),
