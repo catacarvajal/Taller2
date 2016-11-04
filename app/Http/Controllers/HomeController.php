@@ -13,18 +13,18 @@ use App\Variable;
 
 class HomeController extends Controller {
 
-	public function index()
-	{
-		$consultaPunto = $this->consultaGraficoInicio(0,0,0);//hacemos la consulta de 1 punto
+    public function index()
+    {
+        $consultaPunto = $this->consultaGraficoInicio(0,0,0);//hacemos la consulta de 1 punto
         $lava = $this->graficoPunto($consultaPunto);//hacemos el gráfico de ese punto con la consulta anterior
-		$periodo = Period::all();// traemos todos los periodos que existen en la bd
+        $periodo = Period::all();// traemos todos los periodos que existen en la bd
         $scenario = Scenario::all();
         $variable = Variable::all();
         $datosTabla = $this->datosTabla(1,1); //se obtienen los datos para llenar la tabla (mes, variable, promedio)
-		return view('index')->with('periodo',$periodo)->with('scenario',$scenario)->with('variable',$variable)->with('lava',$lava)->with('datosTabla',$datosTabla);
-	}
+        return view('index')->with('periodo',$periodo)->with('scenario',$scenario)->with('variable',$variable)->with('lava',$lava)->with('datosTabla',$datosTabla);
+    }
 
-	 public function consultaGraficoInicio($id_variable, $id_periodo, $id_escenario)
+     public function consultaGraficoInicio($id_variable, $id_periodo, $id_escenario)
     {
         
              $consulta = DB::table('rast')
@@ -45,7 +45,7 @@ class HomeController extends Controller {
 
         
     }
-	 public function graficoPunto($consulta)
+     public function graficoPunto($consulta)
     {
         
         $lava = new Lavacharts; // See note below for Laravel
@@ -130,8 +130,49 @@ class HomeController extends Controller {
         return $grafico;
     }
 
+     public function consultaGraficoCirculo($id_variable, $id_periodo, $id_escenario,$puntox,$puntoy)
+    {
+
+             $consulta = DB::table('rast')
+            ->select(DB::raw('month.name,month.id,avg(ST_Value(rast, ST_SetSRID(ST_Point('.$puntox.','.$puntoy.'), 4326)))'))
+            ->join('register', 'register.id', '=', 'rast.id_register')
+            ->join('month', 'month.id', '=', 'register.id_month')
+            ->join('variable', 'variable.id', '=', 'register.id_variable')
+            ->join('scenario', 'scenario.id', '=', 'register.id_scenario')
+            ->where('register.id_period', '=', $id_periodo)
+            ->orwhere('variable.id','=', $id_variable)
+            ->orwhere('scenario.id','=', $id_escenario)
+            ->groupBy('month.id')
+            ->orderBy('month.id')
+            ->get();
+            return $consulta;
+        
+
+        
+    }
+     public function consultaGraficoPoligono($id_variable, $id_periodo, $id_escenario,$poligono)
+    {
+       
+        $consulta = DB::table('rast')
+            ->select(DB::raw('month.name,month.id,AVG((ST_summarystats(ST_CLIP(rast, ST_Polygon(ST_GeomFromText('LINESTRING(-70.96338975615923 -35.22087943880997, -70.93867051787797 -34.876856319428114, -71.35889756865923 -34.85657457738322, -71.38361680694047 -35.20068292111078, -70.96338975615923 -35.22087943880997)'), 4326)))).mean)'))
+            ->join('register', 'register.id', '=', 'rast.id_register')
+            ->join('month', 'month.id', '=', 'register.id_month')
+            ->join('variable', 'variable.id', '=', 'register.id_variable')
+            ->join('scenario', 'scenario.id', '=', 'register.id_scenario')
+            ->where('register.id_period', '=', $id_periodo)
+            ->orwhere('variable.id','=', $id_variable)
+            ->orwhere('scenario.id','=', $id_escenario)
+            ->groupBy('month.id')
+            ->orderBy('month.id')
+            ->get();
+            return $consulta;
+        
+
+        
+    }
     public function ajaxGeoJson(Request $request){
 
+        dd($request->all());
         $variable =$request->input('variable');
   
         $escenario =$request->input('escenario');
@@ -141,13 +182,24 @@ class HomeController extends Controller {
        
         $data0=$data['geometry'];
         $data1=$data0['type']; //tipo de geometria
-        $data2=$data0['coordinates']; //cordenadas 
-
-       
-        $consultaPunto = $this->consultaGrafico($variable,$periodo,$escenario,$data2[0],$data2[1]);
-        $lava = $this->DataTable($consultaPunto);
-          
-        return $lava->toJson();
+        $data2=$data0['coordinates']; //coordenadas 
+        if ($data1 == "Point")
+        {
+            $consultaPunto = $this->consultaGrafico($variable,$periodo,$escenario,$data2[0],$data2[1]);
+            $lava = $this->DataTable($consultaPunto);
+        }
+        if ($data1 == "Circle")
+        {
+            $consultaCirculo = $this->consultaGraficoCirculo($variable,$periodo,$escenario,$data2[0],$data2[1]);
+            $lava = $this->DataTable($consultaCirculo);
+        }
+        else 
+        {
+            $consultaPoligono = $this->consultaGraficoPoligono($variable,$periodo,$escenario,$data2);
+            $lava = $this->DataTable($consultaPoligono);
+        }       
+        return $lava->tojson();
+    
 
 
  /*       $data = $request->input('geoj');       
