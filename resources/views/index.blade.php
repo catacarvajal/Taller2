@@ -46,8 +46,20 @@
                                                 </tr>
                                                 <tbody id="datos"></tbody>
                                             </table>
+
                                         </div>
                                         <!-- Fin creación de tabla -->
+                                        <div class="col-md-12">
+                                            <div class="form-group ">
+                                                <label>Formato: &nbsp;</label>
+                                                <select class="form-control select2 input-sm" id="formato">
+                                                    <option value="CSV">CSV</option>
+                                                    <option value="XML">XML</option>                        
+                                                    <option value="Json">Json</option>                      
+                                                </select>
+                                            </div>
+                                            <button class="btn btn-block btn-primary btn-xs" id="btn-exportar" title="Exportar" onclick='exportar()'>Exportar datos</button>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="btn-group dropup" style="position: absolute; bottom: 50px; right: 15px; padding: 3px; ">

@@ -110,30 +110,7 @@
 	<div id="side_descargar" style="display:none;">
 		<div class="modal-header">
 			<button onclick="" type="button" class="close" data-toggle="control-sidebar"aria-label="Close"><span aria-hidden="true">×</span></button>
-			<h4 class="modal-title">Exportar</h4>
-		</div>
-
-		<div class="row">
-			<div class="col-md-8 col-md-offset-2">	
-				<div class="form-group ">
-					<label>Formato: &nbsp;</label>
-					<select class="form-control select2 input-sm" id="formato">
-						<option value="CSV">CSV</option>
-						<option value="XML">XML</option>						
-						<option value="Json">Json</option>						
-					</select>
-				</div>
-			</div>		
-		</div>	
-		<div class="row">
-			<div class="col-md-8 col-md-offset-2">					
-				<button class="btn btn-block btn-primary btn-xs" id="btn-exportar" data-toggle="control-sidebar" title="Exportar" onclick='exportar()'>Exportar datos</button>		
-			</div>
-		</div>
-		<div class="modal-header">
-			<div class="callout callout-info">
-				<p>Permite exportar los datos actualmente seleccionados.</p>
-			</div>
+			<h4 class="modal-title">Descargar</h4>
 		</div>
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">	
