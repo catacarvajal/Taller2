@@ -420,6 +420,7 @@
                     raster.U.layers.a[10].U.visible = false;
                     raster.U.layers.a[11].U.visible = true;
                 }
+                map.updateSize();
             }
 
             var mapas = new ol.layer.Group({
