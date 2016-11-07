@@ -66,11 +66,11 @@ class HomeController extends Controller {
 
         return $lava;
     }
-    public function consultaGrafico($id_variable, $id_periodo, $id_escenario,$puntox,$puntoy)
+    public function consultaGrafico($id_variable, $id_periodo, $id_escenario,$puntos)
     {
 
              $consulta = DB::table('rast')
-            ->select(DB::raw('month.name,month.id,avg(ST_Value(rast, ST_SetSRID(ST_Point('.$puntox.','.$puntoy.'), 4326)))'))
+            ->select(DB::raw('month.name,month.id,avg(ST_Value(rast, ST_SetSRID(ST_Point('.$puntos.'), 4326)))'))
             ->join('register', 'register.id', '=', 'rast.id_register')
             ->join('month', 'month.id', '=', 'register.id_month')
             ->join('variable', 'variable.id', '=', 'register.id_variable')
@@ -154,7 +154,7 @@ class HomeController extends Controller {
     {
        
         $consulta = DB::table('rast')
-            ->select(DB::raw('month.name,month.id,AVG((ST_summarystats(ST_CLIP(rast, ST_Polygon(ST_GeomFromText('LINESTRING(-70.96338975615923 -35.22087943880997, -70.93867051787797 -34.876856319428114, -71.35889756865923 -34.85657457738322, -71.38361680694047 -35.20068292111078, -70.96338975615923 -35.22087943880997)'), 4326)))).mean)'))
+            ->select(DB::raw('month.name,month.id,AVG((ST_summarystats(ST_CLIP(rast, ST_Polygon(ST_GeomFromText(\'LINESTRING('.$poligono.')\'), 4326)))).mean)'))
             ->join('register', 'register.id', '=', 'rast.id_register')
             ->join('month', 'month.id', '=', 'register.id_month')
             ->join('variable', 'variable.id', '=', 'register.id_variable')
@@ -172,7 +172,7 @@ class HomeController extends Controller {
     }
     public function ajaxGeoJson(Request $request){
 
-        dd($request->all());
+       
         $variable =$request->input('variable');
   
         $escenario =$request->input('escenario');
@@ -183,9 +183,13 @@ class HomeController extends Controller {
         $data0=$data['geometry'];
         $data1=$data0['type']; //tipo de geometria
         $data2=$data0['coordinates']; //coordenadas 
-        if ($data1 == "Point")
-        {
-            $consultaPunto = $this->consultaGrafico($variable,$periodo,$escenario,$data2[0],$data2[1]);
+
+       
+        if ($data1=="Point")        {
+
+             $var=implode(",", $data2);  
+
+            $consultaPunto = $this->consultaGrafico($variable,$periodo,$escenario,$var);
             $lava = $this->DataTable($consultaPunto);
         }
         if ($data1 == "Circle")
@@ -193,9 +197,20 @@ class HomeController extends Controller {
             $consultaCirculo = $this->consultaGraficoCirculo($variable,$periodo,$escenario,$data2[0],$data2[1]);
             $lava = $this->DataTable($consultaCirculo);
         }
-        else 
+        if($data1=="Polygon" )
         {
-            $consultaPoligono = $this->consultaGraficoPoligono($variable,$periodo,$escenario,$data2);
+            $var1=$data2[0];
+            $var2="";
+            foreach ($var1 as & $valor) {
+           
+            $var=implode(" ", $valor);
+            $var2=$var.",".$var2;
+}
+             
+            $var2 = substr($var2, 0, -1);
+            
+                       
+            $consultaPoligono = $this->consultaGraficoPoligono($variable,$periodo,$escenario,$var2);
             $lava = $this->DataTable($consultaPoligono);
         }       
         return $lava->tojson();
