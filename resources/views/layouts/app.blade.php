@@ -715,6 +715,7 @@
                 ajax(geojson);
             }
             function ajax(geojson) {
+                console.log(geojson);
                 var periodo = $("#Periodo").val();
                 var variable = $("#Variable").val();
                 var escenario = $("#Escenario").val();
