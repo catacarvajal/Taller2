@@ -420,6 +420,7 @@
                     raster.U.layers.a[10].U.visible = false;
                     raster.U.layers.a[11].U.visible = true;
                 }
+                map.updateSize();
             }
 
             var mapas = new ol.layer.Group({
@@ -674,10 +675,11 @@
 
 
                         if (value2 == 'Circle') {
-                            var circle = e.feature.getGeometry();
+                            var feature = e.feature;
+                            var featureClone = feature.clone();                            
+                            var circle = featureClone.getGeometry().transform('EPSG:3857', 'EPSG:4326')
                             var radio = circle.getRadius();
-                            var centro = circle.getCenter();
-
+                            var centro = circle.getCenter();   
                             var geoj = {
                                 "type": "Feature",
                                 "geometry": {
@@ -714,6 +716,7 @@
                 ajax(geojson);
             }
             function ajax(geojson) {
+                console.log(geojson);
                 var periodo = $("#Periodo").val();
                 var variable = $("#Variable").val();
                 var escenario = $("#Escenario").val();
@@ -765,5 +768,97 @@
 
             addInteraction();
         </script>
+        <script type="text/javascript">
+            function exportar() {
+                var formato = $('#formato option:selected').val();
+                if(formato=="XML")
+                {
+                    var datos = obtenerDatos();
+                    descargarArchivo(generarXml(datos), 'datos.xml');
+                }
+                else if(formato=="CSV")
+                {
+                    var datos = obtenerDatos();
+                    descargarArchivo(generarCsv(datos), 'datos.csv');
+                }
+                else
+                {
+                    var datos = obtenerDatos();
+                    var datosJson = JSON.stringify(datos);
+                    descargarArchivo(new Blob([datosJson], {type: 'application/json'}), 'datos.json');
+                }
+             }
+             function obtenerDatos()
+             {
+                return {
+                    periodo: "1990",
+                    escenario: "SRES A1B",
+                    variable: "Precipitacion",
+                    raster:  "21312312"
+                };
+             }
+             function generarXml(datos) {
+                var texto = [];
+                texto.push('<?xml version="1.0" encoding="UTF-8" ?>\n');
+                texto.push('<datos>\n');
+                texto.push('\t<periodo>');
+                texto.push(escaparXML(datos.periodo));
+                texto.push('</periodo>\n');
+                texto.push('\t<escenario>');
+                texto.push(escaparXML(datos.escenario));
+                texto.push('</escenario>\n');
+                texto.push('\t<variable>');
+                texto.push(escaparXML(datos.variable));
+                texto.push('</variable>\n');
+                texto.push('\t<raster>');
+                texto.push(escaparXML(datos.raster));
+                texto.push('</raster>\n');
+                texto.push('</datos>');
+                //No olvidemos especificar el tipo MIME correcto :)
+                return new Blob(texto, {
+                    type: 'application/xml'
+                });
+            }
+
+            function generarCsv(datos) {
+                var texto = ['"periodo";"escenario";"variable";"raster"',
+                             ''+datos.periodo+";"+datos.escenario+";"+datos.variable+";"+datos.raster+''
+                          ].join('\n');
+                //No olvidemos especificar el tipo MIME correcto :)
+                return new Blob([texto], {
+                    type: 'application/csv'
+                });
+            }
+            //Función de ayuda: "escapa" las entidades XML necesarias
+            //para los valores (y atributos) del archivo XML
+            function escaparXML(cadena) {
+                if (typeof cadena !== 'string') {
+                    return '';
+                };
+                cadena = cadena.replace('&', '&amp;')
+                    .replace('<', '&lt;')
+                    .replace('>', '&gt;')
+                    .replace('"', '&quot;');
+                return cadena;
+            };
+              function descargarArchivo(contenidoEnBlob, nombreArchivo) {
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                    var save = document.createElement('a');
+                    save.href = event.target.result;
+                    save.target = '_blank';
+                    save.download = nombreArchivo || 'archivo.dat';
+                    var clicEvent = new MouseEvent('click', {
+                        'view': window,
+                            'bubbles': true,
+                            'cancelable': true
+                    });
+                    save.dispatchEvent(clicEvent);
+                    (window.URL || window.webkitURL).revokeObjectURL(save.href);
+                };
+                reader.readAsDataURL(contenidoEnBlob);
+            }
+
+         </script>
     </body>
 </html>
