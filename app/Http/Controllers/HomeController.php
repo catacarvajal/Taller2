@@ -16,7 +16,7 @@ class HomeController extends Controller {
     public function index()
     {
         $consultaPunto = $this->consultaGraficoInicio(0,0,0);//hacemos la consulta de 1 punto
-        $lava = $this->graficoPunto($consultaPunto);//hacemos el gráfico de ese punto con la consulta anterior
+        $lava = $this->graficoPunto($consultaPunto,'');//hacemos el gráfico de ese punto con la consulta anterior
         $periodo = Period::all();// traemos todos los periodos que existen en la bd
         $scenario = Scenario::all();
         $variable = Variable::all();
@@ -45,19 +45,19 @@ class HomeController extends Controller {
 
         
     }
-     public function graficoPunto($consulta)
+     public function graficoPunto($consulta,$variable)
     {
         
         $lava = new Lavacharts; // See note below for Laravel
                 $grafico = $lava->DataTable();
                 $grafico->addStringColumn('Months of Year')
-                        ->addNumberColumn('T° mínima');
+                        ->addNumberColumn('');
                         for($i=0; $i<count($consulta); $i++)
                         {
                             $grafico->addRow([$consulta[$i]->name, $consulta[$i]->avg]);
                         }
                 $lava->BarChart('grafico', $grafico, [
-                    'title' => '',
+                    'title' => 'Gráfico',
                     'titleTextStyle' => [
                         'color'    => '#eb6b2c',
                         'fontSize' => 30
@@ -102,7 +102,7 @@ class HomeController extends Controller {
     }  
 
 
-    public function DataTable($consulta)
+    public function DataTable($consulta, $variable)
     {
         if($consulta==0)
         {
@@ -112,17 +112,17 @@ class HomeController extends Controller {
             $lava = new Lavacharts; // See note below for Laravel
                 $grafico = $lava->DataTable();
                 $grafico->addStringColumn('Months of Year')
-                        ->addNumberColumn('T° mínima');
+                        ->addNumberColumn($variable);
                         for($i=0; $i<count($consulta); $i++)
                         {
                             $grafico->addRow([$consulta[$i]->name, $consulta[$i]->avg]);
                         }
                 $lava->BarChart('grafico', $grafico, [
-                    'title' => 'Temperatura Mínima',
+                    'title' => $variable,
                     'titleTextStyle' => [
                         'color'    => '#eb6b2c',
                         'fontSize' => 30
-                    ]
+                    ],'position' => 'in',
                 ]);
         }
         
@@ -130,11 +130,12 @@ class HomeController extends Controller {
         return $grafico;
     }
 
-     public function consultaGraficoCirculo($id_variable, $id_periodo, $id_escenario,$puntox,$puntoy)
+    
+    public function consultaGraficoCirculo($id_variable, $id_periodo, $id_escenario,$punto,$radio)
     {
 
              $consulta = DB::table('rast')
-            ->select(DB::raw('month.name,month.id,avg(ST_Value(rast, ST_SetSRID(ST_Point('.$puntox.','.$puntoy.'), 4326)))'))
+            ->select(DB::raw('month.name,month.id,AVG((ST_SummaryStats(ST_Clip(rast,1,ST_Buffer(ST_SetSRID(ST_Point('.$punto.'),4326),'.$radio.'),-9999,TRUE))).mean)'))
             ->join('register', 'register.id', '=', 'rast.id_register')
             ->join('month', 'month.id', '=', 'register.id_month')
             ->join('variable', 'variable.id', '=', 'register.id_variable')
@@ -146,26 +147,26 @@ class HomeController extends Controller {
             ->orderBy('month.id')
             ->get();
             return $consulta;
-        
-
-        
+    
     }
+
      public function consultaGraficoPoligono($id_variable, $id_periodo, $id_escenario,$poligono)
     {
        
+     
         $consulta = DB::table('rast')
-            ->select(DB::raw('month.name,month.id,AVG((ST_summarystats(ST_CLIP(rast, ST_Polygon(ST_GeomFromText(\'LINESTRING('.$poligono.')\'), 4326)))).mean)'))
-            ->join('register', 'register.id', '=', 'rast.id_register')
-            ->join('month', 'month.id', '=', 'register.id_month')
-            ->join('variable', 'variable.id', '=', 'register.id_variable')
-            ->join('scenario', 'scenario.id', '=', 'register.id_scenario')
-            ->where('register.id_period', '=', $id_periodo)
-            ->orwhere('variable.id','=', $id_variable)
-            ->orwhere('scenario.id','=', $id_escenario)
-            ->groupBy('month.id')
-            ->orderBy('month.id')
-            ->get();
-            return $consulta;
+        ->select(DB::raw('month.name,month.id,AVG((ST_summarystats(ST_CLIP(rast, ST_Polygon(ST_GeomFromText(\'LINESTRING('.$poligono.')\'), 4326)))).mean)'))
+        ->join('register', 'register.id', '=', 'rast.id_register')
+        ->join('month', 'month.id', '=', 'register.id_month')
+        ->join('variable', 'variable.id', '=', 'register.id_variable')
+        ->join('scenario', 'scenario.id', '=', 'register.id_scenario')
+        ->where('register.id_period', '=', $id_periodo)
+        ->orwhere('variable.id','=', $id_variable)
+        ->orwhere('scenario.id','=', $id_escenario)
+        ->groupBy('month.id')
+        ->orderBy('month.id')
+        ->get();
+        return $consulta;
         
 
         
@@ -183,19 +184,22 @@ class HomeController extends Controller {
         $data0=$data['geometry'];
         $data1=$data0['type']; //tipo de geometria
         $data2=$data0['coordinates']; //coordenadas 
-
+        $variableSelect = Variable::find($variable)->name;
+        
        
         if ($data1=="Point")        {
 
              $var=implode(",", $data2);  
 
             $consultaPunto = $this->consultaGrafico($variable,$periodo,$escenario,$var);
-            $lava = $this->DataTable($consultaPunto);
+            $lava = $this->DataTable($consultaPunto,$variableSelect);
         }
         if ($data1 == "Circle")
         {
-            $consultaCirculo = $this->consultaGraficoCirculo($variable,$periodo,$escenario,$data2[0],$data2[1]);
-            $lava = $this->DataTable($consultaCirculo);
+            $radio=$data0['radius'];//radio
+            $var=implode(",", $data2[0]);           
+            $consultaCirculo = $this->consultaGraficoCirculo($variable,$periodo,$escenario,$var,$radio);
+            $lava = $this->DataTable($consultaCirculo,$variableSelect);
         }
         if($data1=="Polygon" )
         {
@@ -211,7 +215,7 @@ class HomeController extends Controller {
             
                        
             $consultaPoligono = $this->consultaGraficoPoligono($variable,$periodo,$escenario,$var2);
-            $lava = $this->DataTable($consultaPoligono);
+            $lava = $this->DataTable($consultaPoligono,$variableSelect);
         }       
         return $lava->tojson();
     
