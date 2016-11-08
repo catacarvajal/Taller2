@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="row">
   <div class="col-md-12">
     <div class="box box-success">    
@@ -34,6 +35,7 @@
           </div><!-- /.form-group -->
           </div>
        </form>
+
        <div id="perf_div" class="chart"></div><!-- div donde se dibuja el grafico -->
       </div>
     </div>
@@ -73,6 +75,7 @@
 </div>
 
 <?= $lava->render('BarChart', 'grafico', 'perf_div')
+
 ?>
 
 <script type="text/javascript">
