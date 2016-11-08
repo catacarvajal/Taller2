@@ -130,11 +130,12 @@ class HomeController extends Controller {
         return $grafico;
     }
 
-     public function consultaGraficoCirculo($id_variable, $id_periodo, $id_escenario,$puntox,$puntoy)
+    
+    public function consultaGraficoCirculo($id_variable, $id_periodo, $id_escenario,$punto,$radio)
     {
 
              $consulta = DB::table('rast')
-            ->select(DB::raw('month.name,month.id,avg(ST_Value(rast, ST_SetSRID(ST_Point('.$puntox.','.$puntoy.'), 4326)))'))
+            ->select(DB::raw('month.name,month.id,AVG((ST_SummaryStats(ST_Clip(rast,1,ST_Buffer(ST_SetSRID(ST_Point('.$punto.'),4326),'.$radio.'),-9999,TRUE))).mean)'))
             ->join('register', 'register.id', '=', 'rast.id_register')
             ->join('month', 'month.id', '=', 'register.id_month')
             ->join('variable', 'variable.id', '=', 'register.id_variable')
@@ -146,15 +147,15 @@ class HomeController extends Controller {
             ->orderBy('month.id')
             ->get();
             return $consulta;
-        
-
-        
+    
     }
+
      public function consultaGraficoPoligono($id_variable, $id_periodo, $id_escenario,$poligono)
     {
        
         $consulta = DB::table('rast')
-            ->select(DB::raw('month.name,month.id,AVG((ST_summarystats(ST_CLIP(rast, ST_Polygon(ST_GeomFromText(\'LINESTRING('.$poligono.')\'), 4326)))).mean)'))
+            ->select(DB::raw('month.name,month.id,AVG((ST_SummaryStats(ST_Clip(rast,1,ST_Buffer(ST_SetSRID(ST_Point(-71.233333,-34.983333),4326),300),TRUE))).mean)
+                AVG((ST_summarystats(ST_CLIP(rast, ST_Polygon(ST_GeomFromText(\'LINESTRING('.$poligono.')\'), 4326)))).mean)'))
             ->join('register', 'register.id', '=', 'rast.id_register')
             ->join('month', 'month.id', '=', 'register.id_month')
             ->join('variable', 'variable.id', '=', 'register.id_variable')
@@ -183,7 +184,8 @@ class HomeController extends Controller {
         $data0=$data['geometry'];
         $data1=$data0['type']; //tipo de geometria
         $data2=$data0['coordinates']; //coordenadas 
-
+        
+        
        
         if ($data1=="Point")        {
 
@@ -194,7 +196,9 @@ class HomeController extends Controller {
         }
         if ($data1 == "Circle")
         {
-            $consultaCirculo = $this->consultaGraficoCirculo($variable,$periodo,$escenario,$data2[0],$data2[1]);
+            $radio=$data0['radius'];//radio
+            $var=implode(",", $data2);
+            $consultaCirculo = $this->consultaGraficoCirculo($variable,$periodo,$escenario,$var,$radio);
             $lava = $this->DataTable($consultaCirculo);
         }
         if($data1=="Polygon" )
