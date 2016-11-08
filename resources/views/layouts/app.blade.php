@@ -675,10 +675,11 @@
 
 
                         if (value2 == 'Circle') {
-                            var circle = e.feature.getGeometry();
+                            var feature = e.feature;
+                            var featureClone = feature.clone();                            
+                            var circle = featureClone.getGeometry().transform('EPSG:3857', 'EPSG:4326')
                             var radio = circle.getRadius();
-                            var centro = circle.getCenter();
-
+                            var centro = circle.getCenter();   
                             var geoj = {
                                 "type": "Feature",
                                 "geometry": {
@@ -715,15 +716,12 @@
                 ajax(geojson);
             }
             function ajax(geojson) {
+                console.log(geojson);
                 var periodo = $("#Periodo").val();
                 var variable = $("#Variable").val();
                 var escenario = $("#Escenario").val();
                 var tablaDatos = $("#datos");
-                //Json utilizado para la exportación
-                informacion = { periodo:  $("#Periodo option:selected").text(), 
-                                variable: $("#Variable option:selected").text(), 
-                                escenario: $("#Escenario option:selected").text()};
-                datosPromedio = [];
+
                 $.ajax({
                     type: 'post',
                     url: 'ajax',
@@ -752,9 +750,7 @@
                             for (var i = 0; i < data.rows.length; i++) {
                             tablaDatos.append("<tr><td>" + data.rows[i].c[0].v + "</td><td><span class='badge bg-red'>" + data.rows[i].c[1].v + "</span></td></tr>");
                             }
-                        }  
-                        //Datos utilizados para la exportacion
-                        datosPromedio=data;                                           
+                        }                                            
                     }
                 });
             }
@@ -782,7 +778,6 @@
                 }
                 else if(formato=="CSV")
                 {
-
                     var datos = obtenerDatos();
                     descargarArchivo(generarCsv(datos), 'datos.csv');
                 }
@@ -795,34 +790,12 @@
              }
              function obtenerDatos()
              {
-                var promediosFinal=[];
-                for (var i = 0; i < datosPromedio.length; i++) {
-                    promediosFinal.push(datosPromedio[i]);
-                }
-                if(promediosFinal.length!=12)
-                {
-                    for (var i = 0; i < 12; i++) {
-                        promediosFinal.push(-99999);
-                    }
-                }
-                return {    periodo: informacion.periodo, 
-                            escenario: informacion.escenario,
-                            variable: informacion.variable,
-                            promedio: {
-                                enero: promediosFinal[0],
-                                febrero: promediosFinal[1],
-                                marzo: promediosFinal[2],
-                                abril: promediosFinal[3],
-                                mayo: promediosFinal[4],
-                                junio: promediosFinal[5],
-                                julio: promediosFinal[6],
-                                agosto: promediosFinal[7],
-                                septiembre: promediosFinal[8],
-                                octubre: promediosFinal[9],
-                                noviembre: promediosFinal[10],
-                                diciembre: promediosFinal[11]
-                            }
-                        };
+                return {
+                    periodo: "1990",
+                    escenario: "SRES A1B",
+                    variable: "Precipitacion",
+                    raster:  "21312312"
+                };
              }
              function generarXml(datos) {
                 var texto = [];
@@ -837,44 +810,9 @@
                 texto.push('\t<variable>');
                 texto.push(escaparXML(datos.variable));
                 texto.push('</variable>\n');
-                texto.push('\t<promedio>\n');
-                texto.push('\t\t<enero>');
-                texto.push(escaparXML(datos.promedio.enero+""));
-                texto.push('</enero>\n');
-                texto.push('\t\t<febrero>');
-                texto.push(escaparXML(datos.promedio.febrero+""));
-                texto.push('</febrero>\n');
-                texto.push('\t\t<marzo>');
-                texto.push(escaparXML(datos.promedio.marzo+""));
-                texto.push('</marzo>\n');
-                texto.push('\t\t<abril>');
-                texto.push(escaparXML(datos.promedio.abril+""));
-                texto.push('</abril>\n');
-                texto.push('\t\t<mayo>');
-                texto.push(escaparXML(datos.promedio.mayo+""));
-                texto.push('</mayo>\n');
-                texto.push('\t\t<junio>');
-                texto.push(escaparXML(datos.promedio.junio+""));
-                texto.push('</junio>\n');
-                texto.push('\t\t<julio>');
-                texto.push(escaparXML(datos.promedio.julio+""));
-                texto.push('</julio>\n');
-                texto.push('\t\t<agosto>');
-                texto.push(escaparXML(datos.promedio.agosto+""));
-                texto.push('</agosto>\n');
-                texto.push('\t\t<septiembre>');
-                texto.push(escaparXML(datos.promedio.septiembre+""));
-                texto.push('</septiembre>\n');
-                texto.push('\t\t<octubre>');
-                texto.push(escaparXML(datos.promedio.octubre+""));
-                texto.push('</octubre>\n');
-                texto.push('\t\t<noviembre>');
-                texto.push(escaparXML(datos.promedio.noviembre+""));
-                texto.push('</noviembre>\n');
-                texto.push('\t\t<diciembre>');
-                texto.push(escaparXML(datos.promedio.diciembre+""));
-                texto.push('</diciembre>\n');
-                texto.push('\t</promedio>\n');
+                texto.push('\t<raster>');
+                texto.push(escaparXML(datos.raster));
+                texto.push('</raster>\n');
                 texto.push('</datos>');
                 //No olvidemos especificar el tipo MIME correcto :)
                 return new Blob(texto, {
@@ -883,9 +821,8 @@
             }
 
             function generarCsv(datos) {
-                var texto = ['"periodo";"escenario";"variable";"enero";"febrero";"marzo";"abril";"mayo";"junio";"julio";"agosto";"septiembre";"octubre";"noviembre";"diciembre"',
-                             ''+datos.periodo+";"+datos.escenario+";"+datos.variable+";"+datos.promedio.enero+";"+datos.promedio.febrero+";"+datos.promedio.marzo+";"+
-                                datos.promedio.abril+";"+datos.promedio.mayo+";"+datos.promedio.junio+";"+datos.promedio.julio+";"+datos.promedio.agosto+";"+datos.promedio.septiembre+";"+datos.promedio.octubre+";"+datos.promedio.noviembre+";"+datos.promedio.diciembre+''
+                var texto = ['"periodo";"escenario";"variable";"raster"',
+                             ''+datos.periodo+";"+datos.escenario+";"+datos.variable+";"+datos.raster+''
                           ].join('\n');
                 //No olvidemos especificar el tipo MIME correcto :)
                 return new Blob([texto], {
@@ -904,7 +841,7 @@
                     .replace('"', '&quot;');
                 return cadena;
             };
-            function descargarArchivo(contenidoEnBlob, nombreArchivo) {
+              function descargarArchivo(contenidoEnBlob, nombreArchivo) {
                 var reader = new FileReader();
                 reader.onload = function (event) {
                     var save = document.createElement('a');
