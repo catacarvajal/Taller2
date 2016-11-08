@@ -48,6 +48,17 @@
                                             </table>
                                         </div>
                                         <!-- Fin creación de tabla -->
+                                        <div class="col-md-12">
+                                            <div class="form-group ">
+                                                <label>Formato: &nbsp;</label>
+                                                <select class="form-control select2 input-sm" id="formato">
+                                                    <option value="CSV">CSV</option>
+                                                    <option value="XML">XML</option>                        
+                                                    <option value="Json">Json</option>                      
+                                                </select>
+                                            </div>
+                                            <button class="btn btn-block btn-primary btn-xs" id="btn-exportar" title="Exportar" onclick='exportar()'>Exportar datos</button>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="btn-group dropup" style="position: absolute; bottom: 50px; right: 15px; padding: 3px; ">
@@ -71,5 +82,23 @@
 </div>
 <?= $lava->render('BarChart', 'grafico', 'perf_div')
 ?>
+
+<div class="modal fade modal-danger" id="modal-error">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Error de ingreso.</h4>
+      </div>
+      <div class="modal-body">
+        <p>No existen datos para la ubicación seleccionada.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection
+
 
