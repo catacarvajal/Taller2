@@ -153,20 +153,20 @@ class HomeController extends Controller {
      public function consultaGraficoPoligono($id_variable, $id_periodo, $id_escenario,$poligono)
     {
        
+     
         $consulta = DB::table('rast')
-            ->select(DB::raw('month.name,month.id,AVG((ST_SummaryStats(ST_Clip(rast,1,ST_Buffer(ST_SetSRID(ST_Point(-71.233333,-34.983333),4326),300),TRUE))).mean)
-                AVG((ST_summarystats(ST_CLIP(rast, ST_Polygon(ST_GeomFromText(\'LINESTRING('.$poligono.')\'), 4326)))).mean)'))
-            ->join('register', 'register.id', '=', 'rast.id_register')
-            ->join('month', 'month.id', '=', 'register.id_month')
-            ->join('variable', 'variable.id', '=', 'register.id_variable')
-            ->join('scenario', 'scenario.id', '=', 'register.id_scenario')
-            ->where('register.id_period', '=', $id_periodo)
-            ->orwhere('variable.id','=', $id_variable)
-            ->orwhere('scenario.id','=', $id_escenario)
-            ->groupBy('month.id')
-            ->orderBy('month.id')
-            ->get();
-            return $consulta;
+        ->select(DB::raw('month.name,month.id,AVG((ST_summarystats(ST_CLIP(rast, ST_Polygon(ST_GeomFromText(\'LINESTRING('.$poligono.')\'), 4326)))).mean)'))
+        ->join('register', 'register.id', '=', 'rast.id_register')
+        ->join('month', 'month.id', '=', 'register.id_month')
+        ->join('variable', 'variable.id', '=', 'register.id_variable')
+        ->join('scenario', 'scenario.id', '=', 'register.id_scenario')
+        ->where('register.id_period', '=', $id_periodo)
+        ->orwhere('variable.id','=', $id_variable)
+        ->orwhere('scenario.id','=', $id_escenario)
+        ->groupBy('month.id')
+        ->orderBy('month.id')
+        ->get();
+        return $consulta;
         
 
         
@@ -197,7 +197,7 @@ class HomeController extends Controller {
         if ($data1 == "Circle")
         {
             $radio=$data0['radius'];//radio
-            $var=implode(",", $data2);
+            $var=implode(",", $data2[0]);           
             $consultaCirculo = $this->consultaGraficoCirculo($variable,$periodo,$escenario,$var,$radio);
             $lava = $this->DataTable($consultaCirculo,$variableSelect);
         }
