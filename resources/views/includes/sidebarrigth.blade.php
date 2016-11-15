@@ -130,12 +130,18 @@
 						<option value=11 >T° Noviembre</option>
 						<option value=12 >T° Diciembre</option>
 					</select>
+					
 				</div>
 			</div>		
 		</div>	
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">	
 				<a href="/" class="btn btn-block btn-primary btn-xs">Cargar Raster</a>				
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">	
+				<input type="file" accept=".csv"onchange='readText(this)' />				
 			</div>
 		</div>
 	</div>
