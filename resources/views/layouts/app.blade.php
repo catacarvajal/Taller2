@@ -45,8 +45,9 @@
 
             .map {
                 width: 60%;
-                height: 100%;
+                height: 130%;
                 float: left;
+                margin: auto auto;
             }
 
             .sidepanel {
