@@ -39,9 +39,9 @@ class chartsController extends Controller
                         ->addNumberColumn('T° mínima');
                         for($i=0; $i<count($consulta); $i++)
                         {
-                            $grafico->addRow([$consulta[$i]->name, $consulta[$i]->avg]);
+                            $grafico->addRow([$consulta[$i]->year_init, $consulta[$i]->avg]);
                         }
-                $lava->BarChart('grafico', $grafico, [
+                $lava->LineChart('grafico', $grafico, [
                     'title' => 'Temperatura Mínima',
                     'titleTextStyle' => [
                         'color'    => '#eb6b2c',
@@ -52,6 +52,8 @@ class chartsController extends Controller
         return $lava;
     }
 
+
+
         public function DataTable($consulta)
     {
         
@@ -61,9 +63,9 @@ class chartsController extends Controller
                         ->addNumberColumn('T° mínima');
                         for($i=0; $i<count($consulta); $i++)
                         {
-                            $grafico->addRow([$consulta[$i]->name, $consulta[$i]->avg]);
+                            $grafico->addRow([$consulta[$i]->year_init, $consulta[$i]->avg]);
                         }
-                $lava->BarChart('grafico', $grafico, [
+                $lava->LineChart('grafico', $grafico, [
                     'title' => 'Temperatura Mínima',
                     'titleTextStyle' => [
                         'color'    => '#eb6b2c',
@@ -77,15 +79,14 @@ class chartsController extends Controller
     public function consultaGrafico($id_variable, $id_periodo, $id_escenario)
     {
        $consulta = DB::table('rast')
-        ->select(DB::raw('month.name,month.id,avg(ST_Value(ST_SetSRID(rast,4326), ST_SetSRID(ST_Point(-71.233333,-34.983333), 4326)))'))
+        ->select(DB::raw('period.year_init,avg(ST_Value(ST_SetSRID(rast,4326), ST_SetSRID(ST_Point(-71.233333,-34.983333), 4326)))'))
         ->join('register', 'register.id', '=', 'rast.id_register')
-        ->join('month', 'month.id', '=', 'register.id_month')
+        ->join('period', 'period.id', '=', 'register.id_period')
         ->join('variable', 'variable.id', '=', 'register.id_variable')
         ->join('scenario', 'scenario.id', '=', 'register.id_scenario')
-        ->where('register.id_period','=',$id_periodo)
-        ->orwhere('variable.id','=', $id_variable)
+        ->where('variable.id','=', $id_variable)
         ->orwhere('scenario.id','=', $id_escenario)
-        ->groupBy('month.id')
+        ->groupBy('period.year_init')
         ->get();
         return $consulta;
     }

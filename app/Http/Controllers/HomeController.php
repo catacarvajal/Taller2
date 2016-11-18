@@ -66,6 +66,28 @@ class HomeController extends Controller {
 
         return $lava;
     }
+
+        public function graficoPuntoPeriod($consulta)
+    {
+        
+        $lava = new Lavacharts; // See note below for Laravel
+                $grafico = $lava->DataTable();
+                $grafico->addStringColumn('Months of Year')
+                        ->addNumberColumn('T° mínima');
+                        for($i=0; $i<count($consulta); $i++)
+                        {
+                            $grafico->addRow([$consulta[$i]->year_init, $consulta[$i]->avg]);
+                        }
+                $lava->LineChart('grafico', $grafico, [
+                    'title' => 'Temperatura Mínima',
+                    'titleTextStyle' => [
+                        'color'    => '#eb6b2c',
+                        'fontSize' => 30
+                    ]
+                ]);
+
+        return $lava;
+    }
     public function consultaGrafico($id_variable, $id_periodo, $id_escenario,$puntos)
     {
 
@@ -81,11 +103,27 @@ class HomeController extends Controller {
             ->groupBy('month.id')
             ->orderBy('month.id')
             ->get();
-            return $consulta;
-        
-
-        
+            return $consulta;       
     }
+
+
+    public function consultaGraficoPeriod($id_variable, $id_escenario,$puntos)
+    {
+
+             $consulta = DB::table('rast')
+            ->select(DB::raw('month.name,month.id,avg(ST_Value(rast, ST_SetSRID(ST_Point('.$puntos.'), 4326)))'))
+            ->join('register', 'register.id', '=', 'rast.id_register')
+            ->join('period', 'period.id', '=', 'register.id_period')
+            ->join('variable', 'variable.id', '=', 'register.id_variable')
+            ->join('scenario', 'scenario.id', '=', 'register.id_scenario')
+            ->where('variable.id','=', $id_variable)
+            ->orwhere('scenario.id','=', $id_escenario)
+            ->groupBy('period.year_init')
+            ->get();
+            return $consulta;       
+    }
+
+
     public function datosTabla($id_variable, $id_periodo)
     {
         $tabla = DB::table('rast')
@@ -171,6 +209,41 @@ class HomeController extends Controller {
 
         
     }
+
+public function graficoLinea()
+{
+    $lava = new Lavacharts; // See note below for Laravel
+
+$temperatures = $lava->DataTable();
+
+$temperatures->addDateColumn('Date')
+             ->addNumberColumn('Max Temp')
+             ->addNumberColumn('Mean Temp')
+             ->addNumberColumn('Min Temp')
+             ->addRow(['2014-10-1',  67, 65, 62])
+             ->addRow(['2014-10-2',  68, 65, 61])
+             ->addRow(['2014-10-3',  68, 62, 55])
+             ->addRow(['2014-10-4',  72, 62, 52])
+             ->addRow(['2014-10-5',  61, 54, 47])
+             ->addRow(['2014-10-6',  70, 58, 45])
+             ->addRow(['2014-10-7',  74, 70, 65])
+             ->addRow(['2014-10-8',  75, 69, 62])
+             ->addRow(['2014-10-9',  69, 63, 56])
+             ->addRow(['2014-10-10', 64, 58, 52])
+             ->addRow(['2014-10-11', 59, 55, 50])
+             ->addRow(['2014-10-12', 65, 56, 46])
+             ->addRow(['2014-10-13', 66, 56, 46])
+             ->addRow(['2014-10-14', 75, 70, 64])
+             ->addRow(['2014-10-15', 76, 72, 68])
+             ->addRow(['2014-10-16', 71, 66, 60])
+             ->addRow(['2014-10-17', 72, 66, 60])
+             ->addRow(['2014-10-18', 63, 62, 62]);
+
+$lava->LineChart('Temps', $temperatures, [
+    'title' => 'Weather in October'
+]);
+}
+
     public function ajaxGeoJson(Request $request){
 
        
@@ -219,6 +292,8 @@ class HomeController extends Controller {
         }       
         return $lava->tojson();
     
+
+
 
 
  /*       $data = $request->input('geoj');       
