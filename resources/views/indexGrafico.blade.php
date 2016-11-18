@@ -74,7 +74,7 @@
   </div>
 </div>
 
-<?= $lava->render('BarChart', 'grafico', 'perf_div')
+<?= $lava->render('LineChart', 'grafico', 'perf_div')
 
 ?>
 
