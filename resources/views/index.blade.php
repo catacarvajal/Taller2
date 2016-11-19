@@ -1,178 +1,102 @@
-<aside class="control-sidebar control-sidebar-light">
-	<!-- Create the tabs -->
-	<div id="side_visualizar" style="display:none;" >
-		<div class="modal-header">
-			<button  onclick="" type="button" class="close" data-toggle="control-sidebar"aria-label="Close"><span aria-hidden="true">×</span></button>
-			<h4 class="modal-title">Graficar</h4>
-		</div>
-		<div class="row">
-			<div class="col-md-8 col-md-offset-2">					
-				<form >
-					{!! csrf_field() !!}
-					<div class="row">
-						<div class="col-md-12">
-							<div class="form-group">
-								<label>Periodo</label>
-								{!!Form::select('Periodo', array_pluck($periodo, 'year_init', 'id'), null, ['id'=>'Periodo','class' => 'form-control']) !!}
-							</div>
-						</div><!-- /.form-group -->         
-					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<div class="form-group">
-								<label>Escenario</label>
-								{!!Form::select('Escenario', array_pluck($scenario, 'name', 'id'), null, ['id'=>'Escenario','class' => 'form-control']) !!}
-							</div>
-						</div><!-- /.form-group -->
-					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<div class="form-group">
-								<label>Variable</label>
-								{!!Form::select('Variable', array_pluck($variable, 'name', 'id'), null, ['id'=>'Variable','class' => 'form-control']) !!}
-							</div>
-						</div><!-- /.form-group -->
-					</div> 
-				</form>				
-			</div>
-		</div>
-		<div class="modal-header">			
-			<h4 class="modal-title">Seleccionar</h4>
-		</div>
-		<div class="row">
-			<div class="col-md-8 col-md-offset-2">	
-				<div class="form-group ">
-					<label>Tipo Geometria: &nbsp;</label>
-					<select class="form-control select2 input-sm" id="type">
-						<option value="None">Ninguno</option>
-						<option value="Point">Punto</option>						
-						<option value="Polygon">Poligono</option>
-						<option value="Circle">Circulo</option>
-						<option value="Square">Cuadrado</option>
-					</select>
-				</div>
-			</div>		
-			<div class="col-md-12 col-md-offset-4">					
-				<button type="button" data-toggle="control-dibujo" class="btn btn-default btn-xs" title="Eliminar" onclick='removeDraw()'>Eliminar <i class="fa fa-trash"></i></button>
-			</div>
-		</div>	
-		<div class="modal-header">
-			<h4 class="modal-title">Visualizar</h4>
-		</div>
-		<div class="row">
+@extends('layouts.app')
 
-			<div class="col-md-8 col-md-offset-2">					
-				<button class="btn btn-block btn-primary btn-xs" id="btn-grafico" data-toggle="control-sidebar" title="Visulizar" onclick='ajaxButton()'>Visualizar Graficos</button>			
-			</div>
-		</div>
+@section('content')
+<div>
+    <div class="box-body no-padding">
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="pad">
+                    <div class="col-md-12">                        
+                        <div id="fullscreen" class="fullscreen">
+                            <div id="map" class="map"></div>
+                            <div class="sidepanel" style="overflow: auto">
+                                
+                            <div class="modal-header" id="inicio" align="justify">
+                                <div class="callout callout-info">
+                
+                                        <h2 style="font-size: 36px;"> Bienvenidos </h2>
+                                        <p>Este sitio presenta información de distintas variables ambientales, las cuales se pueden graficar y visualizar según un periodo de tiempo determinado. 
+                                        </p>
 
-		<div class="modal-header">
-			<div class="callout callout-info">
-				<p>Para visualizar un grafico debe selecionar un periodo , escenario y variable. Luego  con un tipo de geometria y realizar una selecion en el mapa</p>
-			</div>
-		</div>
-	</div>
-	<div id="side_ir_a" style="display:none;">
+                                        <p>Los datos que encontrará a continuación han sido
+                                            generados a partir de modelos atmosféricos y datos
+                                            satelitales.
+                                        </p>
 
+                                        <p>Este gran esfuerzo computacional y científico ha sido
+                                            llevado a cabo por el equipo de la Universidad de Talca para el modulo de Taller 2.
+                                        </p>
+                                        <p> Haga click en la herramienta para ver las distintas opciones implementadas en el sitio</p><p>
+                                    </p>
+                                 </div>
+                            </div>
+                 
 
-		<div class="modal-header">
-			<button onclick="" type="button" class="close" data-toggle="control-sidebar"aria-label="Close"><span aria-hidden="true">×</span></button>
-			<h4 class="modal-title">Ir a</h4>
-		</div>
+                                <div class="col-md-12" id="grafico_tabla" style="display:none;">
+                                    <div id="perf_div" class="chart" style="height: 300px"></div><!-- div donde se dibuja el grafico -->
+                                    <div class="col-md-12">
+                                        <!-- Creación de tabla -->
+                                        <div> 
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                  <th>Mes</th>
+                                                  <th>Promedio</th>
+                                                </thead>     
+                                                <tr>
+                                                </tr>
+                                                <tbody id="datos"></tbody>
+                                            </table>
+                                        </div>
+                                        <!-- Fin creación de tabla -->
+                                        <div class="col-md-12">
+                                            <div class="form-group ">
+                                                <label>Formato: &nbsp;</label>
+                                                <select class="form-control select2 input-sm" id="formato">
+                                                    <option value="CSV">CSV</option>
+                                                    <option value="XML">XML</option>                        
+                                                    <option value="Json">Json</option>                      
+                                                </select>
+                                            </div>
+                                            <button class="btn btn-block btn-primary btn-xs" id="btn-exportar" title="Exportar" onclick='exportar()'>Exportar datos</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btn-group dropup" style="position: absolute; bottom: 50px; right: 15px; padding: 3px; ">
+                                    <button type="button" class="btn btn-primary btn-circle btn-lg" data-toggle="dropdown" title="Herramientas" >
+                                        <i class="fa fa-wrench"></i>              
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a onclick="mostrar('side_ir_a')"class="btn btn-primary btn-circle  btn-lg"data-toggle="control-sidebar" title="Ir a"><i class="fa  fa-paper-plane-o"></i> </a></li>
+                                        <li><a onclick="mostrar('side_visualizar')" class="btn btn-primary btn-circle  btn-lg"data-toggle="control-sidebar" title="visualizar"><i class="fa fa-bar-chart"></i> </a></li>
+                                        <li><a onclick="mostrar('side_capa')"class="btn btn-primary btn-circle  btn-lg"data-toggle="control-sidebar" title="Capa"><i class="fa fa-globe"></i> </a></li>
+                                        <li><a onclick="mostrar('side_descargar')" class="btn btn-primary btn-circle  btn-lg"data-toggle="control-sidebar" title="Descargar"><i class="fa fa-download"></i> </a></li>
+                                    </ul>
+                                </div>   
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </div>                            
+    </div>
+</div>
+<?= $lava->render('BarChart', 'grafico', 'perf_div')
+?>
 
-		<div class="row">
-			<div class="col-md-8 col-md-offset-2">	
-				<div class="form-group ">
-					<label>Tipo: &nbsp;</label>
-					<select class="form-control select2 input-sm" id="ir_tipo">
-						<option value="None">Seleccione</option>
-						<option value="Regiones">Regiones</option>
-						<option value="Provincias">Provincias</option>						
-						<option value="cuidades">Ciudades</option>						
-					</select>
-					<label>Sub tipo: &nbsp;</label>
-					<select class="form-control select2 input-sm" id="ir_sub_tipo">
-						<option value="None">Seleccione</option>
-						<option value="Curico">Curicó</option>
-						<option value="Arica">Arica</option>						
-						<option value="cuidades">Ciudades</option>						
-					</select>
-				</div>
-			</div>		
-		</div>	
-
-		<div class="modal-header">
-			<div class="callout callout-info">
-				<p>Permite seleccionar una región, comuna, provincia y navegar hasta su localización.</p>
-			</div>
-		</div>
-	</div>		
-	<div id="side_descargar" style="display:none;">
-		<div class="modal-header">
-			<button onclick="" type="button" class="close" data-toggle="control-sidebar"aria-label="Close"><span aria-hidden="true">×</span></button>
-			<h4 class="modal-title">Descargar</h4>
-		</div>
-		<div class="row">
-			<div class="col-md-8 col-md-offset-2">	
-				<div class="form-group ">
-					<label>Raster: &nbsp;</label>
-					<select class="form-control select2 input-sm" id="Var" onchange="cambiarRaster()">
-						<option value=1 >T° Enero</option>
-						<option value=2 >T° Febrero</option>
-						<option value=3 >T° Marzo</option>					
-						<option value=4 >T° Abril</option>
-						<option value=5 >T° Mayo</option>
-						<option value=6 >T° Junio</option>
-						<option value=7 >T° Julio</option>
-						<option value=8 >T° Agosto</option>
-						<option value=9 >T° Septiembre</option>
-						<option value=10 >T° Octubre</option>
-						<option value=11 >T° Noviembre</option>
-						<option value=12 >T° Diciembre</option>
-					</select>
-				</div>
-			</div>		
-		</div>	
-		<div class="row">
-			<div class="col-md-8 col-md-offset-2">	
-				<a href="/" class="btn btn-block btn-primary btn-xs">Cargar Raster</a>				
-			</div>
-		</div>
-		
-		
-	</div>
-	<div id="side_capa" style="display:none;">
-		<div class="modal-header">
-			<button onclick="" type="button" class="close" data-toggle="control-sidebar"aria-label="Close"><span aria-hidden="true">×</span></button>
-			<h4 class="modal-title">Capa</h4>
-			<p></p>
-
-			<div class="box-body no-padding">
-				<ul class="users-list clearfix">
-					<li>                        	
-						<img src="http://thumbs.subefotos.com/33c9bb8d542bd1d85843f9e9147b80b7o.jpg">
-						<a class="users-list-name" href="#">color</a>
-					</li>
-					<li>
-						<img src="http://thumbs.subefotos.com/8432ce8bf350130bd1d09bedf24a8a4fo.jpg" alt="User Image">
-						<a class="users-list-name" href="#">Imagenes</a>
-					</li>
-					<li>
-						<img src="http://thumbs.subefotos.com/2b8c55deb4d54d7f37ca870c16fba621o.jpg" alt="User Image">
-						<a class="users-list-name" href="#">Toner</a>
-					</li>
-					<li>
-						<img src="http://thumbs.subefotos.com/46a1681d6309c3e11c0a5b091a9057efo.jpg" alt="User Image">
-						<a class="users-list-name" href="#">OSM</a>
-
-					</li>
-				</ul><!-- /.users-list -->
-			</div>
-			<div class="modal-header">
-			<div class="callout callout-info">
-				<p>Permite seleccionar una capa la cual modificara el mapa.</p>
-			</div>
-		</div>
-		</div>
-	</div>
-</aside><!-- /.control-sidebar -->
+<div class="modal fade modal-danger" id="modal-error">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Error de ingreso.</h4>
+      </div>
+      <div class="modal-body">
+        <p>No existen datos para la ubicación seleccionada.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+@endsection

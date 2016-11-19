@@ -420,6 +420,7 @@
                     raster.U.layers.a[10].U.visible = false;
                     raster.U.layers.a[11].U.visible = true;
                 }
+                map.updateSize();
             }
 
             var mapas = new ol.layer.Group({
@@ -713,7 +714,6 @@
                 
                 ajax(geojson);
             }
-            var informacion, datosPromedio;
             function ajax(geojson) {
                 var periodo = $("#Periodo").val();
                 var variable = $("#Variable").val();
@@ -732,12 +732,10 @@
                     data: JSON.stringify({'periodo': periodo, 'variable': variable, 'escenario': escenario, 'geoj': JSON.parse(geojson)}),
                     success: function (data) {
                         hayDatos = true;
-
                         for (var i = 0; i < data.rows.length; i++) 
                         {
                             if(data.rows[i].c[1].v == null)
                             {
-                                console.log(data.rows[i].c[1].v);
                                 hayDatos = false;
                             }
                         }
@@ -754,9 +752,9 @@
                             for (var i = 0; i < data.rows.length; i++) {
                             tablaDatos.append("<tr><td>" + data.rows[i].c[0].v + "</td><td><span class='badge bg-red'>" + data.rows[i].c[1].v + "</span></td></tr>");
                             }
-                        }
+                        }  
                         //Datos utilizados para la exportacion
-                        datosPromedio=data;                                            
+                        datosPromedio=data;                                           
                     }
                 });
             }
@@ -811,7 +809,7 @@
                             escenario: informacion.escenario,
                             variable: informacion.variable,
                             promedio: {
-                                enero: 1899,
+                                enero: promediosFinal[0],
                                 febrero: promediosFinal[1],
                                 marzo: promediosFinal[2],
                                 abril: promediosFinal[3],
@@ -927,4 +925,3 @@
          </script>
     </body>
 </html>
-\ No newline at end of file
