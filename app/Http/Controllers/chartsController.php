@@ -32,17 +32,16 @@ class chartsController extends Controller
 
     public function graficoPunto($consulta)
     {
-        
         $lava = new Lavacharts; // See note below for Laravel
                 $grafico = $lava->DataTable();
                 $grafico->addStringColumn('Months of Year')
-                        ->addNumberColumn('T° mínima');
+                        ->addNumberColumn('');
                         for($i=0; $i<count($consulta); $i++)
                         {
-                            $grafico->addRow([$consulta[$i]->year_init, $consulta[$i]->avg]);
+                            $grafico->addRow([$consulta[$i]->name, $consulta[$i]->avg]);
                         }
-                $lava->LineChart('grafico', $grafico, [
-                    'title' => 'Temperatura Mínima',
+                $lava->BarChart('grafico', $grafico, [
+                    'title' => 'Gráfico',
                     'titleTextStyle' => [
                         'color'    => '#eb6b2c',
                         'fontSize' => 30
@@ -57,36 +56,37 @@ class chartsController extends Controller
         public function DataTable($consulta)
     {
         
-        $lava = new Lavacharts; // See note below for Laravel
+       $lava = new Lavacharts; // See note below for Laravel
                 $grafico = $lava->DataTable();
                 $grafico->addStringColumn('Months of Year')
-                        ->addNumberColumn('T° mínima');
+                        ->addNumberColumn('');
                         for($i=0; $i<count($consulta); $i++)
                         {
-                            $grafico->addRow([$consulta[$i]->year_init, $consulta[$i]->avg]);
+                            $grafico->addRow([$consulta[$i]->name, $consulta[$i]->avg]);
                         }
-                $lava->LineChart('grafico', $grafico, [
-                    'title' => 'Temperatura Mínima',
+                $lava->BarChart('grafico', $grafico, [
+                    'title' => 'Gráfico',
                     'titleTextStyle' => [
                         'color'    => '#eb6b2c',
                         'fontSize' => 30
                     ]
                 ]);
 
-        return $grafico;
+        return $lava;
     }
 
     public function consultaGrafico($id_variable, $id_periodo, $id_escenario)
     {
        $consulta = DB::table('rast')
-        ->select(DB::raw('period.year_init,avg(ST_Value(ST_SetSRID(rast,4326), ST_SetSRID(ST_Point(-71.233333,-34.983333), 4326)))'))
+        ->select(DB::raw('month.name,avg(ST_Value(ST_SetSRID(rast,4326), ST_SetSRID(ST_Point(-71.233333,-34.983333), 4326)))'))
         ->join('register', 'register.id', '=', 'rast.id_register')
-        ->join('period', 'period.id', '=', 'register.id_period')
-        ->join('variable', 'variable.id', '=', 'register.id_variable')
-        ->join('scenario', 'scenario.id', '=', 'register.id_scenario')
+            ->join('month', 'month.id', '=', 'register.id_month')
+            ->join('variable', 'variable.id', '=', 'register.id_variable')
+            ->join('scenario', 'scenario.id', '=', 'register.id_scenario')
+
         ->where('variable.id','=', $id_variable)
         ->orwhere('scenario.id','=', $id_escenario)
-        ->groupBy('period.year_init')
+        ->groupBy('month.name')
         ->get();
         return $consulta;
     }
