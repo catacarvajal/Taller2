@@ -871,24 +871,37 @@
                 reader.readAsDataURL(contenidoEnBlob);
             }
 
-            function exportarPdf() {
-                window.print();
-                /*
-                var doc = new jsPDF();
-                
-                var specialElementHandlers = {
-                    '#editor': function(element, renderer){
-                        return true;
-                    }
-                };
-
-                doc.fromHTML($("#content_id").html(), 15, 15, {
-                    'width': 170,'elementHandlers': specialElementHandlers
-                });
-                doc.save('Datos.pdf');
-                */
-            }
-
          </script>
+         <script type="text/javascript">
+            function exportarPdf() {
+                    window.print();
+                    /*
+                    var doc = new jsPDF();
+                    
+                    var specialElementHandlers = {
+                        '#editor': function(element, renderer){
+                            return true;
+                        }
+                    };
+
+                    doc.fromHTML($("#content_id").html(), 15, 15, {
+                        'width': 170,'elementHandlers': specialElementHandlers
+                    });
+                    doc.save('Datos.pdf');
+                    */
+            }
+            function imprSelec()
+            {
+                //window.print();
+                var ficha=document.getElementById("graf");
+                var ventimp=window.open(' ','popimpr');
+                ventimp.document.write(ficha.innerHTML);
+                //ficha=document.getElementById("tabla");
+               // ventimp.document.write(ficha.innerHTML);
+                ventimp.document.close();
+                ventimp.print();
+                ventimp.close();
+            }
+    </script>
     </body>
 </html>
