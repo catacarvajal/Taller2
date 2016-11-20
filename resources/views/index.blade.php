@@ -2,14 +2,13 @@
 
 @section('content')
 <!-- Content Wrapper. Contains page content -->
-<div class="content">
+<div class="content" >
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="box-body no-padding">
             <div class="alert alert-info alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                 <h4><i class="icon fa fa-info"></i> Bienvenidos</h4>
-
                 <p>Este sitio presenta información de distintas variables ambientales, las cuales se pueden graficar y visualizar según un periodo de tiempo determinado. Los datos que encontrará a continuación han sido generados a partir de modelos atmosféricos y datos satelitales.
                     Este gran esfuerzo computacional y científico ha sido llevado a cabo por el equipo de la Universidad de Talca para el modulo de Taller 2.
                 </p>
@@ -64,112 +63,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="panel panel-info">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-                                        Visualización</a>
-                                </h4>
-                            </div>
-                            <div id="collapse2" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label>Periodo</label>
-                                                {!!Form::select('Periodo', array_pluck($periodo, 'year_init', 'id'), null, ['id'=>'Periodo','class' => 'form-control','onchange' => 'setgraficoValue(this.value);']) !!}
-                                            </div>
-                                        </div><!-- /.form-group -->  
-                                    </div>
-                                    <div class="row">       
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label>Escenario</label>
-                                                {!!Form::select('Escenario', array_pluck($scenario, 'name', 'id'), null, ['id'=>'Escenario','class' => 'form-control','onchange' => 'setgraficoValue(this.value);']) !!}
-                                            </div>
-                                        </div><!-- /.form-group -->
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label>Mes: &nbsp;</label>
-                                                <select class="form-control select2 input-sm" id="Var" onchange="cambiarRaster()">
-                                                    <option value=1 >Enero</option>
-                                                    <option value=2 >Febrero</option>
-                                                    <option value=3 >Marzo</option>                  
-                                                    <option value=4 >Abril</option>
-                                                    <option value=5 >Mayo</option>
-                                                    <option value=6 >Junio</option>
-                                                    <option value=7 >Julio</option>
-                                                    <option value=8 >Agosto</option>
-                                                    <option value=9 >Septiembre</option>
-                                                    <option value=10 >Octubre</option>
-                                                    <option value=11 >Noviembre</option>
-                                                    <option value=12 >Diciembre</option>
-                                                </select>
-                                            </div>
-                                        </div><!-- /.form-group -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- /.panel info 2 -->
                         
-                        <div class="panel panel-info">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-                                        Variables</a>
-                                </h4>
-                            </div>
-                            <div id="collapse3" class="panel-collapse collapse">
-                                <div class="panel-body"> 
-                                    <!-- checkbox -->
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label >{!! Form::radio('name', 'Mes')!!} <i class="fa fa-calendar-o" ></i>   {{ $variable[0]->name }}</label>
-                                            </div>
-                                        </div><!-- /.form-group -->
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label >{!! Form::radio('name', 'Mes')!!} <i class="fa fa-sun-o" ></i>   {{ $variable[1]->name }}</label>
-                                            </div>
-                                        </div><!-- /.form-group -->
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label >{!! Form::radio('name', 'Mes')!!} <i class="fa fa-umbrella" ></i>   {{ $variable[2]->name }}</label>
-                                            </div>
-                                        </div><!-- /.form-group -->
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label >{!! Form::radio('name', 'Mes')!!} <i class="fa fa-thermometer-full" ></i>   {{ $variable[3]->name }}</label>
-                                            </div>
-                                        </div><!-- /.form-group -->
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label >{!! Form::radio('name', 'Mes')!!} <i class="fa fa-thermometer-empty" ></i>   {{ $variable[4]->name }}</label>
-                                            </div>
-                                        </div><!-- /.form-group -->
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label >{!! Form::radio('name', 'Mes')!!} <i class="fa fa-thermometer-half" ></i>   {{ $variable[5]->name }}</label>
-                                            </div>
-                                        </div><!-- /.form-group -->
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label >{!! Form::radio('name', 'Mes')!!} <i class="fa fa-cloud" ></i>   {{ $variable[6]->name }}</label>
-                                            </div>
-                                        </div><!-- /.form-group -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- /.panel info 4 -->
                         <div class="panel panel-info">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
@@ -271,7 +165,7 @@
                                 <div class="panel-body">
                                      <div class="row">
                                         <div class="col-md-6 ">                   
-                                            <button class="btn btn-block btn-success btn-lg" id="btn-Importar" title="Importar" ><i class="fa fa-cloud-upload"></i> Importar Datos</button> 
+                                            <button class="btn btn-block btn-success btn-lg" id="btn-Importar" title="Importar" onclick="exportarPdf()"><i class="fa fa-cloud-upload"></i> Importar Datos</button> 
                                         </div>
                                         <div class="col-md-6 ">                 
                                             <button class="btn btn-block btn-warning btn-lg" id="btn-Exportar" title="Exportar" > <i class="fa fa-cloud-download"></i> Exportar datos</button>
