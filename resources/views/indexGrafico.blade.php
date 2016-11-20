@@ -1,14 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="content" id="graf">
+<div class="content" >
     <!-- Content Header (Page header) -->
   <section class="content-header">
     <div class="box-body no-padding">
       <div class="box box-info color-palette-box">
         <div class="box-header with-border">
-          <h3 class="box-title"><i class="fa fa-bar-chart" aria-hidden="true"></i> Estadísticas</h3>
-          <button class="btn btn-block btn-success btn-small right" id="btn-Importar" title="Importar" onclick="imprSelec()"><i class="fa fa-cloud-upload"></i> Importar Datos</button> 
+          <h3 class="box-title">
+          <i class="fa fa-bar-chart" aria-hidden="true"></i> Estadísticas
+          </h3>
+          <a id="xml" class="btn btn-primary btn-flat pull-right">XML</a>
+          <a id="csv" class="btn btn-primary btn-flat pull-right">CSV</a>
+          <a href="/pdf" class="btn btn-primary btn-flat pull-right">PDF</a>
         </div>
         <div class="box-body">
           <div class="row">
@@ -58,5 +62,3 @@
 
 <?= $lava->render('BarChart', 'grafico', 'perf_div')?>
 @endsection
-
-

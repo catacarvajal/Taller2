@@ -17,3 +17,5 @@ Route::get('/MapaYGrafico', 'HomeController@indexAmbos');
 Route::post('/Grafico', 'chartsController@postGrafico');
 
 Route::post('ajax','HomeController@ajaxGeoJson');
+
+Route::get('/pdf', 'PdfController@invoice');

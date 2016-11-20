@@ -179,11 +179,7 @@
         
      <!--     <script type="text/javascript" src="http://cdn.immex1.com/js/jspdf/plugins/jspdf.plugin.from_html.js"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script> -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
-        <script type="text/javascript" src="http://cdn.immex1.com/js/jspdf/plugins/jspdf.plugin.addimage.js"></script>
-<script type="text/javascript" src="http://cdn.immex1.com/js/jspdf/plugins/jspdf.plugin.standard_fonts_metrics.js"></script>
-<script type="text/javascript" src="http://cdn.immex1.com/js/jspdf/plugins/jspdf.plugin.split_text_to_size.js"></script>
-<script type="text/javascript" src="http://cdn.immex1.com/js/jspdf/plugins/jspdf.plugin.from_html.js"></script>
+     
        
         <script type="text/javascript">
 
@@ -893,15 +889,28 @@
             function imprSelec()
             {
                 //window.print();
-                var ficha=document.getElementById("graf");
-                var ventimp=window.open(' ','popimpr');
-                ventimp.document.write(ficha.innerHTML);
-                //ficha=document.getElementById("tabla");
-               // ventimp.document.write(ficha.innerHTML);
-                ventimp.document.close();
-                ventimp.print();
-                ventimp.close();
+                var doc = new jsPDF();
+                    
+                    var specialElementHandlers = {
+                        '#editor': function(element, renderer){
+                            return true;
+                        }
+                    };
+
+                    doc.fromHTML($('#content_id').html(), 15, 15, {
+                        'width': 170,'elementHandlers': specialElementHandlers
+                    });
+                    doc.save('Datos.pdf');
             }
+            
+             $(document).ready(function () {
+                $("#xml").click(function () {
+                    alert("XML");
+                });
+                $("#csv").click(function () {
+                    alert("CSV");
+                });
+            });
     </script>
     </body>
 </html>
