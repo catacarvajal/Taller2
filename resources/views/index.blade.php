@@ -13,8 +13,6 @@
                 <p>Este sitio presenta información de distintas variables ambientales, las cuales se pueden graficar y visualizar según un periodo de tiempo determinado. Los datos que encontrará a continuación han sido generados a partir de modelos atmosféricos y datos satelitales.
                     Este gran esfuerzo computacional y científico ha sido llevado a cabo por el equipo de la Universidad de Talca para el modulo de Taller 2.
                 </p>
-                <p> Haga click en la herramienta para ver las distintas opciones implementadas en el sitio
-                </p>
             </div>
         </div>
     </section>
@@ -118,7 +116,8 @@
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-                                        Variables</a>
+                                        Variables
+                                    </a>
                                 </h4>
                             </div>
                             <div id="collapse3" class="panel-collapse collapse">
@@ -182,19 +181,19 @@
                                     <ul class="users-list clearfix">
                                         <li>                            
                                             <img src="http://www.ifriedegg.com/Images%209/Punto.jpg">
-                                            <a class="users-list-name" href="#">Punto</a>
+                                            <a class="users-list-name">Punto</a>
                                         </li>
                                         <li>
                                             <img src="http://definicion.de/wp-content/uploads/2012/08/cuadrado.jpg" alt="User Image">
-                                            <a class="users-list-name" href="#">Cuadrado</a>
+                                            <a class="users-list-name" >Cuadrado</a>
                                         </li>
                                         <li>
                                             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoCep2JBhGOOFCTc52UVD2vVHr0cRc4PvoCEIvKLkS3pB3rtAqzg" alt="User Image">
-                                            <a class="users-list-name" href="#">Polígono</a>
+                                            <a class="users-list-name" >Polígono</a>
                                         </li>
                                         <li>
                                             <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQYtHuH2Xr_LyWeq5tDAsElDIRcMUrQ5fKwt07moJ7jNddB0zLGKA" href="#" alt="User Image">
-                                            <a class="users-list-name" href="#">Circulo</a>
+                                            <a class="users-list-name">Circulo</a>
                                         </li>
 
                                     </ul><!-- /.users-list -->
@@ -211,7 +210,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6 ">                   
-                                            <button class="btn btn-block btn-primary btn-xs" id="btn-grafico" title="Visulizar" onclick="window.open('Grafico')">Visualizar Graficos</button> 
+                                            <button class="btn btn-block btn-primary btn-xs" id="btn-grafico" title="Visualizar" onclick="window.open('Grafico')">Visualizar Graficos</button> 
                                         </div>
                                         <div class="col-md-6 ">                 
                                             <button class="btn btn-block btn-danger btn-xs" type="button" data-toggle="control-dibujo" title="Eliminar" onclick='removeDraw()'> <i class="fa fa-trash"></i> Eliminar Polígono</button>
@@ -287,5 +286,31 @@
         </div>
     </section>
 </div><!--content-->
+
+<script type="text/javascript">
+    
+    // jQuery example
+    function setgraficoValue(value)
+    {
+      var parametros = {
+        "periodo" : $("#Periodo").val(),
+        "variable" : $("#Variable").val(),
+        "escenario" : $("#Escenario").val()
+      };
+
+      var form =$('#formG');
+      var url = form.attr('action');
+      
+      $.post(url,parametros,function(result){
+        lava.loadData('grafico', result);
+  
+      console.log(result);
+         
+      });
+
+    }
+
+
+</script>
 
 @endsection
