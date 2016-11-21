@@ -164,8 +164,9 @@
                             <div id="collapse6" class="panel-collapse collapse">
                                 <div class="panel-body">
                                      <div class="row">
-                                        <div class="col-md-6 ">                   
-                                            <button class="btn btn-block btn-success btn-lg" id="btn-Importar" title="Importar" onclick="exportarPdf()"><i class="fa fa-cloud-upload"></i> Importar Datos</button> 
+                                        <div class="col-md-6 "> 
+                                            <div class="custom-input-file"><input type="file" accept=".csv"onchange='readText(this)'  size="1" class="input-file" />
+                                            </div>                   
                                         </div>
                                         <div class="col-md-6 ">                 
                                             <button class="btn btn-block btn-warning btn-lg" id="btn-Exportar" title="Exportar" > <i class="fa fa-cloud-download"></i> Exportar datos</button>

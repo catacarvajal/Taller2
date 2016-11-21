@@ -147,6 +147,24 @@
             .my-legend a {
                 color: #777;
             }
+            .custom-input-file {
+                overflow: hidden;
+                position: relative;
+                cursor: pointer;
+            }
+            .custom-input-file .input-file {
+                margin: 0;
+                padding: 0;
+                outline: 0;
+                font-size: 10000px;
+                border: 10000px solid transparent;
+                opacity: 0;
+                filter: alpha(opacity=0);
+                position: absolute;
+                right: -1000px;
+                top: -1000px;
+                cursor: pointer;
+            }
         </style>
     </head>
     <body class="skin-blue">
@@ -777,19 +795,33 @@
             addInteraction();
         </script>
         <script type="text/javascript">
-            function exportar() {
-                var formato = $('#formato option:selected').val();
-                if(formato=="XML")
+
+            $(document).ready(function () {
+                $('json').click(function(){
+                    exportar("json");
+                });
+                $('xml').click(function(){
+                    exportar("xml");
+                });
+                $('csv').click(function(){
+                    exportar("csv");
+                });
+
+            });
+
+            function exportar(formato) {
+                if(formato=="xml")
                 {
                     var datos = obtenerDatos();
                     descargarArchivo(generarXml(datos), 'datos.xml');
                 }
-                else if(formato=="CSV")
+                else if(formato=="csv")
                 {
+
                     var datos = obtenerDatos();
                     descargarArchivo(generarCsv(datos), 'datos.csv');
                 }
-                else
+                else 
                 {
                     var datos = obtenerDatos();
                     var datosJson = JSON.stringify(datos);
@@ -798,12 +830,38 @@
              }
              function obtenerDatos()
              {
-                return {
-                    periodo: "1990",
-                    escenario: "SRES A1B",
-                    variable: "Precipitacion",
-                    raster:  "21312312"
-                };
+                 
+                var promediosFinal=[];
+                {{$i=0}}
+                for (var i = 0; i < {{count($datosTabla)}}; i++) {
+
+                    promediosFinal.push({{ $datosTabla[$i]->promedio }});
+                    {{$i++}}
+                }
+                if(promediosFinal.length!=12)
+                {
+                    for (var i = 0; i < 12; i++) {
+                        promediosFinal.push(-99999);
+                    }
+                }
+                return {    periodo: '', 
+                            escenario: '',
+                            variable: '',
+                            promedio: {
+                                enero: promediosFinal[0],
+                                febrero: promediosFinal[1],
+                                marzo: promediosFinal[2],
+                                abril: promediosFinal[3],
+                                mayo: promediosFinal[4],
+                                junio: promediosFinal[5],
+                                julio: promediosFinal[6],
+                                agosto: promediosFinal[7],
+                                septiembre: promediosFinal[8],
+                                octubre: promediosFinal[9],
+                                noviembre: promediosFinal[10],
+                                diciembre: promediosFinal[11]
+                            }
+                        };
              }
              function generarXml(datos) {
                 var texto = [];
@@ -818,9 +876,44 @@
                 texto.push('\t<variable>');
                 texto.push(escaparXML(datos.variable));
                 texto.push('</variable>\n');
-                texto.push('\t<raster>');
-                texto.push(escaparXML(datos.raster));
-                texto.push('</raster>\n');
+                texto.push('\t<promedio>\n');
+                texto.push('\t\t<enero>');
+                texto.push(escaparXML(datos.promedio.enero+""));
+                texto.push('</enero>\n');
+                texto.push('\t\t<febrero>');
+                texto.push(escaparXML(datos.promedio.febrero+""));
+                texto.push('</febrero>\n');
+                texto.push('\t\t<marzo>');
+                texto.push(escaparXML(datos.promedio.marzo+""));
+                texto.push('</marzo>\n');
+                texto.push('\t\t<abril>');
+                texto.push(escaparXML(datos.promedio.abril+""));
+                texto.push('</abril>\n');
+                texto.push('\t\t<mayo>');
+                texto.push(escaparXML(datos.promedio.mayo+""));
+                texto.push('</mayo>\n');
+                texto.push('\t\t<junio>');
+                texto.push(escaparXML(datos.promedio.junio+""));
+                texto.push('</junio>\n');
+                texto.push('\t\t<julio>');
+                texto.push(escaparXML(datos.promedio.julio+""));
+                texto.push('</julio>\n');
+                texto.push('\t\t<agosto>');
+                texto.push(escaparXML(datos.promedio.agosto+""));
+                texto.push('</agosto>\n');
+                texto.push('\t\t<septiembre>');
+                texto.push(escaparXML(datos.promedio.septiembre+""));
+                texto.push('</septiembre>\n');
+                texto.push('\t\t<octubre>');
+                texto.push(escaparXML(datos.promedio.octubre+""));
+                texto.push('</octubre>\n');
+                texto.push('\t\t<noviembre>');
+                texto.push(escaparXML(datos.promedio.noviembre+""));
+                texto.push('</noviembre>\n');
+                texto.push('\t\t<diciembre>');
+                texto.push(escaparXML(datos.promedio.diciembre+""));
+                texto.push('</diciembre>\n');
+                texto.push('\t</promedio>\n');
                 texto.push('</datos>');
                 //No olvidemos especificar el tipo MIME correcto :)
                 return new Blob(texto, {
@@ -829,8 +922,9 @@
             }
 
             function generarCsv(datos) {
-                var texto = ['"periodo";"escenario";"variable";"raster"',
-                             ''+datos.periodo+";"+datos.escenario+";"+datos.variable+";"+datos.raster+''
+                var texto = ['"periodo";"escenario";"variable";"enero";"febrero";"marzo";"abril";"mayo";"junio";"julio";"agosto";"septiembre";"octubre";"noviembre";"diciembre"',
+                             ''+datos.periodo+";"+datos.escenario+";"+datos.variable+";"+datos.promedio.enero+";"+datos.promedio.febrero+";"+datos.promedio.marzo+";"+
+                                datos.promedio.abril+";"+datos.promedio.mayo+";"+datos.promedio.junio+";"+datos.promedio.julio+";"+datos.promedio.agosto+";"+datos.promedio.septiembre+";"+datos.promedio.octubre+";"+datos.promedio.noviembre+";"+datos.promedio.diciembre+''
                           ].join('\n');
                 //No olvidemos especificar el tipo MIME correcto :)
                 return new Blob([texto], {
@@ -849,7 +943,7 @@
                     .replace('"', '&quot;');
                 return cadena;
             };
-              function descargarArchivo(contenidoEnBlob, nombreArchivo) {
+            function descargarArchivo(contenidoEnBlob, nombreArchivo) {
                 var reader = new FileReader();
                 reader.onload = function (event) {
                     var save = document.createElement('a');
@@ -891,26 +985,50 @@
                 //window.print();
                 var doc = new jsPDF();
                     
-                    var specialElementHandlers = {
-                        '#editor': function(element, renderer){
-                            return true;
-                        }
-                    };
+                var specialElementHandlers = {
+                    '#editor': function(element, renderer){
+                        return true;
+                    }
+                };
 
-                    doc.fromHTML($('#content_id').html(), 15, 15, {
-                        'width': 170,'elementHandlers': specialElementHandlers
-                    });
-                    doc.save('Datos.pdf');
+                doc.fromHTML($('#content_id').html(), 15, 15, {
+                    'width': 170,'elementHandlers': specialElementHandlers
+                });
+                doc.save('Datos.pdf');
             }
-            
-             $(document).ready(function () {
-                $("#xml").click(function () {
-                    alert("XML");
-                });
-                $("#csv").click(function () {
-                    alert("CSV");
-                });
-            });
-    </script>
+
+            var reader;
+            function readText(filePath) {
+                reader = new FileReader();
+                var output = ""; //placeholder for text output
+                if(filePath.files && filePath.files[0]) {           
+                    reader.onload = function (e) {
+                        output = e.target.result;
+                        console.log(output);
+                        //displayContents(output);
+                    };//end onload()
+                    reader.readAsText(filePath.files[0]);
+                }//end if html5 filelist support
+                else if(ActiveXObject && filePath) { //fallback to IE 6-8 support via ActiveX
+                    try {
+                        reader = new ActiveXObject("Scripting.FileSystemObject");
+                        var file = reader.OpenTextFile(filePath, 1); //ActiveX File Object
+                        output = file.ReadAll(); //text contents of file
+                        file.Close(); //close file "input stream"
+                        //displayContents(output);
+                    } catch (e) {
+                        if (e.number == -2146827859) {
+                            alert('Unable to access local files due to browser security settings. ' + 
+                             'To overcome this, go to Tools->Internet Options->Security->Custom Level. ' + 
+                             'Find the setting for "Initialize and script ActiveX controls not marked as safe" and change it to "Enable" or "Prompt"'); 
+                        }
+                    }       
+                }
+                else { //this is where you could fallback to Java Applet, Flash or similar
+                    return false;
+                }       
+                return true;
+            }   
+         </script>
     </body>
 </html>

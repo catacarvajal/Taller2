@@ -10,9 +10,10 @@
           <h3 class="box-title">
           <i class="fa fa-bar-chart" aria-hidden="true"></i> Estadísticas
           </h3>
-          <a id="xml" class="btn btn-primary btn-flat pull-right">XML</a>
-          <a id="csv" class="btn btn-primary btn-flat pull-right">CSV</a>
-          <a href="/pdf" class="btn btn-primary btn-flat pull-right">PDF</a>
+          <a onclick="exportar('json')" class="btn btn-primary btn-flat pull-right">JSON</a>
+          <a  onclick="exportar('xml')" class="btn btn-primary btn-flat pull-right">XML</a>
+          <a onclick="exportar('csv')" class="btn btn-primary btn-flat pull-right">CSV</a>
+          <a  onclick="exportarPdf()" class="btn btn-primary btn-flat pull-right">PDF</a>
         </div>
         <div class="box-body">
           <div class="row">
@@ -62,3 +63,4 @@
 
 <?= $lava->render('BarChart', 'grafico', 'perf_div')?>
 @endsection
+
