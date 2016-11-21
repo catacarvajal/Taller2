@@ -166,6 +166,7 @@
                                      <div class="row">
                                         <div class="col-md-6 "> 
                                             <div class="custom-input-file"><input type="file" accept=".csv"onchange='readText(this)'  size="1" class="input-file" />
+                                                <button class="btn btn-block btn-success btn-lg" id="btn-Exportar" title="Exportar" > <i class="fa fa-cloud-upload"></i> Importar</button>
                                             </div>                   
                                         </div>
                                         <div class="col-md-6 ">                 
