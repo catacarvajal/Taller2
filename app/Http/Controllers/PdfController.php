@@ -13,15 +13,14 @@ use App\Rast;
 use App\Period;
 use App\Scenario;
 use App\Variable;
+use Barryvdh\DomPDF\Facade\PDF;
 
 class PdfController extends Controller
 {
-    public function grafico() 
+    public function exportarPDF() 
     {
-        $data = $this->getData();
-        $date = date('Y-m-d');
-        $invoice = "2222";
-         $consultaPunto = $this->consultaGrafico(1,1,1);//hacemos la consulta de 1 punto
+        
+        $consultaPunto = $this->consultaGrafico(1,1,1);//hacemos la consulta de 1 punto
         $lava = $this->graficoPunto($consultaPunto);//hacemos el gráfico de ese punto con la consulta anterior
         $periodo = Period::all();// traemos todos los periodos que existen en la bd
         $scenario = Scenario::all();
@@ -33,93 +32,16 @@ class PdfController extends Controller
                                         ->with('variable',$variable)
                                         ->with('datosTabla', $datosTabla)
                                         ->render();
-        $pdf = \App::make('dompdf.wrapper');
+        //$pdf = \PDF::loadView($view);
         //$pdf->loadHTML($view);
-        $pdf->loadHTML('<div>
-                <section id="content_id">
-                    <div class="content" >
-    <!-- Content Header (Page header) -->
-  <section class="content-header">
-    <div class="box-body no-padding">
-      <div class="box box-info color-palette-box">
-        <div class="box-header with-border">
-          <h3 class="box-title">
-          <i class="fa fa-bar-chart" aria-hidden="true"></i> Estadísticas
-          </h3>
-          <a id="xml" class="btn btn-primary btn-flat pull-right">Json</a>
-          <a id="xml" class="btn btn-primary btn-flat pull-right">XML</a>
-          <a id="csv" class="btn btn-primary btn-flat pull-right">CSV</a>
-          <a href="/pdf" class="btn btn-primary btn-flat pull-right">PDF</a>
-        </div>
-        <div class="box-body">
-          <div class="row">
-            <div class="col-md-12 ">
-              <div id="perf_div" class="chart" ></div><!-- div donde se dibuja el grafico -->
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12 ">
-                  <div class="row">
-      <div class="col-md-12">
-        <div class="box box-success">   
-          <div class="box-header with-border">
-            <h3 class="box-title">Datos de: minimum temperature</h3>
-          </div> 
-          <div class="box-body">
-            <table class="table table-bordered" id="tabla">
-              <tr>
-                <th>Mes</th>
-                <th style="width: 600px">Variable</th>
-                <th style="width: 20px">Promedio</th>
-              </tr>
-                   
-                <tr>
-                  <td>february</td>
-                  <td><span class="badge bg-blue">minimum temperature</td>
-                  <td><span class="badge bg-red">103</span></td>
-                </tr>
-                   
-                <tr>
-                  <td>january</td>
-                  <td><span class="badge bg-blue">minimum temperature</td>
-                  <td><span class="badge bg-red">114</span></td>
-                </tr>
-                   
-                <tr>
-                  <td>march</td>
-                  <td><span class="badge bg-blue">minimum temperature</td>
-                  <td><span class="badge bg-red">82</span></td>
-                </tr>
-                          
-              
-            </table>
-          </div><!-- /.box-body -->
-
-
-        </div>
-      </div>
-    </div>
-                                 <!-- Fin creación de tabla -->
-            </div>
-          </div>
-        </div><!-- /.box-body -->
-      </div><!-- /.box -->
-    </div>
-  </section>
-</div>');
-        return $pdf->stream('Datos.pdf');
+        //$view =  \View::make('exportar')->render();
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        //return $pdf->stream('Datos.pdf');
+        return $pdf->download('Datos.pdf');
     }
  
-    public function getData() 
-    {
-        $data =  [
-            'quantity'      => '1' ,
-            'description'   => 'some ramdom text',
-            'price'   => '500',
-            'total'     => '500'
-        ];
-        return $data;
-    }
+   
 
     public function datosTabla()
     {
@@ -171,6 +93,24 @@ class PdfController extends Controller
         ->get();
         return $consulta;
     }
+
+
+    public function importacion(Request $request)
+    {
+        $ruta = $request->input('ruta');
+        $datosTabla = array();
+        if ( ($handle=fopen($ruta, 'r') )!==FALSE) {
+            while ( ($datos=fgetcsv($handle, 1000, ';'))!== FALSE) {
+
+                array_push($datosTabla, $datos);
+            }
+            fclose($handle);
+        }
+        return view('importar')->with('datosTabla',$datosTabla);
+        //
+    }
+
+
 
     /**
      * Display a listing of the resource.

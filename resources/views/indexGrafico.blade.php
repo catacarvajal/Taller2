@@ -13,7 +13,7 @@
           <a onclick="exportar('json')" class="btn btn-primary btn-flat pull-right">JSON</a>
           <a  onclick="exportar('xml')" class="btn btn-primary btn-flat pull-right">XML</a>
           <a onclick="exportar('csv')" class="btn btn-primary btn-flat pull-right">CSV</a>
-          <a  onclick="exportarPdf()" class="btn btn-primary btn-flat pull-right">PDF</a>
+          <a  href="/pdf" class="btn btn-primary btn-flat pull-right">PDF</a>
         </div>
         <div class="box-body">
           <div class="row">

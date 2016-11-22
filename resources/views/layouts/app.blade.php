@@ -1029,6 +1029,22 @@
                 }       
                 return true;
             }   
+            function importar(ruta)
+            {
+                
+                $.ajax({
+                    type: 'post',
+                    url: '/importacion',
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({'ruta':ruta}),
+                    success: function (data) {
+                        console.log(data);
+                    }
+                }).fail(function (jqXHR, textStatus, error) {
+                    console.log(error);
+                });
+            }
          </script>
     </body>
 </html>
