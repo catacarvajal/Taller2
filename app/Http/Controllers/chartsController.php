@@ -30,6 +30,11 @@ class chartsController extends Controller
       
     }
 
+    public function nuevaVentana($tipo)
+    {
+        return ajaxGeoJson($tipo);
+    }
+
    public function graficoPunto($consulta,$variable)
     {
         
