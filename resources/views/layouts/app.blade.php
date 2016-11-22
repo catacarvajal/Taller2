@@ -421,7 +421,7 @@
                     raster.U.layers.a[10].U.visible = false;
                     raster.U.layers.a[11].U.visible = true;
                 }
-                map.updateSize();
+                map.render();
             }
 
             var mapas = new ol.layer.Group({
@@ -673,7 +673,6 @@
                         maxPoints: maxPoints
                     });
                     draw.on("drawend", function (e) {
-
 
                         if (value2 == 'Circle') {
                             var feature = e.feature;

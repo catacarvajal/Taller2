@@ -16,4 +16,5 @@ Route::get('/Grafico', 'chartsController@index');
 Route::get('/MapaYGrafico', 'HomeController@indexAmbos');
 Route::post('/Grafico', 'chartsController@postGrafico');
 
-Route::post('ajax','HomeController@ajaxGeoJson');
+Route::post('ajax','chartsController@ajaxGeoJson');
+
