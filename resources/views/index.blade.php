@@ -94,7 +94,7 @@
                                                 <select class="form-control select2 input-sm" id="Var" onchange="cambiarRaster()">
                                                     <option value=1 >Enero</option>
                                                     <option value=2 >Febrero</option>
-                                                    <option value=3 >Marzo</option>                  
+                                                    <option value=3 >Marzo</option>
                                                     <option value=4 >Abril</option>
                                                     <option value=5 >Mayo</option>
                                                     <option value=6 >Junio</option>
@@ -202,7 +202,7 @@
                                         <label>Seleccione Geometría: &nbsp;</label>
                                         <select class="form-control select2 input-sm" id="type">
                                             <option value="None">Ninguno</option>
-                                            <option value="Point">Punto</option>                        
+                                            <option value="Point">Punto</option>
                                             <option value="Polygon">Poligono</option>
                                             <option value="Circle">Circulo</option>
                                             <option value="Square">Cuadrado</option>
@@ -210,7 +210,8 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6 ">                   
-                                            <button class="btn btn-block btn-primary btn-xs" id="btn-grafico" title="Visualizar" onclick="window.open('Grafico')">Visualizar Graficos</button> 
+                                            <button class="btn btn-block btn-primary btn-xs" id="   btn-grafico" title="Visualizar" onclick="grafico()">Visualizar Graficos
+                                            </button> 
                                         </div>
                                         <div class="col-md-6 ">                 
                                             <button class="btn btn-block btn-danger btn-xs" type="button" data-toggle="control-dibujo" title="Eliminar" onclick='removeDraw()'> <i class="fa fa-trash"></i> Eliminar Polígono</button>

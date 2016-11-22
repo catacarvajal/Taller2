@@ -677,7 +677,7 @@
                         if (value2 == 'Circle') {
                             var feature = e.feature;
                             var featureClone = feature.clone();                            
-                            var circle = featureClone.getGeometry().transform('EPSG:3857', 'EPSG:4326')
+                            var circle = featureClone.getGeometry().transform('EPSG:3857', 'EPSG:4326');
                             var radio = circle.getRadius();
                             var centro = circle.getCenter();   
                             var geoj = {
@@ -715,6 +715,14 @@
                 
                 ajax(geojson);
             }
+
+            //$('#btn-grafico').attr('disabled', true);
+
+            function grafico(){
+                window.open('Graficos' + '/' + geojson);
+            }
+
+
             function ajax(geojson) {
                 console.log(geojson);
                 var periodo = $("#Periodo").val();
@@ -729,6 +737,7 @@
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({'periodo': periodo, 'variable': variable, 'escenario': escenario, 'geoj': JSON.parse(geojson)}),
                     success: function (data) {
+
                         hayDatos = true;
                         for (var i = 0; i < data.rows.length; i++) 
                         {

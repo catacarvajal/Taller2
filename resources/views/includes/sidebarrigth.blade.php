@@ -60,7 +60,6 @@
 			<h4 class="modal-title">Visualizar</h4>
 		</div>
 		<div class="row">
-
 			<div class="col-md-8 col-md-offset-2">					
 				<button class="btn btn-block btn-primary btn-xs" id="btn-grafico" data-toggle="control-sidebar" title="Visulizar" onclick='ajaxButton()'>Visualizar Graficos</button>			
 			</div>
@@ -174,5 +173,3 @@
 		</div>
 	</div>
 </aside><!-- /.control-sidebar -->
-
-
