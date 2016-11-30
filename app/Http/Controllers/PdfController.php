@@ -97,6 +97,9 @@ class PdfController extends Controller
 
     public function importacion(Request $request)
     {
+        $data = $request->input('datosImportacion');
+        //$file = Input::get('datosImportacion');
+        /*
         $ruta = $request->input('ruta');
         $datosTabla = array();
         if ( ($handle=fopen($ruta, 'r') )!==FALSE) {
@@ -105,8 +108,8 @@ class PdfController extends Controller
                 array_push($datosTabla, $datos);
             }
             fclose($handle);
-        }
-        return view('importar')->with('datosTabla',$datosTabla);
+        }*/
+        return view('importar')->with('datos', $data);
         //
     }
 

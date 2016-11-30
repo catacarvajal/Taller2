@@ -2,6 +2,8 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
         <title>Taller </title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
@@ -17,7 +19,7 @@
         <script src="http://openlayers.org/en/v3.18.2/build/ol.js"></script>
         <link rel="stylesheet" href="{{ asset('/ol3-layerswitcher-master/src/ol3-layerswitcher.css') }}" />
         <script src="{{ asset('/ol3-layerswitcher-master/src/ol3-layerswitcher.js') }}"></script>
-
+        
         <style>
             .fullscreen:-moz-full-screen {
                 height: 100%;
@@ -997,14 +999,15 @@
                 doc.save('Datos.pdf');
             }
 
+            var datosImportacion;
             var reader;
             function readText(filePath) {
                 reader = new FileReader();
+                reader.addEventListener('load',leer,false);
                 var output = ""; //placeholder for text output
                 if(filePath.files && filePath.files[0]) {           
                     reader.onload = function (e) {
                         output = e.target.result;
-                        console.log(output);
                         //displayContents(output);
                     };//end onload()
                     reader.readAsText(filePath.files[0]);
@@ -1029,12 +1032,44 @@
                 }       
                 return true;
             }   
+
+            function leer(ev)
+            {
+                datosImportacion = ev.target.result.split("\r\n");
+                var jsonImportacion = {};
+                var arrayAuxiliar = [];
+                for (var i = 0; i < datosImportacion.length ; i++) {
+                    arrayAuxiliar = datosImportacion[i].split(";");
+                    jsonImportacion['data'+i] = {latitud:arrayAuxiliar[0], longitud: arrayAuxiliar[1], comuna: arrayAuxiliar[2]};
+                }
+                var jsonFinal = {'datosImportacion':jsonImportacion};
+                console.log(jsonImportacion);             
+
+                //Post a un controller
+               //window.print();
+               //window.open("importacion", "MsgWindow", datosImportacion);
+               /*$.post('importacion',datosImportacion,function(data,status){
+                    console.log("Data: " + data + "\nStatus: " + status);
+                });*/
+                $.ajax({
+                    headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                    url: 'importacion',
+                    type: 'POST',
+                    data: jsonFinal,
+                    dataType: 'JSON',
+                    success: function (data) {
+                        console.log(data);
+                    }
+                }).fail(function (jqXHR, textStatus, error) {
+                    console.log(error);
+                });
+            }
             function importar(ruta)
             {
                 
                 $.ajax({
                     type: 'post',
-                    url: '/importacion',
+                    url: 'importacion',
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({'ruta':ruta}),

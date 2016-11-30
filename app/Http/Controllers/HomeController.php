@@ -9,7 +9,7 @@ use App\Rast;
 use App\Period;
 use App\Scenario;
 use App\Variable;
-
+use Session;
 
 class HomeController extends Controller {
 
@@ -21,6 +21,8 @@ class HomeController extends Controller {
         $scenario = Scenario::all();
         $variable = Variable::all();
         $datosTabla = $this->datosTabla(1,1); //se obtienen los datos para llenar la tabla (mes, variable, promedio)
+        $levels = [];
+        \Session::put('levels', $levels );
         return view('index')->with('periodo',$periodo)->with('scenario',$scenario)->with('variable',$variable)->with('lava',$lava)->with('datosTabla',$datosTabla);
     }
 
