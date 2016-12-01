@@ -32,7 +32,49 @@ class chartsController extends Controller
 
     public function nuevaVentana($tipo)
     {
-        return ajaxGeoJson($tipo);
+        $request= (array)json_decode($tipo,true);   
+
+        $escenario =$request['escenario'];
+        $periodo =$request['periodo'];
+        $data = $request['geoj'];         
+        $data0=$data['geometry'];
+        $data1=$data0['type']; //tipo de geometria
+        $data2=$data0['coordinates']; //coordenadas  
+
+        if ($data1=="Point"){
+
+            $var=implode(",", $data2);  
+
+
+            $consultaPunto = $this->consultaGrafico('1',$periodo,$escenario,$var);            
+
+            $lava = $this->DataTable($consultaPunto,'1');           
+           // $lava = $this->DataTable($consultaPunto,$variableSelect);
+        }
+        if ($data1 == "Circle")
+        {
+            $radio=$data0['radius'];//radio
+            $var=implode(",", $data2[0]);           
+            $consultaCirculo = $this->consultaGraficoCirculo('1',$periodo,$escenario,$var,$radio);
+            $lava = $this->DataTable($consultaCirculo,'1');
+        }
+        if($data1=="Polygon" )
+        {
+            $var1=$data2[0];
+            $var2="";
+            foreach ($var1 as & $valor) {
+           
+            $var=implode(" ", $valor);
+            $var2=$var.",".$var2;
+            }                
+            $var2 = substr($var2, 0, -1);       
+            $consultaPoligono = $this->consultaGraficoPoligono('1',$periodo,$escenario,$var2);
+            $lava = $this->DataTable($consultaPoligono,'1');
+        }  
+        
+        $datosTabla = $this->datosTabla('1',$periodo);
+
+       return view('indexGrafico')->with('lava',$lava)->with('datosTabla',$datosTabla)->with('periodo',$periodo);
     }
 
    public function graficoPunto($consulta,$variable)
@@ -41,17 +83,17 @@ class chartsController extends Controller
         $lava = new Lavacharts; // See note below for Laravel
                 $grafico = $lava->DataTable();
                 $grafico->addStringColumn('Months of Year')
-                        ->addNumberColumn('');
+                        ->addNumberColumn($variable);
                         for($i=0; $i<count($consulta); $i++)
                         {
                             $grafico->addRow([$consulta[$i]->name, $consulta[$i]->avg]);
                         }
                 $lava->BarChart('grafico', $grafico, [
-                    'title' => 'Gráfico',
+                    'title' => $variable,
                     'titleTextStyle' => [
                         'color'    => '#eb6b2c',
                         'fontSize' => 30
-                    ]
+                    ],'position' => 'in',
                 ]);
 
         return $lava;
@@ -83,7 +125,7 @@ class chartsController extends Controller
         }
         
 
-        return $grafico;
+        return $lava;
     }
 
 
@@ -196,7 +238,9 @@ class chartsController extends Controller
     }
 
 
-    public function ajaxGeoJson(Request $request){
+    public function ajaxGeoJson( $request){
+
+        dd($Request);
         $variable =$request->input('variable');
   
         $escenario =$request->input('escenario');
@@ -240,7 +284,7 @@ class chartsController extends Controller
             $consultaPoligono = $this->consultaGraficoPoligono($variable,$periodo,$escenario,$var2);
             $lava = $this->DataTable($consultaPoligono,$variableSelect);
         }       
-        return $lava->tojson();
+       // return $lava->tojson();
     
  /*       $data = $request->input('geoj');       
         
