@@ -157,8 +157,8 @@
                     @yield('content')
                 </section>
             </div>
-            @include('includes.sidebarrigth')
-            <div class="control-sidebar-bg"></div> 
+            
+            
             
         </div>
 
@@ -719,7 +719,10 @@
             //$('#btn-grafico').attr('disabled', true);
 
             function grafico(){
-                window.open('Graficos' + '/' + geojson);
+                var periodo = $("#Periodo").val();                
+                var escenario = $("#Escenario").val();
+                var geofinal=JSON.stringify({'periodo': periodo,'escenario': escenario, 'geoj': JSON.parse(geojson)})
+                window.open('Graficos' + '/' + geofinal);
             }
 
 
