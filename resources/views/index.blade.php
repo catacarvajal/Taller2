@@ -232,8 +232,13 @@
                                     <div class="row">
                                         <div class="col-md-8 col-md-offset-2">  
                                             <div class="form-group ">
+                                                <label>Seleccione Región: &nbsp;</label>
+                                                <select class="form-control select2 input-sm" id="ir_region">
+                                                    <option value="None">Seleccione</option>
+                                                    {!!Form::select('chilecomuna', array_pluck($region, 'region'), null, ['id'=>'chilecomuna','class' => 'form-control','onchange' => 'setgraficoValue(this.value);']) !!}            
+                                                </select>
                                                 <label>Tipo: &nbsp;</label>
-                                                <select class="form-control select2 input-sm" id="ir_tipo">
+                                                <select class="form-control select2 input-sm" id="ir_provincia">
                                                     <option value="None">Seleccione</option>
                                                     <option value="Regiones">Regiones</option>
                                                     <option value="Provincias">Provincias</option>                      
