@@ -44,8 +44,6 @@ class chartsController extends Controller
         if ($data1=="Point"){
 
             $var=implode(",", $data2);  
-
-
             $consultaPunto = $this->consultaGrafico('1',$periodo,$escenario,$var);            
 
             $lava = $this->DataTable($consultaPunto,'1');           

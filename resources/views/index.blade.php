@@ -305,7 +305,6 @@
 
       var form =$('#formG');
       var url = form.attr('action');
-      
       $.post(url,parametros,function(result){
         lava.loadData('grafico', result);
   
@@ -317,13 +316,20 @@
 
     function regionSeleccionada(value)
     {
+        var region = $("#region :selected").text();
+        var form = $('#region-div');
 
-        $region = $("#region :selected").text();
+
+        $.post('/',region, function(result){
+            alert("success");
+                 
+
+        })
 
         //LLAMO A UN POST O GET Y LE PASO COMO PARAMETRO $ir_region, LA IDEA ES QUE ESTE METODO RETORNE UNA LISTA 
         //DE ELEMENTOS EN JSON PARA QUE LOS PARSEES ACA, LUEGO LOS VAS AGREGANDO UNO POR UNO...
 
-       alert($region);
+       alert(region);
 
 
        $('#ir_provincia').append($('<option>', {
