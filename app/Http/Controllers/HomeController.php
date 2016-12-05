@@ -9,6 +9,7 @@ use App\Rast;
 use App\Period;
 use App\Scenario;
 use App\Variable;
+use App\ChileComuna;
 
 
 class HomeController extends Controller {
@@ -20,7 +21,8 @@ class HomeController extends Controller {
         $periodo = Period::all();// traemos todos los periodos que existen en la bd
         $scenario = Scenario::all();
         $variable = Variable::all();
-        return view('index')->with('periodo',$periodo)->with('scenario',$scenario)->with('variable',$variable);
+        $regiones = $this->regiones();
+        return view('index')->with('periodo',$periodo)->with('scenario',$scenario)->with('variable',$variable)->with('regiones',$regiones);
     }
 
 
@@ -65,10 +67,37 @@ class HomeController extends Controller {
             return $consulta;       
     }
 
+    public function regiones()
+    {
+        $regiones = DB::table('chilecomuna')
+        ->distinct()
+        ->select(DB::raw('region'))
+        ->get();
+        return $regiones;
+    }
 
+    public function provincias($region)
+    {
+        $provincias = DB::table('chilecomuna')
+        ->distinct()
+        ->select(DB::raw('name2'))
+        ->where('region', '=', $region)
+        ->get();
+        return $provincias;
 
+    }
 
-   
+    public function postRegiones(Request $request)
+    {
+        if ( $request->ajax() )
+        {
+            $region = $request->input('region');
+            $provincias = $this->provincias($region);
+            return $provincias->toJson();
+        }
+    }
+
+    
 
     
    

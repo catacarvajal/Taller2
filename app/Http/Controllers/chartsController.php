@@ -123,8 +123,6 @@ class chartsController extends Controller
                     ],'position' => 'in',
                 ]);
         }
-        
-
         return $lava;
     }
 
@@ -142,10 +140,7 @@ class chartsController extends Controller
             return $lava->toJson();
             //return $periodo;
         }
-        
     } 
-
-
     
 
   public function datosTabla($id_variable, $id_periodo)
@@ -296,6 +291,7 @@ class chartsController extends Controller
         $data = $request->input('variable');
         return response()->json(array('msg'=> $periodo), 200);*/
     }
+
 
 
 

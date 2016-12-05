@@ -231,12 +231,10 @@
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="col-md-8 col-md-offset-2">  
-                                            <div class="form-group ">
+                                            <div class="form-group" id="region-div">
                                                 <label>Seleccione Región: &nbsp;</label>
-                                                <select class="form-control select2 input-sm" id="ir_region">
-                                                    <option value="None">Seleccione</option>
-                                                    {!!Form::select('chilecomuna', array_pluck($region, 'region'), null, ['id'=>'chilecomuna','class' => 'form-control','onchange' => 'setgraficoValue(this.value);']) !!}            
-                                                </select>
+                                                    {!!Form::select('ChileComuna', array_pluck($regiones, 'region'), null, ['id'=>'region','class' => 'form-control','onchange' => 'regionSeleccionada(this.value);']) !!}       
+
                                                 <label>Tipo: &nbsp;</label>
                                                 <select class="form-control select2 input-sm" id="ir_provincia">
                                                     <option value="None">Seleccione</option>
@@ -244,6 +242,7 @@
                                                     <option value="Provincias">Provincias</option>                      
                                                     <option value="cuidades">Ciudades</option>                      
                                                 </select>
+
                                                 <label>Sub tipo: &nbsp;</label>
                                                 <select class="form-control select2 input-sm" id="ir_sub_tipo">
                                                     <option value="None">Seleccione</option>
@@ -313,6 +312,25 @@
       console.log(result);
          
       });
+
+    }
+
+    function regionSeleccionada(value)
+    {
+
+        $region = $("#region :selected").text();
+
+        //LLAMO A UN POST O GET Y LE PASO COMO PARAMETRO $ir_region, LA IDEA ES QUE ESTE METODO RETORNE UNA LISTA 
+        //DE ELEMENTOS EN JSON PARA QUE LOS PARSEES ACA, LUEGO LOS VAS AGREGANDO UNO POR UNO...
+
+       alert($region);
+
+
+       $('#ir_provincia').append($('<option>', {
+            value: 1,
+            text: 'karina'
+        }));
+
 
     }
 
