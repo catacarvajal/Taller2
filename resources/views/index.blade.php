@@ -364,7 +364,7 @@
             text: "SELECCIONE"
         }));
 
-        $.get( "/"+provincia, function(data) {
+        $.get( "/select/"+provincia, function(data) {
             if( typeof data == 'object'  )
             {
                 alert(data);
