@@ -22,6 +22,7 @@ class HomeController extends Controller {
         $scenario = Scenario::all();
         $variable = Variable::all();
         $regiones = $this->regiones();
+        //dd($comunas);
         return view('index')->with('periodo',$periodo)->with('scenario',$scenario)->with('variable',$variable)->with('regiones',$regiones);
     }
 
@@ -76,17 +77,6 @@ class HomeController extends Controller {
         return $regiones;
     }
 
-    public function provincias($region)
-    {
-        $provincias = DB::table('chilecomuna')
-        ->distinct()
-        ->select(DB::raw('name2'))
-        ->where('region', '=', $region)
-        ->get();
-        return $provincias;
-
-    }
-
     public function postRegiones(Request $request)
     {
         if ( $request->ajax() )
@@ -97,13 +87,26 @@ class HomeController extends Controller {
         }
     }
 
+
+    public function getProvincias($region)
+    {
+        $provincias = DB::table('chilecomuna')
+        ->distinct()
+        ->select(DB::raw('name2'))
+        ->where('region', '=', $region)
+        ->get();
+        return $provincias;    
+    }
+
+    public function getComunas($provincia)
+    {
+        $comunas = DB::table('chilecomuna')
+        ->distinct()
+        ->select(DB::raw('name3'))
+        ->where('name2', '=', $provincia)
+        ->get();
+        return $comunas;
+    }
     
-
-    
-   
-
-    
-
-
     
 }

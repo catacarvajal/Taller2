@@ -235,20 +235,15 @@
                                                 <label>Seleccione Región: &nbsp;</label>
                                                     {!!Form::select('ChileComuna', array_pluck($regiones, 'region'), null, ['id'=>'region','class' => 'form-control','onchange' => 'regionSeleccionada(this.value);']) !!}       
 
-                                                <label>Tipo: &nbsp;</label>
-                                                <select class="form-control select2 input-sm" id="ir_provincia">
+                                                <label>Seleccione Provincia: &nbsp;</label>
+                                                <select class="form-control select2 input-sm" id="provincia" onchange="provinciaSeleccionada(this.value);">
                                                     <option value="None">Seleccione</option>
-                                                    <option value="Regiones">Regiones</option>
-                                                    <option value="Provincias">Provincias</option>                      
-                                                    <option value="cuidades">Ciudades</option>                      
+                                                          
                                                 </select>
 
-                                                <label>Sub tipo: &nbsp;</label>
-                                                <select class="form-control select2 input-sm" id="ir_sub_tipo">
-                                                    <option value="None">Seleccione</option>
-                                                    <option value="Curico">Curicó</option>
-                                                    <option value="Arica">Arica</option>                        
-                                                    <option value="cuidades">Ciudades</option>                      
+                                                <label>Seleccione Comuna: &nbsp;</label>
+                                                <select class="form-control select2 input-sm" id="comuna">
+                                                    <option value="None">Seleccione</option>                      
                                                 </select>
                                             </div>
                                         </div>     
@@ -317,27 +312,82 @@
     function regionSeleccionada(value)
     {
         var region = $("#region :selected").text();
-        var form = $('#region-div');
+
+        //1. limpiar la lista
 
 
-        $.post('/',region, function(result){
-            alert("success");
-                 
-
-        })
-
-        //LLAMO A UN POST O GET Y LE PASO COMO PARAMETRO $ir_region, LA IDEA ES QUE ESTE METODO RETORNE UNA LISTA 
-        //DE ELEMENTOS EN JSON PARA QUE LOS PARSEES ACA, LUEGO LOS VAS AGREGANDO UNO POR UNO...
-
-       alert(region);
-
-
-       $('#ir_provincia').append($('<option>', {
-            value: 1,
-            text: 'karina'
+        //2. mejorar el .get de manera que arroje mensaje de error
+        $('#provincia').empty();
+        $('#provincia')
+            .append($('<option>', {
+            value: "SELECCIONE",
+            text: "SELECCIONE"
         }));
 
 
+        $.get( "/"+region, function(data) {
+            if( typeof data == 'object'  )
+            {
+                alert(data)
+                $.each(data, function(index, value){
+                    //3. agregarlo a la lista 
+                    $('#provincia')
+                        .append($('<option>', {
+                        value: value['name2'],
+                        text: value['name2']
+                    }));     
+
+                });
+            }
+            else
+            {
+                alert("Error interno. Inténtelo de nuevo");
+            }
+        })
+        .fail(function() {
+            alert( "Error interno. Inténtelo de nuevo" );
+        });
+    }
+
+    function provinciaSeleccionada(value)
+    {
+        var provincia = $("#provincia :selected").text();
+
+        //1. limpiar la lista
+        alert(provincia);
+
+        //2. mejorar el .get de manera que arroje mensaje de error
+        $('#comuna').empty();
+        $('#comuna')
+            .append($('<option>', {
+            value: "SELECCIONE",
+            text: "SELECCIONE"
+        }));
+
+        $.get( "/"+provincia, function(data) {
+            if( typeof data == 'object'  )
+            {
+                alert(data);
+                $.each(data, function(index, value){
+                    alert( "index: " + index + ", value: " + value['name3'] ); 
+
+                    //3. agregarlo a la lista 
+                    $('#comuna')
+                        .append($('<option>', {
+                        value: value['name3'],
+                        text: value['name3']
+                    }));     
+
+                });
+            }
+            else
+            {
+                alert("Error interno. Inténtelo de nuevo");
+            }
+        })
+        .fail(function() {
+            alert( "Error interno. Inténtelo de nuevo" );
+        });
     }
 
 
