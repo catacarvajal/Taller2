@@ -259,9 +259,11 @@
     {
       $variable = value;
 
-      var form ='/Grafico';
-
-
+      $.post('/Grafico', function (dataTableJson) {
+              lava.loadData('BarChart', dataTableJson, function (chart) {
+              console.log(chart);
+             });
+         });
     }
 
 

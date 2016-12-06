@@ -347,6 +347,19 @@ class chartsController extends Controller
         }
         
     } 
+    public function getdatatable()
+    {
+        $lava = new Lavacharts; // See note below for Laravel
+                $grafico7 = $lava->DataTable();
+                $grafico7->addStringColumn('Months of Year')
+                        ->addNumberColumn($variableName->name);
+                        for($i=0; $i<count($consulta); $i++)
+                        {
+                            $grafico7->addRow([$consulta[$i]->name, $consulta[$i]->avg]);
+                        }
+                        return $temps->toJson();
+    }
+
 
 
     
