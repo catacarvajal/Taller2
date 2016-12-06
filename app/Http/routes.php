@@ -10,10 +10,10 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
 Route::get('/', 'HomeController@index'); 
 Route::get('/Grafico', 'chartsController@index'); 
 Route::get('/MapaYGrafico', 'HomeController@indexAmbos');
 Route::post('/Grafico', 'chartsController@postGrafico');
+Route::get('/Graficos/{tipo}', 'chartsController@nuevaVentana');
 
-Route::post('ajax','HomeController@ajaxGeoJson');
+Route::post('ajax','chartsController@ajaxGeoJson');

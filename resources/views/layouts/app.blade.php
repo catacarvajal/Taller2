@@ -157,8 +157,8 @@
                     @yield('content')
                 </section>
             </div>
-            @include('includes.sidebarrigth')
-            <div class="control-sidebar-bg"></div> 
+            
+            
             
         </div>
 
@@ -421,7 +421,7 @@
                     raster.U.layers.a[10].U.visible = false;
                     raster.U.layers.a[11].U.visible = true;
                 }
-                map.updateSize();
+                map.render();
             }
 
             var mapas = new ol.layer.Group({
@@ -674,11 +674,10 @@
                     });
                     draw.on("drawend", function (e) {
 
-
                         if (value2 == 'Circle') {
                             var feature = e.feature;
                             var featureClone = feature.clone();                            
-                            var circle = featureClone.getGeometry().transform('EPSG:3857', 'EPSG:4326')
+                            var circle = featureClone.getGeometry().transform('EPSG:3857', 'EPSG:4326');
                             var radio = circle.getRadius();
                             var centro = circle.getCenter();   
                             var geoj = {
@@ -716,6 +715,17 @@
                 
                 ajax(geojson);
             }
+
+            //$('#btn-grafico').attr('disabled', true);
+
+            function grafico(){
+                var periodo = $("#Periodo").val();                
+                var escenario = $("#Escenario").val();
+                var geofinal=JSON.stringify({'periodo': periodo,'escenario': escenario, 'geoj': JSON.parse(geojson)})
+                window.open('Graficos' + '/' + geofinal);
+            }
+
+
             function ajax(geojson) {
                 console.log(geojson);
                 var periodo = $("#Periodo").val();
@@ -730,6 +740,7 @@
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({'periodo': periodo, 'variable': variable, 'escenario': escenario, 'geoj': JSON.parse(geojson)}),
                     success: function (data) {
+
                         hayDatos = true;
                         for (var i = 0; i < data.rows.length; i++) 
                         {
