@@ -325,10 +325,9 @@
         }));
 
 
-        $.get( "/"+region, function(data) {
+        $.get( "/region/"+region, function(data) {
             if( typeof data == 'object'  )
             {
-                alert(data)
                 $.each(data, function(index, value){
                     //3. agregarlo a la lista 
                     $('#provincia')
@@ -354,8 +353,6 @@
         var provincia = $("#provincia :selected").text();
 
         //1. limpiar la lista
-        alert(provincia);
-
         //2. mejorar el .get de manera que arroje mensaje de error
         $('#comuna').empty();
         $('#comuna')
@@ -364,13 +361,10 @@
             text: "SELECCIONE"
         }));
 
-        $.get( "/select/"+provincia, function(data) {
+        $.get( "/provincia/"+provincia, function(data) {
             if( typeof data == 'object'  )
             {
-                alert(data);
                 $.each(data, function(index, value){
-                    alert( "index: " + index + ", value: " + value['name3'] ); 
-
                     //3. agregarlo a la lista 
                     $('#comuna')
                         .append($('<option>', {
