@@ -107,6 +107,17 @@ class HomeController extends Controller {
         ->get();
         return $comunas;
     }
+
+    public function getGeom($region, $provincia, $comuna)
+    {
+        $geom = DB::table('chilecomuna')
+        ->select(DB::raw('geom'))
+        ->where('region', '=', $region)
+        ->orwhere('name2', '=', $provincia)
+        ->orwhere('name3', '=', $comuna)
+        ->get();
+        return $geom;
+    }
     
     
 }

@@ -242,7 +242,7 @@
                                                 </select>
 
                                                 <label>Seleccione Comuna: &nbsp;</label>
-                                                <select class="form-control select2 input-sm" id="comuna">
+                                                <select class="form-control select2 input-sm" id="comuna" onchange="valoresSeleccionados(this.value);">
                                                     <option value="None">Seleccione</option>                      
                                                 </select>
                                             </div>
@@ -312,11 +312,6 @@
     function regionSeleccionada(value)
     {
         var region = $("#region :selected").text();
-
-        //1. limpiar la lista
-
-
-        //2. mejorar el .get de manera que arroje mensaje de error
         $('#provincia').empty();
         $('#provincia')
             .append($('<option>', {
@@ -352,8 +347,6 @@
     {
         var provincia = $("#provincia :selected").text();
 
-        //1. limpiar la lista
-        //2. mejorar el .get de manera que arroje mensaje de error
         $('#comuna').empty();
         $('#comuna')
             .append($('<option>', {
@@ -365,7 +358,6 @@
             if( typeof data == 'object'  )
             {
                 $.each(data, function(index, value){
-                    //3. agregarlo a la lista 
                     $('#comuna')
                         .append($('<option>', {
                         value: value['name3'],
@@ -383,6 +375,33 @@
             alert( "Error interno. Inténtelo de nuevo" );
         });
     }
+
+    function valoresSeleccionados(value)
+    {
+        var datos = {
+            "region" : $("#region :selected").text(),
+            "provincia" : $("#provincia :selected").text(),
+            "comuna" : $("#comuna :selected").text()
+        };
+        console.log(datos);
+        alert(datos.region);
+
+       /*$.get("/datos/"+datos,function(data){
+            if (typeof data == 'object')
+            {
+                $.each(data, function(index, value){
+
+                })
+            }
+       })  */       
+        
+      
+  
+    }
+
+
+
+
 
 
 </script>

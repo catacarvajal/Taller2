@@ -694,7 +694,6 @@
                             geojson = JSON.stringify(geoj);  //trasforma a json            
                            removeDraw();
                         }
-
                         else {
                             var feature = e.feature;
                             var featureClone = feature.clone();

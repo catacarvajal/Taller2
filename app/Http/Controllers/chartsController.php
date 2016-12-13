@@ -68,7 +68,9 @@ class chartsController extends Controller
             $var2 = substr($var2, 0, -1);       
             $consultaPoligono = $this->consultaGraficoPoligono('1',$periodo,$escenario,$var2);
             $lava = $this->DataTable($consultaPoligono,'1');
-        }  
+        }
+
+          
         
         $datosTabla = $this->datosTabla('1',$periodo);
 
@@ -178,7 +180,7 @@ class chartsController extends Controller
     public function consultaGrafico($id_variable, $id_periodo, $id_escenario,$puntos)
     {
 
-             $consulta = DB::table('rast')
+            $consulta = DB::table('rast')
             ->select(DB::raw('month.name,month.id,avg(ST_Value(rast, ST_SetSRID(ST_Point('.$puntos.'), 4326)))'))
             ->join('register', 'register.id', '=', 'rast.id_register')
             ->join('month', 'month.id', '=', 'register.id_month')
@@ -229,6 +231,25 @@ class chartsController extends Controller
         ->get();
         return $consulta;
     }
+
+    public function consultaGraficoPoligonoComuna($id_variable, $id_periodo, $id_escenario,$poligono)
+    {
+     
+        $consulta = DB::table('rast', 'chilecomuna')
+        ->select(DB::raw('month.name,month.id,avg((ST_summaryStats(ST_CLIP(rast.rast, st_setsrid(chilecomuna.geom,4326)))).mean)'))
+        ->join('register', 'register.id', '=', 'rast.id_register')
+        ->join('month', 'month.id', '=', 'register.id_month')
+        ->join('variable', 'variable.id', '=', 'register.id_variable')
+        ->join('scenario', 'scenario.id', '=', 'register.id_scenario')
+        ->where('register.id_period', '=', $id_periodo)
+        ->orwhere('variable.id','=', $id_variable)
+        ->orwhere('scenario.id','=', $id_escenario)
+        ->groupBy('month.id')
+        ->orderBy('month.id')
+        ->get();
+        return $consulta;
+    }
+
 
 
     public function ajaxGeoJson( $request){
