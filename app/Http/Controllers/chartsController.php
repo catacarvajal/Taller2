@@ -43,7 +43,25 @@ class chartsController extends Controller
         if ($data1=="Point"){
 
             $var=implode(",", $data2);  
-            $consulta1 = $this->consultaGrafico('11',$periodo,$escenario,$var);
+            $consulta1 = $this->consultaGrafico('11',$periodo,$escenario,$var); 
+            $variable1 = array_column($this->recorer($consulta1), 'avg');
+            $consulta2 = $this->consultaGrafico('4',$periodo,$escenario,$var);        
+            $variable2 = array_column($this->recorer($consulta2), 'avg');
+            $consulta3 = $this->consultaGrafico('3',$periodo,$escenario,$var); 
+            $variable3 = array_column($this->recorer($consulta3), 'avg');
+            $consulta4 = $this->consultaGrafico('1',$periodo,$escenario,$var);        
+            $variable4 = array_column($this->recorer($consulta4), 'avg');
+            $consulta5 = $this->consultaGrafico('10',$periodo,$escenario,$var); 
+            $variable5 = array_column($this->recorer($consulta5), 'avg');
+            $consulta6 = $this->consultaGrafico('2',$periodo,$escenario,$var);        
+            $variable6 = array_column($this->recorer($consulta6), 'avg');
+            $consulta7 = $this->consultaGrafico('9',$periodo,$escenario,$var); 
+            $variable7 = array_column($this->recorer($consulta7), 'avg');
+           
+          
+          }/* 
+           
+            dd($viewer);
             $consulta2 = $this->consultaGrafico('4',$periodo,$escenario,$var);
             $consulta3 = $this->consultaGrafico('3',$periodo,$escenario,$var);
             $consulta4 = $this->consultaGrafico('1',$periodo,$escenario,$var);
@@ -131,7 +149,28 @@ class chartsController extends Controller
 
 return view('indexGrafico')->with('consulta1',$consulta1)->with('lava1',$lava1)->with('lava2',$lava2)->with('lava3',$lava3)->with('lava4',$lava4)
 ->with('lava5',$lava5)->with('lava6',$lava6)->with('lava7',$lava7)->with('datosTablaV1',$datosTablaV1)->with('datosTablaV2',$datosTablaV2)->with('datosTablaV3',$datosTablaV3)->with('datosTablaV4',$datosTablaV4)->with('datosTablaV5',$datosTablaV5)->with('datosTablaV6',$datosTablaV6)->with('datosTablaV7',$datosTablaV7)->with('periodo',$periodo);
-    }
+    */
+ return view('indexGrafico')
+            ->with('variable1',json_encode($variable1,JSON_NUMERIC_CHECK))
+            ->with('variable2',json_encode($variable2,JSON_NUMERIC_CHECK))
+            ->with('variable3',json_encode($variable3,JSON_NUMERIC_CHECK))
+            ->with('variable4',json_encode($variable4,JSON_NUMERIC_CHECK))
+            ->with('variable5',json_encode($variable5,JSON_NUMERIC_CHECK))
+            ->with('variable6',json_encode($variable6,JSON_NUMERIC_CHECK))
+            ->with('variable7',json_encode($variable7,JSON_NUMERIC_CHECK));
+           
+
+}
+
+
+public function recorer($variable){
+ foreach($variable as $object)
+        {
+             $arrays[] =  (array) $object;
+          }
+          return $arrays;
+
+}
 
    public function graficoPunto($consulta,$variable)
     {
