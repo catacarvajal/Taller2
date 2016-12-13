@@ -43,16 +43,54 @@ class chartsController extends Controller
         if ($data1=="Point"){
 
             $var=implode(",", $data2);  
-            $consulta = $this->consultaGrafico('11',$periodo,$escenario,$var);
-            $lava= $this->DataTable($consulta,'11');
-           // $lava = $this->DataTable($consultaPunto,$variableSelect);
+            $consulta1 = $this->consultaGrafico('11',$periodo,$escenario,$var);
+            $consulta2 = $this->consultaGrafico('4',$periodo,$escenario,$var);
+            $consulta3 = $this->consultaGrafico('3',$periodo,$escenario,$var);
+            $consulta4 = $this->consultaGrafico('1',$periodo,$escenario,$var);
+            $consulta5 = $this->consultaGrafico('10',$periodo,$escenario,$var);
+            $consulta6 = $this->consultaGrafico('2',$periodo,$escenario,$var);
+            $consulta7 = $this->consultaGrafico('9',$periodo,$escenario,$var);
+            $lava1 = $this->DataTable($consulta1,'11');
+            $lava2 = $this->DataTable($consulta2,'4');
+            $lava3 = $this->DataTable($consulta3,'3');
+            $lava4 = $this->DataTable($consulta4,'1');
+            $lava5 = $this->DataTable($consulta5,'10');
+            $lava6 = $this->DataTable($consulta6,'2');
+            $lava7 = $this->DataTable($consulta7,'9');
+
+            $datosTablaV1 = $this->datosTabla('11',$periodo,$escenario,$var);//numero de dias mayor a 10 grados}
+            $datosTablaV2 = $this->datosTabla(4,$periodo,$escenario,$var);//radiacion solar
+            $datosTablaV3 = $this->datosTabla(3,$periodo,$escenario,$var);//precipitaciones
+            $datosTablaV4 = $this->datosTabla(1,$periodo,$escenario,$var);// t minima
+            $datosTablaV5 = $this->datosTabla(10,$periodo,$escenario,$var);//t promedio
+            $datosTablaV6 = $this->datosTabla(2,$periodo,$escenario,$var);//t maxima
+            $datosTablaV7 = $this->datosTabla(9,$periodo,$escenario,$var);//evotranspiracion
         }
         if ($data1 == "Circle")
         {
             $radio=$data0['radius'];//radio
             $var=implode(",", $data2[0]);           
-            $consulta = $this->consultaGraficoCirculo('11',$periodo,$escenario,$var,$radio);
-            $lava = $this->DataTable($consulta,'11');
+            $consulta1 = $this->consultaGraficoCirculo('11',$periodo,$escenario,$var,$radio);
+            $consulta2 = $this->consultaGraficoCirculo('4',$periodo,$escenario,$var,$radio);
+            $consulta3 = $this->consultaGraficoCirculo('3',$periodo,$escenario,$var,$radio);
+            $consulta4 = $this->consultaGraficoCirculo('1',$periodo,$escenario,$var,$radio);
+            $consulta5 = $this->consultaGraficoCirculo('10',$periodo,$escenario,$var,$radio);
+            $consulta6 = $this->consultaGraficoCirculo('2',$periodo,$escenario,$var,$radio);
+            $consulta7 = $this->consultaGraficoCirculo('9',$periodo,$escenario,$var,$radio);
+            $lava1 = $this->DataTable($consulta1,'11');
+            $lava2 = $this->DataTable($consulta2,'4');
+            $lava3 = $this->DataTable($consulta3,'3');
+            $lava4 = $this->DataTable($consulta4,'1');
+            $lava5 = $this->DataTable($consulta5,'10');
+            $lava6 = $this->DataTable($consulta6,'2');
+            $lava7 = $this->DataTable($consulta7,'9');
+            $datosTablaV1 = $this->datosTablaCirculo('11',$periodo,$escenario,$var,$radio);//numero de dias mayor a 10 grados
+            $datosTablaV2 = $this->datosTablaCirculo('4',$periodo,$escenario,$var,$radio);//radiacion solar
+            $datosTablaV3 = $this->datosTablaCirculo('3',$periodo,$escenario,$var,$radio);//precipitaciones
+            $datosTablaV4 = $this->datosTablaCirculo('1',$periodo,$escenario,$var,$radio);// t minima
+            $datosTablaV5 = $this->datosTablaCirculo('10',$periodo,$escenario,$var,$radio);//t promedio
+            $datosTablaV6 = $this->datosTablaCirculo('2',$periodo,$escenario,$var,$radio);//t maxima
+            $datosTablaV7 = $this->datosTablaCirculo('9',$periodo,$escenario,$var,$radio);//evotranspiracion
 
         }
         if($data1=="Polygon" )
@@ -65,13 +103,34 @@ class chartsController extends Controller
                 $var2=$var.",".$var2;
             }                
             $var2 = substr($var2, 0, -1);       
-            $consulta = $this->consultaGraficoPoligono('11',$periodo,$escenario,$var2);
-            $lava = $this->DataTable($consulta,'11');
-        }  
-        
-        $datosTabla = $this->datosTabla('1',$periodo);
+            $consulta1 = $this->consultaGraficoPoligono('11',$periodo,$escenario,$var2);
+            $consulta2 = $this->consultaGraficoPoligono('4',$periodo,$escenario,$var2);
+            $consulta3 = $this->consultaGraficoPoligono('3',$periodo,$escenario,$var2);
+            $consulta4 = $this->consultaGraficoPoligono('1',$periodo,$escenario,$var2);
+            $consulta5 = $this->consultaGraficoPoligono('10',$periodo,$escenario,$var2);
+            $consulta6 = $this->consultaGraficoPoligono('2',$periodo,$escenario,$var2);
+            $consulta7 = $this->consultaGraficoPoligono('9',$periodo,$escenario,$var2);
+            $lava1 = $this->DataTable($consulta1,'11');
+            $lava2 = $this->DataTable($consulta2,'4');
+            $lava3 = $this->DataTable($consulta3,'3');
+            $lava4 = $this->DataTable($consulta4,'1');
+            $lava5 = $this->DataTable($consulta5,'10');
+            $lava6 = $this->DataTable($consulta6,'2');
+            $lava7 = $this->DataTable($consulta7,'9');
+            $datosTablaV1 = $this->datosTablaPoligono('11',$periodo,$escenario,$var2);//numero de dias mayor a 10 grados
+            $datosTablaV2 = $this->datosTablaPoligono('4',$periodo,$escenario,$var2);//radiacion solar
+            $datosTablaV3 = $this->datosTablaPoligono('3',$periodo,$escenario,$var2);//precipitaciones
+            $datosTablaV4 = $this->datosTablaPoligono('1',$periodo,$escenario,$var2);// t minima
+            $datosTablaV5 = $this->datosTablaPoligono('10',$periodo,$escenario,$var2);//t promedio
+            $datosTablaV6 = $this->datosTablaPoligono('2',$periodo,$escenario,$var2);//t maxima
+            $datosTablaV7 = $this->datosTablaPoligono('9',$periodo,$escenario,$var2);//evotranspiracion
 
-       return view('indexGrafico')->with('lava',$lava)->with('datosTabla',$datosTabla)->with('periodo',$periodo)->with('consulta',$consulta);
+        }  
+     
+      //  $datosTabla = $this->datosTabla('3',$periodo);
+
+return view('indexGrafico')->with('consulta1',$consulta1)->with('lava1',$lava1)->with('lava2',$lava2)->with('lava3',$lava3)->with('lava4',$lava4)
+->with('lava5',$lava5)->with('lava6',$lava6)->with('lava7',$lava7)->with('datosTablaV1',$datosTablaV1)->with('datosTablaV2',$datosTablaV2)->with('datosTablaV3',$datosTablaV3)->with('datosTablaV4',$datosTablaV4)->with('datosTablaV5',$datosTablaV5)->with('datosTablaV6',$datosTablaV6)->with('datosTablaV7',$datosTablaV7)->with('periodo',$periodo);
     }
 
    public function graficoPunto($consulta,$variable)
@@ -114,7 +173,7 @@ class chartsController extends Controller
                         {
                             $grafico->addRow([$consulta[$i]->name, $consulta[$i]->avg]);
                         }
-                $lava->BarChart('grafico', $grafico, [
+                $lava->BarChart('grafico'.$variable, $grafico, [
                     'title' => $variableName->name,
                     'titleTextStyle' => [
                         'color'    => '#eb6b2c',
@@ -122,6 +181,8 @@ class chartsController extends Controller
                     ],'position' => 'in',
                 ]);
         }
+
+
         return $lava;
     }
 
@@ -165,43 +226,61 @@ class chartsController extends Controller
     }
 
 
-
-    
-
-    public function datosTabla($id_variable, $id_periodo)
+public function datosTabla($id_variable, $id_periodo, $id_escenario,$puntos)
     {
-        $tabla = DB::table('rast')
-        ->select(DB::raw('month.name as mes, variable.name as variable, avg(ST_Value(rast, ST_SetSRID(ST_Point(-71.233333,-34.983333), 4326))) as promedio'))
-        ->join('register', 'register.id', '=', 'rast.id_register')
-        ->join('month', 'month.id', '=', 'register.id_month')
-        ->join('variable', 'variable.id', '=', 'register.id_variable')
-        ->where('register.id_period', '=', $id_periodo)
-        ->orwhere('variable.id','=', $id_variable)
-        ->groupBy('month.id', 'variable.name')
-        ->orderBy('month.id')
-        ->get();
-        return ($tabla);
-    }
-
-    public function consultaGraficoInicio($id_variable, $id_periodo, $id_escenario)
-    {
-        
-             $consulta = DB::table('rast')
-            ->select(DB::raw('month.name,month.id,avg(ST_Value(rast, ST_SetSRID(ST_Point(-71.233333,-34.983333), 4326)))'))
+       // dd($id_variable);
+         $consulta = DB::table('rast')
+            ->select(DB::raw('month.name as mes, variable.name as variable,avg(ST_Value(rast, ST_SetSRID(ST_Point('.$puntos.'), 4326)))as promedio'))
             ->join('register', 'register.id', '=', 'rast.id_register')
             ->join('month', 'month.id', '=', 'register.id_month')
             ->join('variable', 'variable.id', '=', 'register.id_variable')
             ->join('scenario', 'scenario.id', '=', 'register.id_scenario')
             ->where('register.id_period', '=', $id_periodo)
-            ->orwhere('variable.id','=', $id_variable)
-            ->orwhere('scenario.id','=', $id_escenario)
-            ->groupBy('month.id')
+            ->where('variable.id','=', $id_variable)
+            ->where('scenario.id','=', $id_escenario)
+            ->groupBy('month.id', 'variable.name')
+            ->orderBy('month.id')
+            ->get();
+            
+            return $consulta;       
+    
+    }
+    
+
+public function datosTablaCirculo($id_variable, $id_periodo, $id_escenario,$punto,$radio)
+    {
+         $consulta = DB::table('rast')
+            ->select(DB::raw('month.name as mes, variable.name as variable ,AVG((ST_SummaryStats(ST_Clip(rast,1,ST_Buffer(ST_SetSRID(ST_Point('.$punto.'),4326),'.$radio.'),-9999,TRUE))).mean) as promedio'))
+            ->join('register', 'register.id', '=', 'rast.id_register')
+            ->join('month', 'month.id', '=', 'register.id_month')
+            ->join('variable', 'variable.id', '=', 'register.id_variable')
+            ->join('scenario', 'scenario.id', '=', 'register.id_scenario')
+            ->where('register.id_period', '=', $id_periodo)
+            ->where('variable.id','=', $id_variable)
+            ->where('scenario.id','=', $id_escenario)
+            ->groupBy('month.id', 'variable.name')
             ->orderBy('month.id')
             ->get();
             return $consulta;
-        
+    }
+    public function datosTablaPoligono($id_variable, $id_periodo, $id_escenario,$poligono)
+    {
+         $consulta = DB::table('rast')
+        ->select(DB::raw('month.name as mes, variable.name as variable,AVG((ST_summarystats(ST_CLIP(rast, ST_Polygon(ST_GeomFromText(\'LINESTRING('.$poligono.')\'), 4326)))).mean)as promedio'))
+        ->join('register', 'register.id', '=', 'rast.id_register')
+        ->join('month', 'month.id', '=', 'register.id_month')
+        ->join('variable', 'variable.id', '=', 'register.id_variable')
+        ->join('scenario', 'scenario.id', '=', 'register.id_scenario')
+        ->where('register.id_period', '=', $id_periodo)
+        ->where('variable.id','=', $id_variable)
+        ->where('scenario.id','=', $id_escenario)
+         ->groupBy('month.id', 'variable.name')
+        ->orderBy('month.id')
+        ->get();
+        return $consulta;
     }
 
+  
     public function consultaGrafico($id_variable, $id_periodo, $id_escenario,$puntos)
     {
 
@@ -212,8 +291,8 @@ class chartsController extends Controller
             ->join('variable', 'variable.id', '=', 'register.id_variable')
             ->join('scenario', 'scenario.id', '=', 'register.id_scenario')
             ->where('register.id_period', '=', $id_periodo)
-            ->orwhere('variable.id','=', $id_variable)
-            ->orwhere('scenario.id','=', $id_escenario)
+            ->where('variable.id','=', $id_variable)
+            ->where('scenario.id','=', $id_escenario)
             ->groupBy('month.id')
             ->orderBy('month.id')
             ->get();
@@ -230,8 +309,8 @@ class chartsController extends Controller
             ->join('variable', 'variable.id', '=', 'register.id_variable')
             ->join('scenario', 'scenario.id', '=', 'register.id_scenario')
             ->where('register.id_period', '=', $id_periodo)
-            ->orwhere('variable.id','=', $id_variable)
-            ->orwhere('scenario.id','=', $id_escenario)
+            ->where('variable.id','=', $id_variable)
+            ->where('scenario.id','=', $id_escenario)
             ->groupBy('month.id')
             ->orderBy('month.id')
             ->get();
@@ -249,8 +328,8 @@ class chartsController extends Controller
         ->join('variable', 'variable.id', '=', 'register.id_variable')
         ->join('scenario', 'scenario.id', '=', 'register.id_scenario')
         ->where('register.id_period', '=', $id_periodo)
-        ->orwhere('variable.id','=', $id_variable)
-        ->orwhere('scenario.id','=', $id_escenario)
+        ->where('variable.id','=', $id_variable)
+        ->where('scenario.id','=', $id_escenario)
         ->groupBy('month.id')
         ->orderBy('month.id')
         ->get();

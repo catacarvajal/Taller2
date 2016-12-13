@@ -142,7 +142,10 @@ class ChartFactory extends JavascriptFactory
      */
     private function getTemplate()
     {
+
+
         return <<<'CHART'
+        lava.attachRedrawHandler(window); lava.run(window);         
         lava.events.on('jsapi:ready', function (google) {
             /**
              * If the object does not exist for a given chart type, initialize it.
