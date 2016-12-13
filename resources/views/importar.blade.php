@@ -190,42 +190,46 @@
                                         <h3 class="box-title">Datos Importados </h3>
                                       </div> 
                                       <div class="box-body">
+                                        <div class="col-md-8">
                                           <div class="table-responsive">
-                                              <table class="table table-bordered" id="tabla">
-                                                <tr>
-                                                  <th>{{$datos['data0']['latitud']}}</th>
-                                                  <th>{{$datos['data0']['longitud']}}</th>
-                                                  <th>{{$datos['data0']['comuna']}}</th>
+                                              <table class="table table-bordered" id="dataTable">
+                                                <thead>
+                                                  <th>{{$datos->data0[0]}}
+                                                    <input type="checkbox" name="vehicle" title="Longitud" value="Bike"> <input type="checkbox" title="Latitud"  name="vehicle" value="Bike">
+                                                    </th>
+                                                  <th>{{$datos->data0[1]}}
+                                                      <input type="checkbox" name="vehicle" title="Longitud" value="Bike"> <input type="checkbox" title="Latitud"  name="vehicle" value="Bike">
+                                                  </th>
+                                                  <th>{{$datos->data0[2]}}
+                                                      <input type="checkbox" name="vehicle" title="Longitud" value="Bike"> <input type="checkbox" title="Latitud"  name="vehicle" value="Bike">
+                                                  </th>
                                                   <th width="5%" class="no-sort"><center>Ver</center></th>
-                                                </tr>
-                                                 @for ($i = 1; $i < count($datos)-1; $i++)
-                                                  <tr>
-                                                    <td>{{$datos['data'.$i]['latitud']}}</td>
-                                                    <td>{{$datos['data'.$i]['longitud']}}</td>
-                                                    <td>{{$datos['data'.$i]['comuna']}}</span></td>
+                                                </thead>
+                                                <tbody>
+                                                @foreach ($datos as $dato)
+                                                    <tr>
+                                                    @for ($i = 0; $i < count($dato); $i++)
+                                                      <td>{{ $dato[$i] }}</td>
+                                                    @endfor 
                                                     <td align="center">
-                                                        <a href="" class="btn btn-info btn-xs btn-flat" id="accion_{{$datos['data'.$i]['longitud'].'_'.$datos['data'.$i]['latitud']}}" data-toggle="tooltip" title="Detalle"><i class="fa fa-eye"></i></a>
-                                                    </td>
-                                                  </tr>
-                                                  @endfor
+                                                        <a href="" class="btn btn-info btn-xs btn-flat" id="accion_" data-toggle="tooltip" title="Detalle"><i class="fa fa-eye"></i></a>
+                                                    </td> 
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
                                               </table>
                                           </div>
-                                      </div><!-- /.box-body -->
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="box box-success">   
-                                      <div class="box-header with-border">
-                                        <h3 class="box-title">Visualización</h3>
-                                      </div> 
-                                      <div class="box-body">
-                                          <div class="table-responsive">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="table-responsive">
                                                   <table class="table table-bordered" id="tabla">
-                                                    <tr>
-                                                      <th>Mes</th>
-                                                      <th>Promedio</th>
-                                                    </tr>
+                                                    <thead>
+                                                      <th width="25%">Mes</th>
+                                                      <th >Promedio</th>
+                                                    </thead>
+                                                      <tbody>
                                                       <tr>
-                                                        <td>Enero</td>
+                                                        <td >Enero</td>
                                                         <td></td>
                                                       </tr>
                                                       <tr>
@@ -272,11 +276,13 @@
                                                         <td>Diciembre</td>
                                                         <td></td>
                                                       </tr>
+                                                      </tbody>
                                                   </table>
-                                          </div>
+                                          </div> 
+                                        </div>
                                       </div><!-- /.box-body -->
                                 </div>
-                              </div>
+                                
                             </div>
                           </div><!-- /.box-body -->
                         </div><!-- /.box -->
@@ -302,6 +308,21 @@
 </html>
 <script type="text/javascript">
 
-
+$(document).ready(function(){
+        var table = $('#dataTable').DataTable({
+            "order": [],
+            columnDefs: [
+                { targets: 'no-sort', orderable: false }
+            ],
+            "paging": false,
+            "bInfo": false,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true
+        });
+        var info = table.page.info();
+    });
 
 </script>

@@ -171,9 +171,9 @@
                                         </div>
                                         <div class="col-md-6 ">                 
                                             <button class="btn btn-block btn-warning btn-lg" id="btn-Exportar" title="Exportar" > <i class="fa fa-cloud-download"></i> Exportar datos</button>
+
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>

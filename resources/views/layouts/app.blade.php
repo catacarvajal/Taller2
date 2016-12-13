@@ -1033,16 +1033,27 @@
                 return true;
             }   
 
+            function abrir()
+            {
+
+              
+            }
             function leer(ev)
             {
                 datosImportacion = ev.target.result.split("\r\n");
                 var jsonImportacion = {};
                 var arrayAuxiliar = [];
                 for (var i = 0; i < datosImportacion.length ; i++) {
-                    arrayAuxiliar = datosImportacion[i].split(";");
-                    jsonImportacion['data'+i] = {latitud:arrayAuxiliar[0], longitud: arrayAuxiliar[1], comuna: arrayAuxiliar[2]};
+                    if(i==0)
+                    {
+                        var j=i;//Cantidad de columnas
+                    }
+                    
+                    jsonImportacion['data'+i] = datosImportacion[i].split(";");
                 }
                 var jsonFinal = {'datosImportacion':jsonImportacion};
+                window.open('importacion'+ "/?datosImportacion=" + JSON.stringify(jsonImportacion));
+                /*
                 $.ajax({
                     headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                     url: 'importacion',
@@ -1050,15 +1061,16 @@
                     data: jsonFinal,
                     dataType: 'JSON',
                     success: function (data) {
-                        var new_window = window.open();
-                        $(new_window.document.body).append(data);
+                        console.log("Exitooooo "+data);
                     }
                 }).fail(function (jqXHR, textStatus, error) {
                     console.log("Entroo "+error);
                 });
-                
+                */
                 //$.get( 'importacion', jsonFinal );
             }
+
+            
             
          </script>
     </body>

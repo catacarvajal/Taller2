@@ -98,6 +98,7 @@ class PdfController extends Controller
     public function importacion(Request $request)
     {
         $data = $request->input('datosImportacion');
+        $data = json_decode($data);
         //$file = Input::get('datosImportacion');
         /*
         $ruta = $request->input('ruta');
@@ -109,6 +110,7 @@ class PdfController extends Controller
             }
             fclose($handle);
         }*/
+        //dd($data->data0[0]);
         return view('importar')->with('datos', $data);
         //
     }
@@ -123,6 +125,7 @@ class PdfController extends Controller
     public function index()
     {
         //
+        return Redirect::away('/');
     }
 
     /**
