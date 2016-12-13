@@ -1043,14 +1043,6 @@
                     jsonImportacion['data'+i] = {latitud:arrayAuxiliar[0], longitud: arrayAuxiliar[1], comuna: arrayAuxiliar[2]};
                 }
                 var jsonFinal = {'datosImportacion':jsonImportacion};
-                console.log(jsonImportacion);             
-
-                //Post a un controller
-               //window.print();
-               //window.open("importacion", "MsgWindow", datosImportacion);
-               /*$.post('importacion',datosImportacion,function(data,status){
-                    console.log("Data: " + data + "\nStatus: " + status);
-                });*/
                 $.ajax({
                     headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                     url: 'importacion',
@@ -1058,28 +1050,16 @@
                     data: jsonFinal,
                     dataType: 'JSON',
                     success: function (data) {
-                        console.log(data);
+                        var new_window = window.open();
+                        $(new_window.document.body).append(data);
                     }
                 }).fail(function (jqXHR, textStatus, error) {
-                    console.log(error);
+                    console.log("Entroo "+error);
                 });
-            }
-            function importar(ruta)
-            {
                 
-                $.ajax({
-                    type: 'post',
-                    url: 'importacion',
-                    dataType: "json",
-                    contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify({'ruta':ruta}),
-                    success: function (data) {
-                        console.log(data);
-                    }
-                }).fail(function (jqXHR, textStatus, error) {
-                    console.log(error);
-                });
+                //$.get( 'importacion', jsonFinal );
             }
+            
          </script>
     </body>
 </html>

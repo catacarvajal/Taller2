@@ -91,6 +91,23 @@ class chartsController extends Controller
         return $consulta;
     }
 
+    public function consultaPuntoGrafico(Request $request)
+    {
+        $data = $request->input('datos');
+        $consulta = DB::table('rast')
+        ->select(DB::raw('month.name,avg(ST_Value(ST_SetSRID(rast,4326), ST_SetSRID(ST_Point('.$ata['longitud'].','.$ata['latitud'].'), 4326)))'))
+        ->join('register', 'register.id', '=', 'rast.id_register')
+            ->join('month', 'month.id', '=', 'register.id_month')
+            ->join('variable', 'variable.id', '=', 'register.id_variable')
+            ->join('scenario', 'scenario.id', '=', 'register.id_scenario')
+
+        ->where('variable.id','=', $ata['variable'])
+        ->orwhere('scenario.id','=', $ata['escenario'])
+        ->groupBy('month.name')
+        ->get();
+        return $consulta;
+    }
+
     //recibo lo que tiene los lavels //esto hay que hacerlo con ajax
     public function postGrafico(Request $request)
     {

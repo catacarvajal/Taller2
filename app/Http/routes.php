@@ -19,4 +19,5 @@ Route::post('/Grafico', 'chartsController@postGrafico');
 Route::post('ajax','HomeController@ajaxGeoJson');
 
 Route::get('/pdf', 'PdfController@exportarPDF');
+Route::post('/tabla', 'chartsController@consultaPuntoGrafico');
 Route::post('importacion', 'PdfController@importacion');

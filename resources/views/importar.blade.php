@@ -170,7 +170,7 @@
     <body class="skin-blue">
         <div>
             <div>
-                 @include('includes.header')  
+                @include('includes.header')  
                 <section id="content_id">
                     <div class="content" >
                       <!-- Content Header (Page header) -->
@@ -179,59 +179,103 @@
                         <div class="box box-info color-palette-box">
                           <div class="box-header with-border">
                             <h3 class="box-title">
-                            <i class="fa fa-bar-chart" aria-hidden="true"></i> Importación
+                            <i class="fa fa-cogs" aria-hidden="true"></i> Variables:  Escena: Periodo:
                             </h3>
                           </div>
                           <div class="box-body">
                             <div class="row">
-                              <div class="col-md-12 ">
-                                <div class="row">
-                                  <div class="col-md-12">
+                              <div class="col-md-12">
                                     <div class="box box-success">   
                                       <div class="box-header with-border">
-                                        <h3 class="box-title">Datos de: </h3>
+                                        <h3 class="box-title">Datos Importados </h3>
                                       </div> 
                                       <div class="box-body">
-                                      <table class="table table-bordered" id="tabla">
-                                        <tr>
-                                          <th>{{$datos['data0']['latitud']}}</th>
-                                          <th>{{$datos['data0']['longitud']}}</th>
-                                          <th>{{$datos['data0']['comuna']}}</th>
-                                          <th width="5%" class="no-sort"><center>Ver</center></th>
-                                        </tr>
-                                         @for ($i = 1; $i < count($datos)-1; $i++)
-                                          <tr>
-                                            <td>{{$datos['data'.$i]['latitud']}}</td>
-                                            <td><span class="badge bg-blue">{{$datos['data'.$i]['longitud']}}</td>
-                                            <td><span class="badge bg-red">{{$datos['data'.$i]['comuna']}}</span></td>
-                                            <td align="center">
-                                                <a href="" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Detalle"><i class="fa fa-eye"></i></a>
-                                            </td>
-                                          </tr>
-                                          @endfor
-                                      </table>
+                                          <div class="table-responsive">
+                                              <table class="table table-bordered" id="tabla">
+                                                <tr>
+                                                  <th>{{$datos['data0']['latitud']}}</th>
+                                                  <th>{{$datos['data0']['longitud']}}</th>
+                                                  <th>{{$datos['data0']['comuna']}}</th>
+                                                  <th width="5%" class="no-sort"><center>Ver</center></th>
+                                                </tr>
+                                                 @for ($i = 1; $i < count($datos)-1; $i++)
+                                                  <tr>
+                                                    <td>{{$datos['data'.$i]['latitud']}}</td>
+                                                    <td>{{$datos['data'.$i]['longitud']}}</td>
+                                                    <td>{{$datos['data'.$i]['comuna']}}</span></td>
+                                                    <td align="center">
+                                                        <a href="" class="btn btn-info btn-xs btn-flat" id="accion_{{$datos['data'.$i]['longitud'].'_'.$datos['data'.$i]['latitud']}}" data-toggle="tooltip" title="Detalle"><i class="fa fa-eye"></i></a>
+                                                    </td>
+                                                  </tr>
+                                                  @endfor
+                                              </table>
+                                          </div>
                                       </div><!-- /.box-body -->
-                                    </div>
-                                  </div>
                                 </div>
-                              </div>
-                            </div>
-                          </div><!-- /.box-body -->
-                          <div class="box-body">
-                            <div class="row">
-                              <div class="col-md-12 ">
-                                    <div class="row">
-                                      <div class="col-md-12">
-                                        <div class="box box-success">   
-                                          <div class="box-header with-border">
-                                            <h3 class="box-title">Visualización: </h3>
-                                          </div> 
-                                          <div class="box-body">
-                                            
-                                          </div><!-- /.box-body -->
-                                        </div>
-                                      </div>
-                                    </div>
+                                <div class="col-md-12">
+                                    <div class="box box-success">   
+                                      <div class="box-header with-border">
+                                        <h3 class="box-title">Visualización</h3>
+                                      </div> 
+                                      <div class="box-body">
+                                          <div class="table-responsive">
+                                                  <table class="table table-bordered" id="tabla">
+                                                    <tr>
+                                                      <th>Mes</th>
+                                                      <th>Promedio</th>
+                                                    </tr>
+                                                      <tr>
+                                                        <td>Enero</td>
+                                                        <td></td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Febrero</td>
+                                                        <td></td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Marzo</td>
+                                                        <td></td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Abril</td>
+                                                        <td></td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Mayo</td>
+                                                        <td></td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Junio</td>
+                                                        <td></td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Julio</td>
+                                                        <td></td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Agosto</td>
+                                                        <td></td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Septiembre</td>
+                                                        <td></td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Octubre</td>
+                                                        <td></td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Noviembre</td>
+                                                        <td></td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Diciembre</td>
+                                                        <td></td>
+                                                      </tr>
+                                                  </table>
+                                          </div>
+                                      </div><!-- /.box-body -->
+                                </div>
                               </div>
                             </div>
                           </div><!-- /.box-body -->
@@ -256,3 +300,8 @@
         <script src="{{ asset('/dist/js/demo.js') }}" type="text/javascript"></script>
     </body>
 </html>
+<script type="text/javascript">
+
+
+
+</script>
