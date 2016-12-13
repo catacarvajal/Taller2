@@ -385,6 +385,9 @@
         };
         console.log(datos);
         alert(datos.region);
+        $.post("/datos/"+datos, function(result){
+            alert(result);
+        });
 
        /*$.get("/datos/"+datos,function(data){
             if (typeof data == 'object')

@@ -21,3 +21,4 @@ Route::post('ajax','chartsController@ajaxGeoJson');
 //Route::post('/','HomeController@postRegiones');
 Route::get('/region/{region}','HomeController@getProvincias');
 Route::get('/provincia/{provincia}','HomeController@getComunas');
+Route::post('/datos', 'HomeController@getGeom');
