@@ -32,8 +32,8 @@ class chartsController extends Controller
 
     public function nuevaVentana($tipo)
     {
+        
         $request= (array)json_decode($tipo,true);   
-
         $escenario =$request['escenario'];
         $periodo =$request['periodo'];
         $data = $request['geoj'];         
@@ -86,12 +86,37 @@ class chartsController extends Controller
         $shp->ShapeFile($path, $options);
         $var = $shp->getNext();
         $points = $var->getShpData()['parts'][0];
-
-            
         $puntos = Collection::make($points);
 
-        dd($puntos->first());
-        return view('abrir');
+        $punto = array_flatten($puntos);
+
+        $p = [];
+
+        for ($contador=0; $contador < count($punto)-1; $contador++) 
+        { 
+            $p1 = [];
+            $p1 = array_add($p1, 0 ,array_get($punto, $contador));
+            $p1 = array_add($p1, 1 ,array_get($punto, $contador+1));
+            $p = array_add($p, $contador, $p1);
+        }
+
+        $json2 = response()->json([
+                'periodo' => '1',
+                'escenario' => '1',
+                'geoj' => ['type' => 'Feature',
+                        'geometry' => [
+                            'type' => 'Polygon',
+                            'coordinates' => [
+                                $p                                    
+                            ]],
+                        'properties' => 'null']
+            ]);
+
+        $request= (array)json_decode($json2->content(),true); 
+
+        //dd($json2->content(), $request);
+
+        return \Redirect::to('/Graficos/' . $json2->content());
     }
 
    public function graficoPunto($consulta,$variable)
