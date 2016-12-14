@@ -281,6 +281,26 @@
                                 </div>
                             </div>
                         </div>
+                        {!! Form::close() !!}
+
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">
+                                        Shapefile</a>
+                                </h4>
+                            </div>
+                            <div id="collapse7" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        {!! Form::open(['url' => '/cargar', 'class' => 'form-horizontal', 'files' => true]) !!}
+                                        {!! Form::file('archivo', ['id' => 'file', 'type' => 'file', 'multiple class' => '', 'data-overwrite-initial' => 'false', 'data-min-file-count' => '1' , 'data-max-file-count' => '1' ]) !!}
+                                        {!! Form::submit('Visualizar graficos', ['class' => 'btn btn-block btn-primary btn-xs', 'id' => 'cargar', 'style' => 'width:30%; margin-left:3%;margin-top:3%;']) !!}
+                                        {!! Form::close() !!}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
