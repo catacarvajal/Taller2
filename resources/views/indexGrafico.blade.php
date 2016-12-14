@@ -266,9 +266,6 @@
 </script>
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="http://code.highcharts.com/modules/exporting.js"></script>
-<!-- optional -->
-<script src="http://code.highcharts.com/modules/offline-exporting.js"></script>
 <script type="text/javascript">
  $(function () { 
         var data_variable1 = <?php echo $variable1; ?>;
@@ -292,7 +289,7 @@
         },
         yAxis: {
             title: {
-                text: 'C°'
+                text: 'valor'
             }
         },        
         series: [{

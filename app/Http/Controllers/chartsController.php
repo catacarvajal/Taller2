@@ -43,7 +43,7 @@ class chartsController extends Controller
         if ($data1=="Point"){
 
             $var=implode(",", $data2);  
-            $consulta1 = $this->consultaGrafico('11',$periodo,$escenario,$var); 
+            $consulta1 = $this->consultaGrafico('11',$periodo,$escenario,$var);             
             $variable1 = array_column($this->recorer($consulta1), 'avg');
             $consulta2 = $this->consultaGrafico('4',$periodo,$escenario,$var);        
             $variable2 = array_column($this->recorer($consulta2), 'avg');
@@ -65,31 +65,8 @@ class chartsController extends Controller
             $datosTablaV5 = $this->datosTabla(10,$periodo,$escenario,$var);//t promedio
             $datosTablaV6 = $this->datosTabla(2,$periodo,$escenario,$var);//t maxima
             $datosTablaV7 = $this->datosTabla(9,$periodo,$escenario,$var);//evotranspiracion
-          }/* 
+          }           
            
-            dd($viewer);
-            $consulta2 = $this->consultaGrafico('4',$periodo,$escenario,$var);
-            $consulta3 = $this->consultaGrafico('3',$periodo,$escenario,$var);
-            $consulta4 = $this->consultaGrafico('1',$periodo,$escenario,$var);
-            $consulta5 = $this->consultaGrafico('10',$periodo,$escenario,$var);
-            $consulta6 = $this->consultaGrafico('2',$periodo,$escenario,$var);
-            $consulta7 = $this->consultaGrafico('9',$periodo,$escenario,$var);
-            $lava1 = $this->DataTable($consulta1,'11');
-            $lava2 = $this->DataTable($consulta2,'4');
-            $lava3 = $this->DataTable($consulta3,'3');
-            $lava4 = $this->DataTable($consulta4,'1');
-            $lava5 = $this->DataTable($consulta5,'10');
-            $lava6 = $this->DataTable($consulta6,'2');
-            $lava7 = $this->DataTable($consulta7,'9');
-
-            $datosTablaV1 = $this->datosTabla('11',$periodo,$escenario,$var);//numero de dias mayor a 10 grados}
-            $datosTablaV2 = $this->datosTabla(4,$periodo,$escenario,$var);//radiacion solar
-            $datosTablaV3 = $this->datosTabla(3,$periodo,$escenario,$var);//precipitaciones
-            $datosTablaV4 = $this->datosTabla(1,$periodo,$escenario,$var);// t minima
-            $datosTablaV5 = $this->datosTabla(10,$periodo,$escenario,$var);//t promedio
-            $datosTablaV6 = $this->datosTabla(2,$periodo,$escenario,$var);//t maxima
-            $datosTablaV7 = $this->datosTabla(9,$periodo,$escenario,$var);//evotranspiracion
-        }*/
         if ($data1 == "Circle")
         {
             $radio=$data0['radius'];//radio
@@ -272,6 +249,7 @@ public function recorer($variable){
 public function datosTabla($id_variable, $id_periodo, $id_escenario,$puntos)
     {
        // dd($id_variable);
+
          $consulta = DB::table('rast')
             ->select(DB::raw('month.name as mes, variable.name as variable,avg(ST_Value(rast, ST_SetSRID(ST_Point('.$puntos.'), 4326)))as promedio'))
             ->join('register', 'register.id', '=', 'rast.id_register')
@@ -326,7 +304,7 @@ public function datosTablaCirculo($id_variable, $id_periodo, $id_escenario,$punt
   
     public function consultaGrafico($id_variable, $id_periodo, $id_escenario,$puntos)
     {
-
+          
              $consulta = DB::table('rast')
             ->select(DB::raw('month.name,month.id,avg(ST_Value(rast, ST_SetSRID(ST_Point('.$puntos.'), 4326)))'))
             ->join('register', 'register.id', '=', 'rast.id_register')
