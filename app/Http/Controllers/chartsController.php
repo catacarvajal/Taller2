@@ -58,7 +58,13 @@ class chartsController extends Controller
             $consulta7 = $this->consultaGrafico('9',$periodo,$escenario,$var); 
             $variable7 = array_column($this->recorer($consulta7), 'avg');
            
-          
+            $datosTablaV1 = $this->datosTabla('11',$periodo,$escenario,$var);//numero de dias mayor a 10 grados}
+            $datosTablaV2 = $this->datosTabla(4,$periodo,$escenario,$var);//radiacion solar
+            $datosTablaV3 = $this->datosTabla(3,$periodo,$escenario,$var);//precipitaciones
+            $datosTablaV4 = $this->datosTabla(1,$periodo,$escenario,$var);// t minima
+            $datosTablaV5 = $this->datosTabla(10,$periodo,$escenario,$var);//t promedio
+            $datosTablaV6 = $this->datosTabla(2,$periodo,$escenario,$var);//t maxima
+            $datosTablaV7 = $this->datosTabla(9,$periodo,$escenario,$var);//evotranspiracion
           }/* 
            
             dd($viewer);
@@ -83,25 +89,27 @@ class chartsController extends Controller
             $datosTablaV5 = $this->datosTabla(10,$periodo,$escenario,$var);//t promedio
             $datosTablaV6 = $this->datosTabla(2,$periodo,$escenario,$var);//t maxima
             $datosTablaV7 = $this->datosTabla(9,$periodo,$escenario,$var);//evotranspiracion
-        }
+        }*/
         if ($data1 == "Circle")
         {
             $radio=$data0['radius'];//radio
-            $var=implode(",", $data2[0]);           
+            $var=implode(",", $data2[0]);  
+
             $consulta1 = $this->consultaGraficoCirculo('11',$periodo,$escenario,$var,$radio);
+            $variable1 = array_column($this->recorer($consulta1), 'avg');
             $consulta2 = $this->consultaGraficoCirculo('4',$periodo,$escenario,$var,$radio);
+            $variable2 = array_column($this->recorer($consulta2), 'avg');
             $consulta3 = $this->consultaGraficoCirculo('3',$periodo,$escenario,$var,$radio);
+            $variable3 = array_column($this->recorer($consulta3), 'avg');
             $consulta4 = $this->consultaGraficoCirculo('1',$periodo,$escenario,$var,$radio);
+            $variable4 = array_column($this->recorer($consulta4), 'avg');
             $consulta5 = $this->consultaGraficoCirculo('10',$periodo,$escenario,$var,$radio);
+            $variable5 = array_column($this->recorer($consulta5), 'avg');
             $consulta6 = $this->consultaGraficoCirculo('2',$periodo,$escenario,$var,$radio);
+            $variable6 = array_column($this->recorer($consulta6), 'avg');
             $consulta7 = $this->consultaGraficoCirculo('9',$periodo,$escenario,$var,$radio);
-            $lava1 = $this->DataTable($consulta1,'11');
-            $lava2 = $this->DataTable($consulta2,'4');
-            $lava3 = $this->DataTable($consulta3,'3');
-            $lava4 = $this->DataTable($consulta4,'1');
-            $lava5 = $this->DataTable($consulta5,'10');
-            $lava6 = $this->DataTable($consulta6,'2');
-            $lava7 = $this->DataTable($consulta7,'9');
+            $variable7 = array_column($this->recorer($consulta7), 'avg');
+           
             $datosTablaV1 = $this->datosTablaCirculo('11',$periodo,$escenario,$var,$radio);//numero de dias mayor a 10 grados
             $datosTablaV2 = $this->datosTablaCirculo('4',$periodo,$escenario,$var,$radio);//radiacion solar
             $datosTablaV3 = $this->datosTablaCirculo('3',$periodo,$escenario,$var,$radio);//precipitaciones
@@ -122,19 +130,20 @@ class chartsController extends Controller
             }                
             $var2 = substr($var2, 0, -1);       
             $consulta1 = $this->consultaGraficoPoligono('11',$periodo,$escenario,$var2);
+            $variable1 = array_column($this->recorer($consulta1), 'avg');
             $consulta2 = $this->consultaGraficoPoligono('4',$periodo,$escenario,$var2);
+            $variable2 = array_column($this->recorer($consulta2), 'avg');
             $consulta3 = $this->consultaGraficoPoligono('3',$periodo,$escenario,$var2);
+            $variable3 = array_column($this->recorer($consulta3), 'avg');
             $consulta4 = $this->consultaGraficoPoligono('1',$periodo,$escenario,$var2);
+            $variable4 = array_column($this->recorer($consulta4), 'avg');
             $consulta5 = $this->consultaGraficoPoligono('10',$periodo,$escenario,$var2);
+            $variable5 = array_column($this->recorer($consulta5), 'avg');
             $consulta6 = $this->consultaGraficoPoligono('2',$periodo,$escenario,$var2);
+            $variable6 = array_column($this->recorer($consulta6), 'avg');
             $consulta7 = $this->consultaGraficoPoligono('9',$periodo,$escenario,$var2);
-            $lava1 = $this->DataTable($consulta1,'11');
-            $lava2 = $this->DataTable($consulta2,'4');
-            $lava3 = $this->DataTable($consulta3,'3');
-            $lava4 = $this->DataTable($consulta4,'1');
-            $lava5 = $this->DataTable($consulta5,'10');
-            $lava6 = $this->DataTable($consulta6,'2');
-            $lava7 = $this->DataTable($consulta7,'9');
+            $variable7 = array_column($this->recorer($consulta7), 'avg');        
+           
             $datosTablaV1 = $this->datosTablaPoligono('11',$periodo,$escenario,$var2);//numero de dias mayor a 10 grados
             $datosTablaV2 = $this->datosTablaPoligono('4',$periodo,$escenario,$var2);//radiacion solar
             $datosTablaV3 = $this->datosTablaPoligono('3',$periodo,$escenario,$var2);//precipitaciones
@@ -143,21 +152,16 @@ class chartsController extends Controller
             $datosTablaV6 = $this->datosTablaPoligono('2',$periodo,$escenario,$var2);//t maxima
             $datosTablaV7 = $this->datosTablaPoligono('9',$periodo,$escenario,$var2);//evotranspiracion
 
-        }  
-     
-      //  $datosTabla = $this->datosTabla('3',$periodo);
-
-return view('indexGrafico')->with('consulta1',$consulta1)->with('lava1',$lava1)->with('lava2',$lava2)->with('lava3',$lava3)->with('lava4',$lava4)
-->with('lava5',$lava5)->with('lava6',$lava6)->with('lava7',$lava7)->with('datosTablaV1',$datosTablaV1)->with('datosTablaV2',$datosTablaV2)->with('datosTablaV3',$datosTablaV3)->with('datosTablaV4',$datosTablaV4)->with('datosTablaV5',$datosTablaV5)->with('datosTablaV6',$datosTablaV6)->with('datosTablaV7',$datosTablaV7)->with('periodo',$periodo);
-    */
- return view('indexGrafico')
+        }      
+        return view('indexGrafico')
             ->with('variable1',json_encode($variable1,JSON_NUMERIC_CHECK))
             ->with('variable2',json_encode($variable2,JSON_NUMERIC_CHECK))
             ->with('variable3',json_encode($variable3,JSON_NUMERIC_CHECK))
             ->with('variable4',json_encode($variable4,JSON_NUMERIC_CHECK))
             ->with('variable5',json_encode($variable5,JSON_NUMERIC_CHECK))
             ->with('variable6',json_encode($variable6,JSON_NUMERIC_CHECK))
-            ->with('variable7',json_encode($variable7,JSON_NUMERIC_CHECK));
+            ->with('variable7',json_encode($variable7,JSON_NUMERIC_CHECK))
+            ->with('datosTablaV1',$datosTablaV1)->with('datosTablaV2',$datosTablaV2)->with('datosTablaV3',$datosTablaV3)->with('datosTablaV4',$datosTablaV4)->with('datosTablaV5',$datosTablaV5)->with('datosTablaV6',$datosTablaV6)->with('datosTablaV7',$datosTablaV7)->with('periodo',$periodo);;
            
 
 }

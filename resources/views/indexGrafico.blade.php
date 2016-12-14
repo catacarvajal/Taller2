@@ -148,7 +148,7 @@
                    <h2>Temperatura promedio</h2>
                                      <div class="row">
                     <div class="col-md-12 " > 
-                     <div id="pgrafico5" align="center" class="chart"></div><!-- div donde se dibuja el grafico -->
+                     <div id="grafico5" align="center" class="chart"></div><!-- div donde se dibuja el grafico -->
                     </div>
                     <div class="col-md-12 ">
                       <div class="box box-success">   
@@ -282,7 +282,27 @@
             type: 'column'
         },
         title: {
-            text: 'Grafico'
+            text: ''
+        },
+        xAxis: {
+            categories: meses
+        },
+        yAxis: {
+            title: {
+                text: 'C°'
+            }
+        },        
+        series: [{
+            name: 'Número de días mayor a 10 grados C°',
+            data: data_variable1            
+        }]
+    });
+    var myChart2 = Highcharts.chart('grafico2', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: ''
         },
         xAxis: {
             categories: meses
@@ -293,11 +313,33 @@
             }
         },        
         series: [{
-            name: 'variable1',
-            data: data_variable1
+            name: 'Radiación solar',
+            data: data_variable2,
+            color: '#f7a35c'
         }]
     });
-    var myChart2 = Highcharts.chart('grafico2', {
+     var myChart2 = Highcharts.chart('grafico3', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: ''
+        },
+        xAxis: {
+            categories: meses
+        },
+        yAxis: {
+            title: {
+                text: 'Valor'
+            }
+        },        
+        series: [{
+            name: 'Precipitación',
+            data: data_variable3,
+            color: '#8f2896'
+        }]
+    });
+      var myChart2 = Highcharts.chart('grafico4', {
         chart: {
             type: 'column'
         },
@@ -313,8 +355,72 @@
             }
         },        
         series: [{
-            name: 'variable2',
-            data: data_variable2
+            name: 'Temperatura mínima',
+            data: data_variable4,
+            color:  '#f70909'
+        }]
+    });
+       var myChart2 = Highcharts.chart('grafico5', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: ''
+        },
+        xAxis: {
+            categories: meses
+        },
+        yAxis: {
+            title: {
+                text: 'Valor'
+            }
+        },        
+        series: [{
+            name: 'Temperatura promedio',
+            data: data_variable5,
+            color: '#06d865'
+        }]
+    });
+        var myChart2 = Highcharts.chart('grafico6', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: ''
+        },
+        xAxis: {
+            categories: meses
+        },
+        yAxis: {
+            title: {
+                text: 'Valor'
+            }
+        },        
+        series: [{
+            name: 'Temperatura máxima',
+            data: data_variable6,
+            color: '#d8d806'
+        }]
+    });
+         var myChart2 = Highcharts.chart('grafico7', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: ''
+        },
+        xAxis: {
+            categories: meses
+        },
+        yAxis: {
+            title: {
+                text: 'Valor'
+            }
+        },        
+        series: [{
+            name: 'Evapotranspiración',
+            data: data_variable7,
+            color: '#ff7200'
         }]
     });
 
