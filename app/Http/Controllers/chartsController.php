@@ -168,7 +168,7 @@ class chartsController extends Controller
 
 
 public function recorer($variable){
- foreach($variable as $object)
+        foreach($variable as $object)
         {
              $arrays[] =  (array) $object;
           }
