@@ -24,7 +24,7 @@
 
                   <div class="row">
                     <div class="col-md-12 " > 
-                      <div id="grafico1" align="center" class="chart"></div><!-- div donde se dibuja el grafico -->
+                      <div id="grafico1" align="center" style=" width:100.5% " ></div><!-- div donde se dibuja el grafico -->
                     </div>
                     <div class="col-md-12 ">
                       <div class="box box-success">   
@@ -55,7 +55,7 @@
                   <h2>Radiación solar</h2>
                   <div class="row">
                     <div class="col-md-12 " > 
-                      <div id="grafico2" align="center" class="chart"></div><!-- div donde se dibuja el grafico -->
+                      <div id="grafico2" align="center" style=" width:90% "  ></div><!-- div donde se dibuja el grafico -->
                     </div>
                     <div class="col-md-12 ">
                       <div class="box box-success">   
@@ -86,7 +86,7 @@
                   <h2>Precipitación</h2>
                   <div class="row">
                     <div class="col-md-12 " > 
-                     <div id="grafico3" align="center" class="chart"></div><!-- div donde se dibuja el grafico -->
+                     <div id="grafico3" align="center" style=" width:90% "></div><!-- div donde se dibuja el grafico -->
                     </div>
                     <div class="col-md-12 ">
                       <div class="box box-success">   
@@ -117,7 +117,7 @@
                     <h2>Temperatura mínima</h2>
                   <div class="row">
                     <div class="col-md-12 " > 
-                     <div id="grafico4" align="center" class="chart"></div><!-- div donde se dibuja el grafico -->
+                     <div id="grafico4" align="center" style=" width:90% "></div><!-- div donde se dibuja el grafico -->
                     </div>
                     <div class="col-md-12 ">
                       <div class="box box-success">   
@@ -148,7 +148,7 @@
                    <h2>Temperatura promedio</h2>
                                      <div class="row">
                     <div class="col-md-12 " > 
-                     <div id="grafico5" align="center" class="chart"></div><!-- div donde se dibuja el grafico -->
+                     <div id="grafico5" align="center" style=" width:90% " ></div><!-- div donde se dibuja el grafico -->
                     </div>
                     <div class="col-md-12 ">
                       <div class="box box-success">   
@@ -179,7 +179,7 @@
                    <h2>Temperatura máxima </h2>
                                      <div class="row">
                     <div class="col-md-12 " > 
-                     <div id="grafico6" align="center" class="chart"></div><!-- div donde se dibuja el grafico -->
+                     <div id="grafico6" align="center" style=" width:90% "></div><!-- div donde se dibuja el grafico -->
                     </div>
                     <div class="col-md-12 ">
                       <div class="box box-success">   
@@ -210,7 +210,7 @@
                    <h2>Evapotranspiración</h2>
                     <div class="row">
                     <div class="col-md-12 " > 
-                     <div id="grafico7" align="center" class="chart"></div><!-- div donde se dibuja el grafico -->
+                     <div id="grafico7" align="center" style=" width:90% " ></div><!-- div donde se dibuja el grafico -->
                     </div>
                     <div class="col-md-12 ">
                       <div class="box box-success">   
@@ -266,6 +266,9 @@
 </script>
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+<!-- optional -->
+<script src="http://code.highcharts.com/modules/offline-exporting.js"></script>
 <script type="text/javascript">
  $(function () { 
         var data_variable1 = <?php echo $variable1; ?>;
