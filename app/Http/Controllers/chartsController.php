@@ -32,8 +32,9 @@ class chartsController extends Controller
 
     public function nuevaVentana($tipo)
     {
+        
         $request= (array)json_decode($tipo,true);   
-
+        dd($tipo, $request);
         $escenario =$request['escenario'];
         $periodo =$request['periodo'];
         $data = $request['geoj'];         
@@ -90,7 +91,32 @@ class chartsController extends Controller
             
         $puntos = Collection::make($points);
 
-        dd($puntos->first());
+        //dd($puntos->first());
+
+        $json = response()->json([
+                'periodo' => '1',
+                'escenario' => '1',
+                'geoj' => response()->json([ 
+                        'type' => 'Feature', 
+                        'geometry' => response()->json([
+                                    'coordinates' => $puntos])->content()
+                                    ])->content()
+                ]);
+
+        $json3 = response()->json([
+                'type' => 'Feature'
+            ]);
+
+        //dd($json3->content());
+
+        $json2 = response()->json([
+                'geoj' => ['type' => 'Feature']
+            ]);
+
+        $request= (array)json_decode($json2->content(),true); 
+
+        dd($json2->content(), $request);
+
         return view('abrir');
     }
 
