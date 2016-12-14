@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="col-md-4 ">
-                <form role="form" id= "formG"  ><!-- method="POST" action="{{ url('/Grafico')}}-->
+                <form role="form" id= "formG" ><!-- method="POST" action="{{ url('/Grafico')}}-->
                  {!! csrf_field() !!}
                     <div class="panel-group" id="accordion">
                         <div class="panel panel-info">

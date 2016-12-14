@@ -21,51 +21,63 @@ class chartsController extends Controller
     {
         $consultaPunto = $this->consultaGraficoInicio(1,1,1);//hacemos la consulta de 1 punto
         $lava = $this->graficoPunto($consultaPunto,'');//hacemos el gráfico de ese punto con la consulta anterior
-        $periodo = Period::all();// traemos todos los periodos que existen en la bd
+        $periodo = Period::all();//traemos todos los periodos que existen en la bd
         $scenario = Scenario::all();
         $variable = Variable::all();
         $datosTabla = $this->datosTabla(1,1); //se obtienen los datos para llenar la tabla (mes, variable, promedio)
 
         return view('indexGrafico')-> with('lava',$lava)->with('periodo',$periodo)->with('scenario',$scenario)->with('variable',$variable)->with('datosTabla', $datosTabla);
-      
     }
 
     public function nuevaVentana($tipo)
     {
-        return ajaxGeoJson($tipo);
+        $request= (array)json_decode($tipo,true);   
+
+        $escenario =$request['escenario'];
+        $periodo =$request['periodo'];
+        $data = $request['geoj'];         
+        $data0=$data['geometry'];
+        $data1=$data0['type']; //tipo de geometria
+        $data2=$data0['coordinates']; //coordenadas  
+
+        if ($data1=="Point"){
+
+            $var=implode(",", $data2);  
+            $consulta = $this->consultaGrafico('11',$periodo,$escenario,$var);
+            $lava= $this->DataTable($consulta,'11');
+           // $lava = $this->DataTable($consultaPunto,$variableSelect);
+        }
+        if ($data1 == "Circle")
+        {
+            $radio=$data0['radius'];//radio
+            $var=implode(",", $data2[0]);           
+            $consulta = $this->consultaGraficoCirculo('11',$periodo,$escenario,$var,$radio);
+            $lava = $this->DataTable($consulta,'11');
+
+        }
+        if($data1=="Polygon" )
+        {
+            $var1=$data2[0];
+            $var2="";
+            foreach ($var1 as & $valor) {
+           
+                $var=implode(" ", $valor);
+                $var2=$var.",".$var2;
+            }                
+            $var2 = substr($var2, 0, -1);       
+            $consulta = $this->consultaGraficoPoligono('11',$periodo,$escenario,$var2);
+            $lava = $this->DataTable($consulta,'11');
+        }  
+        
+        $datosTabla = $this->datosTabla('1',$periodo);
+
+       return view('indexGrafico')->with('lava',$lava)->with('datosTabla',$datosTabla)->with('periodo',$periodo)->with('consulta',$consulta);
     }
 
    public function graficoPunto($consulta,$variable)
     {
         
         $lava = new Lavacharts; // See note below for Laravel
-                $grafico = $lava->DataTable();
-                $grafico->addStringColumn('Months of Year')
-                        ->addNumberColumn('');
-                        for($i=0; $i<count($consulta); $i++)
-                        {
-                            $grafico->addRow([$consulta[$i]->name, $consulta[$i]->avg]);
-                        }
-                $lava->BarChart('grafico', $grafico, [
-                    'title' => 'Gráfico',
-                    'titleTextStyle' => [
-                        'color'    => '#eb6b2c',
-                        'fontSize' => 30
-                    ]
-                ]);
-
-        return $lava;
-    }
-
-
-   public function DataTable($consulta, $variable)
-    {
-        if($consulta==0)
-        {
-            return 0;
-        }
-        else{
-            $lava = new Lavacharts; // See note below for Laravel
                 $grafico = $lava->DataTable();
                 $grafico->addStringColumn('Months of Year')
                         ->addNumberColumn($variable);
@@ -80,16 +92,45 @@ class chartsController extends Controller
                         'fontSize' => 30
                     ],'position' => 'in',
                 ]);
-        }
-        
 
-        return $grafico;
+        return $lava;
+    }
+
+
+   public function DataTable($consulta, $variable)
+    {
+        $variableName = Variable::find($variable);
+
+        if($consulta==0)
+        {
+            return 0;
+        }
+        else{
+            $lava = new Lavacharts; // See note below for Laravel
+                $grafico = $lava->DataTable();
+                $grafico->addStringColumn('Months of Year')
+                        ->addNumberColumn($variableName->name);
+                        for($i=0; $i<count($consulta); $i++)
+                        {
+                            $grafico->addRow([$consulta[$i]->name, $consulta[$i]->avg]);
+                        }
+                $lava->BarChart('grafico', $grafico, [
+                    'title' => $variableName->name,
+                    'titleTextStyle' => [
+                        'color'    => '#eb6b2c',
+                        'fontSize' => 30
+                    ],'position' => 'in',
+                ]);
+        }
+        return $lava;
     }
 
 
     //recibo lo que tiene los lavels //esto hay que hacerlo con ajax
     public function postGrafico(Request $request)
     {
+     
+
         if ( $request->ajax())
         {
             $variable =$request->input('variable');
@@ -102,11 +143,32 @@ class chartsController extends Controller
         }
         
     } 
+    public function getGrafico($variable)
+    {
+        $request= (array)json_decode($variable,true);   
+
+        $variable =$request['variable'];
+        $data = $request['geoj'];         
+        $data0=$data['geometry'];
+        $data1=$data0['type']; //tipo de geometria
+        $data2=$data0['coordinates']; //coordenadas
+
+
+        $grafico = $lava->DataTable();
+        $grafico->addStringColumn('Months of Year')
+                ->addNumberColumn($variable);
+        for($i=0; $i<count($consulta); $i++)
+        {
+            $grafico->addRow([$consulta[$i]->name, $consulta[$i]->avg]);
+        }
+        return $grafico->toJson();
+    }
+
 
 
     
 
-  public function datosTabla($id_variable, $id_periodo)
+    public function datosTabla($id_variable, $id_periodo)
     {
         $tabla = DB::table('rast')
         ->select(DB::raw('month.name as mes, variable.name as variable, avg(ST_Value(rast, ST_SetSRID(ST_Point(-71.233333,-34.983333), 4326))) as promedio'))
@@ -121,7 +183,7 @@ class chartsController extends Controller
         return ($tabla);
     }
 
-         public function consultaGraficoInicio($id_variable, $id_periodo, $id_escenario)
+    public function consultaGraficoInicio($id_variable, $id_periodo, $id_escenario)
     {
         
              $consulta = DB::table('rast')
@@ -196,7 +258,9 @@ class chartsController extends Controller
     }
 
 
-    public function ajaxGeoJson(Request $request){
+    public function ajaxGeoJson( $request){
+
+        dd($Request);
         $variable =$request->input('variable');
   
         $escenario =$request->input('escenario');
@@ -240,7 +304,7 @@ class chartsController extends Controller
             $consultaPoligono = $this->consultaGraficoPoligono($variable,$periodo,$escenario,$var2);
             $lava = $this->DataTable($consultaPoligono,$variableSelect);
         }       
-        return $lava->tojson();
+       // return $lava->tojson();
     
  /*       $data = $request->input('geoj');       
         

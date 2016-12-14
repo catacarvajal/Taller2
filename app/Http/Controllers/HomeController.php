@@ -23,12 +23,8 @@ class HomeController extends Controller {
         return view('index')->with('periodo',$periodo)->with('scenario',$scenario)->with('variable',$variable);
     }
 
-
-     
-
-        public function graficoPuntoPeriod($consulta)
+    public function graficoPuntoPeriod($consulta)
     {
-        
         $lava = new Lavacharts; // See note below for Laravel
                 $grafico = $lava->DataTable();
                 $grafico->addStringColumn('Months of Year')
