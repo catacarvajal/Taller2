@@ -347,7 +347,7 @@
             type: 'column'
         },
         title: {
-            text: 'Grafico'
+            text: ''
         },
         xAxis: {
             categories: meses
