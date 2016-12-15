@@ -424,33 +424,9 @@
                 map.render();
             }
 
-            var mapas = new ol.layer.Group({
+            var mapas1 = new ol.layer.Group({
                 title: 'Mapas',
-                layers: [new ol.layer.Tile({
-                        title: 'Toner',
-                        type: 'base',
-                        visible: false,
-                        source: new ol.source.Stamen({
-                            layer: 'toner'
-                        })
-                    }),
-                    new ol.layer.Tile({
-                        title: 'Water color',
-                        type: 'base',
-                        visible: false,
-                        source: new ol.source.Stamen({
-                            layer: 'watercolor'
-                        })
-                    }),
-                    new ol.layer.Tile({
-                        title: 'DigitalGlobe Maps API: Recent Imagery',
-                        type: 'base',
-                        visible: false,
-                        source: new ol.source.XYZ({
-                            url: 'http://api.tiles.mapbox.com/v4/digitalglobe.nal0g75k/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGlnaXRhbGdsb2JlIiwiYSI6ImNpcGg5dHkzYTAxM290bG1kemJraHU5bmoifQ.CHhq1DFgZPSQQC-DYWpzaQ', // You will need to replace the 'access_token' and 'Map ID' values with your own. http://developer.digitalglobe.com/docs/maps-api
-                            attribution: "© DigitalGlobe, Inc"
-                        })
-                    }),
+                layers: [
                     new ol.layer.Tile({
                         title: 'OSM',
                         type: 'base',
@@ -459,6 +435,49 @@
                     }),
                 ]
             });
+             var mapas2 = new ol.layer.Group({
+                title: 'Mapas2',
+                layers: [
+                     new ol.layer.Tile({
+                        title: 'Toner',
+                        type: 'base',
+                        visible: true,
+                        source: new ol.source.Stamen({
+                            layer: 'toner'
+                        })
+                    }),
+                ]
+            });
+             var mapas3 = new ol.layer.Group({
+                title: 'Mapas',
+                layers: [
+                     new ol.layer.Tile({
+                        title: 'Water color',
+                        type: 'base',
+                        visible: true,
+                        source: new ol.source.Stamen({
+                            layer: 'watercolor'
+                        })
+                    }),
+                ]
+            });
+             var mapas4 = new ol.layer.Group({
+                title: 'Mapas',
+                layers: [
+                    new ol.layer.Tile({
+                        title: 'DigitalGlobe Maps API: Recent Imagery',
+                        type: 'base',
+                        visible: true,
+                        source: new ol.source.XYZ({
+                            url: 'http://api.tiles.mapbox.com/v4/digitalglobe.nal0g75k/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGlnaXRhbGdsb2JlIiwiYSI6ImNpcGg5dHkzYTAxM290bG1kemJraHU5bmoifQ.CHhq1DFgZPSQQC-DYWpzaQ', // You will need to replace the 'access_token' and 'Map ID' values with your own. http://developer.digitalglobe.com/docs/maps-api
+                            attribution: "© DigitalGlobe, Inc"
+                        })
+                    }),
+                ]
+            });
+
+
+
 
             var raster = new ol.layer.Group({
                 title: 'Categorias',
@@ -642,7 +661,7 @@
                     })
                 ]),
                 layers:
-                        [mapas, raster, vector],
+                        [mapas1, raster, vector],
                 target: 'map',
                 view: new ol.View({
                     center: ol.proj.transform([-71.671667, -35.426667], 'EPSG:4326', 'EPSG:3857'),
@@ -651,7 +670,26 @@
             });
 
             map.addControl(new ol.control.OverviewMap({}));
-
+            function Showtoner(){               
+                map.setLayerGroup(mapas2); 
+                map.removeLayer(vector);
+                map.addLayer(vector);          
+            }
+            function ShowOsm(){               
+                map.setLayerGroup(mapas1); 
+                map.removeLayer(vector);
+                map.addLayer(vector);           
+            }
+            function ShowColor(){               
+                map.setLayerGroup(mapas3);
+                map.removeLayer(vector);
+                map.addLayer(vector);             
+            }
+            function ShowImage(){               
+                map.setLayerGroup(mapas4); 
+                map.removeLayer(vector);
+                map.addLayer(vector);            
+            }
             var typeSelect = document.getElementById('type');
 
             var draw;

@@ -42,19 +42,22 @@
                             <div id="collapse1" class="panel-collapse collapse in">
                                 <div class="panel-body">
                                     <ul class="users-list clearfix">
-                                        <li>                            
+                                        <li><button onclick="ShowColor()">                            
                                             <img src="http://thumbs.subefotos.com/33c9bb8d542bd1d85843f9e9147b80b7o.jpg">
                                             <a class="users-list-name" href="#">color</a>
                                         </li>
-                                        <li>
+                                        <li><button onclick="ShowImage()">
                                             <img src="http://thumbs.subefotos.com/8432ce8bf350130bd1d09bedf24a8a4fo.jpg" alt="User Image">
                                             <a class="users-list-name" href="#">Imagenes</a>
+                                            </button>
                                         </li>
                                         <li>
+                                            <button onclick="Showtoner()">
                                             <img src="http://thumbs.subefotos.com/2b8c55deb4d54d7f37ca870c16fba621o.jpg" alt="User Image">
-                                            <a class="users-list-name" href="#">Toner</a>
+                                            <a class="users-list-name" >Toner</a>
+                                        </button>
                                         </li>
-                                        <li>
+                                        <li><button onclick="ShowOsm()">
                                             <img src="http://thumbs.subefotos.com/46a1681d6309c3e11c0a5b091a9057efo.jpg" alt="User Image">
                                             <a class="users-list-name" href="#">OSM</a>
                                         </li>
