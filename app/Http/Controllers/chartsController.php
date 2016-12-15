@@ -256,7 +256,6 @@ class chartsController extends Controller
         return $consulta;
     }
 
-    public function consultaTablaRegion($region, $id_variable, $id_periodo, $id_escenario)
 
     public function ajaxGeoJson( $request){
 

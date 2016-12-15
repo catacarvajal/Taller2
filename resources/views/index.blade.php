@@ -242,7 +242,7 @@
                                                 </select>
 
                                                 <label>Seleccione Comuna: &nbsp;</label>
-                                                <select class="form-control select2 input-sm" id="comuna" onchange="valoresSeleccionados(this.value);">
+                                                <select class="form-control select2 input-sm" id="comuna" onchange="comunaSeleccionada(this.value);">
                                                     <option value="None">Seleccione</option>                      
                                                 </select>
                                             </div>
@@ -378,11 +378,9 @@
 
     function comunaSeleccionada(value)
     {
-        var comuna = "comuna" : $("#comuna :selected").text();
-        console.log(datos);
-        alert(datos.region);
-        $.post("/comuna/"+datos, function(result){
-            alert(result);
+        var comuna = $("#comuna :selected").text();
+        $.get("/comuna/"+comuna, function(data){
+            alert(data);
         });
 
        /*$.get("/datos/"+datos,function(data){
