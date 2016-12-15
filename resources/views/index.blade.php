@@ -380,9 +380,12 @@
     {
         var comuna = $("#comuna :selected").text();
         $.get("/comuna/"+comuna, function(data){
-            alert(data);
+            console.log(data[0].geom);
+            alert(data[0].geom);
+        })
+        .fail(function() {
+            alert( "Error interno. Inténtelo de nuevo" );
         });
-
        /*$.get("/datos/"+datos,function(data){
             if (typeof data == 'object')
             {

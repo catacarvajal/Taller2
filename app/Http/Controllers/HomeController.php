@@ -77,7 +77,7 @@ class HomeController extends Controller {
         return $regiones;
     }
 
-    public function postRegiones(Request $request)
+    /*public function postRegiones(Request $request)
     {
         if ( $request->ajax() )
         {
@@ -85,7 +85,7 @@ class HomeController extends Controller {
             $provincias = $this->provincias($region);
             return $provincias->toJson();
         }
-    }
+    }*/
 
 
     public function getProvincias($region)
@@ -108,16 +108,14 @@ class HomeController extends Controller {
         return $comunas;
     }
 
-    /*public function getGeom($region, $provincia, $comuna)
+    public function getGeom($comuna)
     {
         $geom = DB::table('chilecomuna')
         ->select(DB::raw('geom'))
-        ->where('region', '=', $region)
-        ->orwhere('name2', '=', $provincia)
-        ->orwhere('name3', '=', $comuna)
+        ->where('name3', '=', $comuna)
         ->get();
         return $geom;
-    }*/
+    }
     
     
 }
