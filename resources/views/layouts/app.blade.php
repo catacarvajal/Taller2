@@ -224,16 +224,16 @@
                 source: source,
                 style: new ol.style.Style({
                     fill: new ol.style.Fill({
-                        color: 'rgba(255, 255, 255, 0.2)'
+                        color: 'rgba(192,192,192,0.3)'
                     }),
                     stroke: new ol.style.Stroke({
-                        color: '#ffcc33',
+                        color: '#f20404',
                         width: 2
                     }),
                     image: new ol.style.Circle({
                         radius: 7,
                         fill: new ol.style.Fill({
-                            color: '#ffcc33'
+                            color: '#f20404'
                         })
                     })
                 })
