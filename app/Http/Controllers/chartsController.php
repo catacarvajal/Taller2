@@ -218,7 +218,7 @@ class chartsController extends Controller
     {
      
         $consulta = DB::table('rast')
-        ->select(DB::raw('month.name,month.id, AVG((ST_summarystats(ST_CLIP(rast, ST_Polygon(ST_GeomFromText(\'LINESTRING('.$poligono.')\'), 4326)))).count), AVG((ST_summarystats(ST_CLIP(rast, ST_Polygon(ST_GeomFromText(\'LINESTRING('.$poligono.')\'), 4326)))).sum), AVG((ST_summarystats(ST_CLIP(rast, ST_Polygon(ST_GeomFromText(\'LINESTRING('.$poligono.')\'), 4326)))).mean), AVG((ST_summarystats(ST_CLIP(rast, ST_Polygon(ST_GeomFromText(\'LINESTRING('.$poligono.')\'), 4326)))).stddev), AVG((ST_summarystats(ST_CLIP(rast, ST_Polygon(ST_GeomFromText(\'LINESTRING('.$poligono.')\'), 4326)))).min), AVG((ST_summarystats(ST_CLIP(rast, ST_Polygon(ST_GeomFromText(\'LINESTRING('.$poligono.')\'), 4326)))).max)'))
+        ->select(DB::raw('month.name,month.id, AVG((ST_summarystats(ST_CLIP(rast, ST_Polygon(ST_GeomFromText(\'LINESTRING('.$poligono.')\'), 4326)))).count) as count, AVG((ST_summarystats(ST_CLIP(rast, ST_Polygon(ST_GeomFromText(\'LINESTRING('.$poligono.')\'), 4326)))).sum) as sum, AVG((ST_summarystats(ST_CLIP(rast, ST_Polygon(ST_GeomFromText(\'LINESTRING('.$poligono.')\'), 4326)))).mean) as promedio, AVG((ST_summarystats(ST_CLIP(rast, ST_Polygon(ST_GeomFromText(\'LINESTRING('.$poligono.')\'), 4326)))).stddev) as desviacion, AVG((ST_summarystats(ST_CLIP(rast, ST_Polygon(ST_GeomFromText(\'LINESTRING('.$poligono.')\'), 4326)))).min) as min, AVG((ST_summarystats(ST_CLIP(rast, ST_Polygon(ST_GeomFromText(\'LINESTRING('.$poligono.')\'), 4326)))).max) as max'))
         ->join('register', 'register.id', '=', 'rast.id_register')
         ->join('month', 'month.id', '=', 'register.id_month')
         ->join('variable', 'variable.id', '=', 'register.id_variable')
@@ -229,6 +229,7 @@ class chartsController extends Controller
         ->groupBy('month.id')
         ->orderBy('month.id')
         ->get();
+        dd($consulta);
         return $consulta;
     }
 
@@ -259,7 +260,6 @@ class chartsController extends Controller
 
     public function ajaxGeoJson( $request){
 
-        dd($Request);
         $variable =$request->input('variable');
   
         $escenario =$request->input('escenario');

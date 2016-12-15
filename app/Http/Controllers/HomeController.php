@@ -75,7 +75,6 @@ class HomeController extends Controller {
         ->orderBy('region','numregion')
         ->groupBy('region', 'numregion')
         ->get();
-        dd($regiones);
         return $regiones;
     }
 
