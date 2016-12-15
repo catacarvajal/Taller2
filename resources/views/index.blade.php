@@ -233,6 +233,7 @@
                                         <div class="col-md-8 col-md-offset-2">  
                                             <div class="form-group" id="region-div">
                                                 <label>Seleccione Región: &nbsp;</label>
+                                                    <option value="None">Seleccione</option>
                                                     {!!Form::select('ChileComuna', array_pluck($regiones, 'region'), null, ['id'=>'region','class' => 'form-control','onchange' => 'regionSeleccionada(this.value);']) !!}       
 
                                                 <label>Seleccione Provincia: &nbsp;</label>

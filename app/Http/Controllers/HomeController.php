@@ -71,9 +71,11 @@ class HomeController extends Controller {
     public function regiones()
     {
         $regiones = DB::table('chilecomuna')
-        ->distinct()
-        ->select(DB::raw('region'))
+        ->select(DB::raw('region', 'numRegion'))
+        ->orderBy('region','numregion')
+        ->groupBy('region', 'numregion')
         ->get();
+        dd($regiones);
         return $regiones;
     }
 
