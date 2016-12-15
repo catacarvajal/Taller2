@@ -218,7 +218,7 @@ class chartsController extends Controller
     {
      
         $consulta = DB::table('rast')
-        ->select(DB::raw('month.name,month.id,AVG((ST_summarystats(ST_CLIP(rast, ST_Polygon(ST_GeomFromText(\'LINESTRING('.$poligono.')\'), 4326)))).mean)'))
+        ->select(DB::raw('month.name,month.id, AVG((ST_summarystats(ST_CLIP(rast, ST_Polygon(ST_GeomFromText(\'LINESTRING('.$poligono.')\'), 4326)))).count), AVG((ST_summarystats(ST_CLIP(rast, ST_Polygon(ST_GeomFromText(\'LINESTRING('.$poligono.')\'), 4326)))).sum), AVG((ST_summarystats(ST_CLIP(rast, ST_Polygon(ST_GeomFromText(\'LINESTRING('.$poligono.')\'), 4326)))).mean), AVG((ST_summarystats(ST_CLIP(rast, ST_Polygon(ST_GeomFromText(\'LINESTRING('.$poligono.')\'), 4326)))).stddev), AVG((ST_summarystats(ST_CLIP(rast, ST_Polygon(ST_GeomFromText(\'LINESTRING('.$poligono.')\'), 4326)))).min), AVG((ST_summarystats(ST_CLIP(rast, ST_Polygon(ST_GeomFromText(\'LINESTRING('.$poligono.')\'), 4326)))).max)'))
         ->join('register', 'register.id', '=', 'rast.id_register')
         ->join('month', 'month.id', '=', 'register.id_month')
         ->join('variable', 'variable.id', '=', 'register.id_variable')
@@ -232,16 +232,22 @@ class chartsController extends Controller
         return $consulta;
     }
 
-    public function consultaGraficoPoligonoComuna($id_variable, $id_periodo, $id_escenario,$poligono)
+    public function consultaGraficoRegion($id_variable, $id_periodo, $id_escenario, $region)
     {
      
         $consulta = DB::table('rast', 'chilecomuna')
-        ->select(DB::raw('month.name,month.id,avg((ST_summaryStats(ST_CLIP(rast.rast, st_setsrid(chilecomuna.geom,4326)))).mean)'))
+        ->select(DB::raw('month.name,month.id,AVG((ST_summaryStats(ST_CLIP(rast.rast, st_setsrid(chilecomuna.geom,4326)))).count),
+            AVG((ST_summaryStats(ST_CLIP(rast.rast, st_setsrid(chilecomuna.geom,4326)))).sum),
+            AVG((ST_summaryStats(ST_CLIP(rast.rast, st_setsrid(chilecomuna.geom,4326)))).mean),
+            AVG((ST_summaryStats(ST_CLIP(rast.rast, st_setsrid(chilecomuna.geom,4326)))).stddev),
+            AVG((ST_summaryStats(ST_CLIP(rast.rast, st_setsrid(chilecomuna.geom,4326)))).min),
+            AVG((ST_summaryStats(ST_CLIP(rast.rast, st_setsrid(chilecomuna.geom,4326)))).max)'))
         ->join('register', 'register.id', '=', 'rast.id_register')
         ->join('month', 'month.id', '=', 'register.id_month')
         ->join('variable', 'variable.id', '=', 'register.id_variable')
         ->join('scenario', 'scenario.id', '=', 'register.id_scenario')
-        ->where('register.id_period', '=', $id_periodo)
+        ->where('region', '=', $region)
+        ->orwhere('register.id_period', '=', $id_periodo)
         ->orwhere('variable.id','=', $id_variable)
         ->orwhere('scenario.id','=', $id_escenario)
         ->groupBy('month.id')
@@ -250,7 +256,7 @@ class chartsController extends Controller
         return $consulta;
     }
 
-
+    public function consultaTablaRegion($region, $id_variable, $id_periodo, $id_escenario)
 
     public function ajaxGeoJson( $request){
 

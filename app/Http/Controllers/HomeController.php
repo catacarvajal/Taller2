@@ -108,7 +108,7 @@ class HomeController extends Controller {
         return $comunas;
     }
 
-    public function getGeom($region, $provincia, $comuna)
+    /*public function getGeom($region, $provincia, $comuna)
     {
         $geom = DB::table('chilecomuna')
         ->select(DB::raw('geom'))
@@ -117,7 +117,7 @@ class HomeController extends Controller {
         ->orwhere('name3', '=', $comuna)
         ->get();
         return $geom;
-    }
+    }*/
     
     
 }

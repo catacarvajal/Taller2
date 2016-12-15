@@ -376,16 +376,12 @@
         });
     }
 
-    function valoresSeleccionados(value)
+    function comunaSeleccionada(value)
     {
-        var datos = {
-            "region" : $("#region :selected").text(),
-            "provincia" : $("#provincia :selected").text(),
-            "comuna" : $("#comuna :selected").text()
-        };
+        var comuna = "comuna" : $("#comuna :selected").text();
         console.log(datos);
         alert(datos.region);
-        $.post("/datos/"+datos, function(result){
+        $.post("/comuna/"+datos, function(result){
             alert(result);
         });
 
