@@ -233,7 +233,17 @@ class chartsController extends Controller
         return $consulta;
     }
 
-    public function consultaGraficoRegion($id_variable, $id_periodo, $id_escenario, $region)
+    public function datos($periodo, $escenario, $region, $provincia, $comuna)
+    {
+        if($provincia == 'None')
+        {
+            dd($provincia);
+        }
+    }
+
+
+
+    public function consultaTablaRegion($id_variable, $id_periodo, $id_escenario, $region)
     {
      
         $consulta = DB::table('rast', 'chilecomuna')
@@ -255,6 +265,60 @@ class chartsController extends Controller
         ->orderBy('month.id')
         ->get();
         return $consulta;
+    }
+
+    public function consultaTablaProvincia($id_variable, $id_periodo, $id_escenario, $provincia)
+    {
+     
+        $consulta = DB::table('rast', 'chilecomuna')
+        ->select(DB::raw('month.name,month.id,AVG((ST_summaryStats(ST_CLIP(rast.rast, st_setsrid(chilecomuna.geom,4326)))).count),
+            AVG((ST_summaryStats(ST_CLIP(rast.rast, st_setsrid(chilecomuna.geom,4326)))).sum),
+            AVG((ST_summaryStats(ST_CLIP(rast.rast, st_setsrid(chilecomuna.geom,4326)))).mean),
+            AVG((ST_summaryStats(ST_CLIP(rast.rast, st_setsrid(chilecomuna.geom,4326)))).stddev),
+            AVG((ST_summaryStats(ST_CLIP(rast.rast, st_setsrid(chilecomuna.geom,4326)))).min),
+            AVG((ST_summaryStats(ST_CLIP(rast.rast, st_setsrid(chilecomuna.geom,4326)))).max)'))
+        ->join('register', 'register.id', '=', 'rast.id_register')
+        ->join('month', 'month.id', '=', 'register.id_month')
+        ->join('variable', 'variable.id', '=', 'register.id_variable')
+        ->join('scenario', 'scenario.id', '=', 'register.id_scenario')
+        ->where('name2', '=', $provincia)
+        ->orwhere('register.id_period', '=', $id_periodo)
+        ->orwhere('variable.id','=', $id_variable)
+        ->orwhere('scenario.id','=', $id_escenario)
+        ->groupBy('month.id')
+        ->orderBy('month.id')
+        ->get();
+        return $consulta;
+    }
+
+    public function consultaTablaComuna($id_variable, $id_periodo, $id_escenario, $comuna)
+    {
+     
+        $consulta = DB::table('rast', 'chilecomuna')
+        ->select(DB::raw('month.name,month.id,AVG((ST_summaryStats(ST_CLIP(rast.rast, st_setsrid(chilecomuna.geom,4326)))).count),
+            AVG((ST_summaryStats(ST_CLIP(rast.rast, st_setsrid(chilecomuna.geom,4326)))).sum),
+            AVG((ST_summaryStats(ST_CLIP(rast.rast, st_setsrid(chilecomuna.geom,4326)))).mean),
+            AVG((ST_summaryStats(ST_CLIP(rast.rast, st_setsrid(chilecomuna.geom,4326)))).stddev),
+            AVG((ST_summaryStats(ST_CLIP(rast.rast, st_setsrid(chilecomuna.geom,4326)))).min),
+            AVG((ST_summaryStats(ST_CLIP(rast.rast, st_setsrid(chilecomuna.geom,4326)))).max)'))
+        ->join('register', 'register.id', '=', 'rast.id_register')
+        ->join('month', 'month.id', '=', 'register.id_month')
+        ->join('variable', 'variable.id', '=', 'register.id_variable')
+        ->join('scenario', 'scenario.id', '=', 'register.id_scenario')
+        ->where('name3', '=', $comuna)
+        ->orwhere('register.id_period', '=', $id_periodo)
+        ->orwhere('variable.id','=', $id_variable)
+        ->orwhere('scenario.id','=', $id_escenario)
+        ->groupBy('month.id')
+        ->orderBy('month.id')
+        ->get();
+        return $consulta;
+    }
+
+
+    function datosRegion(Request $request)
+    {
+        dd($request);
     }
 
 

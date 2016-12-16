@@ -29,8 +29,6 @@
                 </div>
             </div>
             <div class="col-md-4 ">
-                <form role="form" id= "formG"  ><!-- method="POST" action="{{ url('/Grafico')}}-->
-                 {!! csrf_field() !!}
                     <div class="panel-group" id="accordion">
                         <div class="panel panel-info">
                             <div class="panel-heading">
@@ -230,8 +228,10 @@
                             <div id="collapse5" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <div class="row">
-                                        <div class="col-md-8 col-md-offset-2">  
+                                        <div class="col-md-8 col-md-offset-2"> 
                                             <div class="form-group" id="region-div">
+                                            <form role="form" method="POST" action="{{ url('/datos') }}"> 
+
                                                 <label>Seleccione Región: &nbsp;</label>
                                                     <option value="None">Seleccione</option>
                                                     {!!Form::select('ChileComuna', array_pluck($regiones, 'region'), null, ['id'=>'region','class' => 'form-control','onchange' => 'regionSeleccionada(this.value);']) !!}       
@@ -239,7 +239,7 @@
                                                 <label>Seleccione Provincia: &nbsp;</label>
                                                 <select class="form-control select2 input-sm" id="provincia" onchange="provinciaSeleccionada(this.value);">
                                                     <option value="None">Seleccione</option>
-                                                          
+                                                         
                                                 </select>
 
                                                 <label>Seleccione Comuna: &nbsp;</label>
@@ -247,12 +247,14 @@
                                                     <option value="None">Seleccione</option>                      
                                                 </select>
                                             </div>
+                                        </form>
                                         </div>     
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6 ">                   
-                                            <button class="btn btn-block btn-primary btn-xs" id="btn-grafico" title="Visulizar" onclick="window.open('Grafico')">Visualizar Graficos</button> 
+                                            <button class="btn btn-block btn-primary btn-xs" id="btn-graficoRegiones" type="button"  title="Visualizar" onclick="graficoRegiones()"> Visualizar
                                         </div>
+                                       
                                         <div class="col-md-6 ">                 
                                             <button class="btn btn-block btn-danger btn-xs" type="button" data-toggle="control-dibujo" title="Eliminar" onclick='removeDraw()'> <i class="fa fa-trash"></i> Eliminar Polígono</button>
                                         </div>
@@ -316,9 +318,10 @@
         $('#provincia').empty();
         $('#provincia')
             .append($('<option>', {
-            value: "SELECCIONE",
-            text: "SELECCIONE"
+            value: "None",
+            text: "Seleccione"
         }));
+
 
 
         $.get( "/region/"+region, function(data) {
@@ -351,8 +354,8 @@
         $('#comuna').empty();
         $('#comuna')
             .append($('<option>', {
-            value: "SELECCIONE",
-            text: "SELECCIONE"
+            value: "None",
+            text: "Seleccione"
         }));
 
         $.get( "/provincia/"+provincia, function(data) {
@@ -382,7 +385,7 @@
         var comuna = $("#comuna :selected").text();
         $.get("/comuna/"+comuna, function(data){
             console.log(data[0].geom);
-            alert(data[0].geom);
+            //alert(data[0].geom);
         })
         .fail(function() {
             alert( "Error interno. Inténtelo de nuevo" );

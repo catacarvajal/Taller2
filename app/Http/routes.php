@@ -18,7 +18,8 @@ Route::get('/Graficos/{tipo}', 'chartsController@nuevaVentana');
 
 Route::post('ajax','chartsController@ajaxGeoJson');
 
-//Route::post('/','HomeController@postRegiones');
+Route::post('/datos','chartsController@datosRegion');
 Route::get('/region/{region}','HomeController@getProvincias');
 Route::get('/provincia/{provincia}','HomeController@getComunas');
 Route::get('/comuna/{comuna}','HomeController@getGeom');
+Route::get('/Graficos/{periodo}/{escenario}/{region}/{provincia}/{comuna}', 'chartsController@datos');

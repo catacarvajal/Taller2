@@ -724,6 +724,20 @@
                 window.open('Graficos' + '/' + geofinal);
             }
 
+            function graficoRegiones(){
+                var periodo = $("#Periodo").val();                
+                var escenario = $("#Escenario").val();
+                var region = $("#region :selected").text();
+                var provincia = $("#provincia :selected").text();
+                var comuna = $("#comuna :selected").text();
+                //var json = JSON.stringify({'periodo': periodo,'escenario': escenario,'region': region, 'provincia': provincia, 'comuna': comuna})
+                window.open('Graficos' + '/' + periodo +'/'+ escenario +'/'+  region +'/'+ provincia +'/'+ comuna);
+                console.log(region);
+                console.log(periodo);
+                console.log(variable);
+
+            }
+
 
             function ajax(geojson) {
                 console.log(geojson);
