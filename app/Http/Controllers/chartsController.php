@@ -285,24 +285,30 @@ class chartsController extends Controller
     public function datosTablaRegion($id_variable, $id_periodo, $id_escenario, $region)
     {
      
-        $consulta = DB::table('rast', 'chilecomuna')
-        ->select(DB::raw('month.name,month.id,AVG((ST_summaryStats(ST_CLIP(rast.rast, st_setsrid(chilecomuna.geom,4326)))).count) as count,
-            AVG((ST_summaryStats(ST_CLIP(rast.rast, st_setsrid(chilecomuna.geom,4326)))).sum) as sum,
-            AVG((ST_summaryStats(ST_CLIP(rast.rast, st_setsrid(chilecomuna.geom,4326)))).mean) as periodo,
-            AVG((ST_summaryStats(ST_CLIP(rast.rast, st_setsrid(chilecomuna.geom,4326)))).stddev) as desviacion,
-            AVG((ST_summaryStats(ST_CLIP(rast.rast, st_setsrid(chilecomuna.geom,4326)))).min) as min,
-            AVG((ST_summaryStats(ST_CLIP(rast.rast, st_setsrid(chilecomuna.geom,4326)))).max) as max'))
-        ->join('register', 'register.id', '=', 'rast.id_register')
-        ->join('month', 'month.id', '=', 'register.id_month')
-        ->join('variable', 'variable.id', '=', 'register.id_variable')
-        ->join('scenario', 'scenario.id', '=', 'register.id_scenario')
-        ->where('chilecomuna.region', '=', $region)
-        ->orwhere('register.id_period', '=', $id_periodo)
-        ->orwhere('variable.id','=', $id_variable)
-        ->orwhere('scenario.id','=', $id_escenario)
-        ->groupBy('month.id')
-        ->orderBy('month.id')
-        ->get();
+        $consulta = DB::select("SELECT month.name, avg((ST_summaryStats(ST_CLIP(rast.rast, st_setsrid(chilecomuna.geom,4326)))).count) count
+            FROM 
+                chilecomuna, 
+                rast, 
+                register, 
+                month, 
+                scenario, 
+                variable 
+            where
+                chilecomuna.region = '$region' and
+                register.id = rast.id_register and
+                month.id = register.id_month and 
+                variable.id = register.id_variable and 
+                scenario.id = register.id_scenario and 
+                register.id_period = 1 and 
+                variable.id = 1 and 
+                scenario.id = 1
+            group by
+                month.id
+            order by
+                month.id
+
+            ");
+        
         return $consulta;
     }
 
