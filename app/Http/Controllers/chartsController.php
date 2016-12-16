@@ -235,10 +235,73 @@ class chartsController extends Controller
 
     public function datos($periodo, $escenario, $region, $provincia, $comuna)
     {
-        if($provincia == 'None')
+        if($region != 'None')
         {
-            dd($provincia);
+            dd($region);
         }
+    }
+
+    public function nuevaVentana2($periodo, $escenario, $region, $provincia, $comuna)
+    {
+        if($region != 'None')
+        {
+            $consultaRegion = $this->consultaGraficoRegion('11', $periodo, $escenario, $region);
+
+        }
+
+        $consulta1 = $this->consultaGraficoPoligono('11',$periodo,$escenario,$var2);
+        $variable1 = array_column($this->recorer($consulta1), 'avg');
+        $consulta2 = $this->consultaGraficoPoligono('4',$periodo,$escenario,$var2);
+        $variable2 = array_column($this->recorer($consulta2), 'avg');
+        $consulta3 = $this->consultaGraficoPoligono('3',$periodo,$escenario,$var2);
+        $variable3 = array_column($this->recorer($consulta3), 'avg');
+        $consulta4 = $this->consultaGraficoPoligono('1',$periodo,$escenario,$var2);
+        $variable4 = array_column($this->recorer($consulta4), 'avg');
+        $consulta5 = $this->consultaGraficoPoligono('10',$periodo,$escenario,$var2);
+        $variable5 = array_column($this->recorer($consulta5), 'avg');
+        $consulta6 = $this->consultaGraficoPoligono('2',$periodo,$escenario,$var2);
+        $variable6 = array_column($this->recorer($consulta6), 'avg');
+        $consulta7 = $this->consultaGraficoPoligono('9',$periodo,$escenario,$var2);
+        $variable7 = array_column($this->recorer($consulta7), 'avg');        
+        
+       
+        $datosTablaV1 = $this->datosTablaPoligono('11',$periodo,$escenario,$var2);//numero de dias mayor a 10 grados
+        $datosTablaV2 = $this->datosTablaPoligono('4',$periodo,$escenario,$var2);//radiacion solar
+        $datosTablaV3 = $this->datosTablaPoligono('3',$periodo,$escenario,$var2);//precipitaciones
+        $datosTablaV4 = $this->datosTablaPoligono('1',$periodo,$escenario,$var2);// t minima
+        $datosTablaV5 = $this->datosTablaPoligono('10',$periodo,$escenario,$var2);//t promedio
+        $datosTablaV6 = $this->datosTablaPoligono('2',$periodo,$escenario,$var2);//t maxima
+        $datosTablaV7 = $this->datosTablaPoligono('9',$periodo,$escenario,$var2);//evotranspiracion
+
+        }      
+        return view('indexGrafico')
+            ->with('variable1',json_encode($variable1,JSON_NUMERIC_CHECK))
+            ->with('variable2',json_encode($variable2,JSON_NUMERIC_CHECK))
+            ->with('variable3',json_encode($variable3,JSON_NUMERIC_CHECK))
+            ->with('variable4',json_encode($variable4,JSON_NUMERIC_CHECK))
+            ->with('variable5',json_encode($variable5,JSON_NUMERIC_CHECK))
+            ->with('variable6',json_encode($variable6,JSON_NUMERIC_CHECK))
+            ->with('variable7',json_encode($variable7,JSON_NUMERIC_CHECK))
+            ->with('datosTablaV1',$datosTablaV1)->with('datosTablaV2',$datosTablaV2)->with('datosTablaV3',$datosTablaV3)->with('datosTablaV4',$datosTablaV4)->with('datosTablaV5',$datosTablaV5)->with('datosTablaV6',$datosTablaV6)->with('datosTablaV7',$datosTablaV7)->with('periodo',$periodo);;
+    }
+
+    public function consultaGraficoRegion($id_variable, $id_periodo, $id_escenario, $region)
+    {
+        $consulta = DB::table('rast', 'chilecomuna')
+        ->select(DB::raw('month.name,month.id,AVG((ST_summaryStats(ST_CLIP(rast.rast, st_setsrid(chilecomuna.geom,4326)))).mean) as promedio'))
+        ->join('register', 'register.id', '=', 'rast.id_register')
+        ->join('month', 'month.id', '=', 'register.id_month')
+        ->join('variable', 'variable.id', '=', 'register.id_variable')
+        ->join('scenario', 'scenario.id', '=', 'register.id_scenario')
+        ->where('region', '=', $region)
+        ->orwhere('register.id_period', '=', $id_periodo)
+        ->orwhere('variable.id','=', $id_variable)
+        ->orwhere('scenario.id','=', $id_escenario)
+        ->groupBy('month.id')
+        ->orderBy('month.id')
+        ->get();
+        return $consulta;
+
     }
 
 
